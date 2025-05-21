@@ -83,3 +83,4 @@ for s, p, o in g:
     print(f"Object: {obj_prefixed}")
     print("---")
 
+print(g.serialize(format="turtle"))
