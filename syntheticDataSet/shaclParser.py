@@ -1,6 +1,5 @@
 from rdflib import Graph, Namespace, URIRef, Literal
 
-# Load the snippet (could be from file or string)
 shacl_ttl = """
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -48,7 +47,6 @@ shacl_ttl = """
 .
 """
 
-# Parse into RDF graph
 g = Graph()
 g.parse(data=shacl_ttl, format="turtle")
 
@@ -59,14 +57,12 @@ for prefix, ns in g.namespace_manager.namespaces():
 print("\nTriples with prefixes:")
 
 for s, p, o in g:
-    # Convert predicate to prefixed form
     try:
         prefix, namespace, local_name = g.namespace_manager.compute_qname(p)
         pred_prefixed = f"{prefix}:{local_name}"
     except Exception:
         pred_prefixed = str(p)
 
-    # For objects that are URIs, get prefixed form if possible
     if isinstance(o, URIRef):
         try:
             prefix_o, ns_o, local_o = g.namespace_manager.compute_qname(o)
