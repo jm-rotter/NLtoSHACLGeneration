@@ -1,4 +1,5 @@
 from rdflib import Graph, Namespace, URIRef, Literal
+import os
 
 shaclPrefixes = """
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -34,7 +35,8 @@ shaclPrefixes = """
 """
 
 def pullShapes():
-    with open('shaclDataset.ttl', 'r') as text:
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'shaclDataset.ttl')
+    with open(file_path, 'r') as text:
         text_shapes = []
         curr = ""
         for line in text:
@@ -59,8 +61,9 @@ def pullShapes():
         serialized = g.serialize(format='turtle')
         if isinstance(serialized,bytes):
             serialized = serialized.decode('utf-8')
-    #    print(f"Shape {i} serialized:")
-    #    print(serialized)
-    #    print("------")
+        print(f"Shape {i} serialized:")
+        print(serialized)
+        print("------")
 
     return shapes
+
