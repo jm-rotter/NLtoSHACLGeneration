@@ -59,29 +59,8 @@ def pullShapes():
         serialized = g.serialize(format='turtle')
         if isinstance(serialized,bytes):
             serialized = serialized.decode('utf-8')
-        print(f"Shape {i} serialized:")
-        print(serialized)
-        print("------")
+    #    print(f"Shape {i} serialized:")
+    #    print(serialized)
+    #    print("------")
 
     return shapes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
