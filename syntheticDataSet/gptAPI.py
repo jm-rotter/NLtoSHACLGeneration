@@ -37,18 +37,8 @@ Corresponding NL Translation
 
 For the class InvoiceDetails, the property hasDocumentNumber (which represents the document number) must be a string with a maximum length of 12 characters. 
 If the length exceeds 12 characters, the following message should be shown: "The data element 1004 in the BGM segment is too long".
-"""
 
 
-
-
-
-
-
-
-
-
-""""
 SHACL(2)
 :Dokumentfunktion 
 a sh:NodeShape; sh:targetClass
@@ -159,34 +149,46 @@ def translateSHAPE(shape):
             )
     naturalLanguageTranslation = response.choices[0].message.content
     
-    print("INPUT: \n" + INITIAL_PROMPT + FEW_SHOT_EXAMPLES + buildPrompt(shape))
-    print("\n\n")
-    print("OUTPUT \n" + naturalLanguageTranslation)
-    print("\n\n")
+    #print("INPUT: \n" + INITIAL_PROMPT + FEW_SHOT_EXAMPLES + buildPrompt(shape))
+    #print("\n\n")
+    #print("OUTPUT \n" + naturalLanguageTranslation)
+    #print("\n\n")
 
     reflectionResponse = client.chat.completions.create(
             model=MODEL,
             messages=[{"role": "user", "content": buildRPrompt(shape, naturalLanguageTranslation)}]
             )
 
-    print("INPUT: \n" + buildRPrompt(shape, naturalLanguageTranslation))
-    print("\n\n")
-    print("OUTPUT \n" + reflectionResponse.choices[0].message.content)
-    print("\n\n")
+    #print("INPUT: \n" + buildRPrompt(shape, naturalLanguageTranslation))
+    #print("\n\n")
+    #print("OUTPUT \n" + reflectionResponse.choices[0].message.content)
+    #print("\n\n")
     return reflectionResponse.choices[0].message.content 
 
 
 shapes = pullShapes()
 
-translations = {}
-
+translations = [] 
+i = 0
 for shape in shapes:
+    print(i)
+    i += 1
     serialized = shape.serialize(format='turtle')
     if isinstance(serialized,bytes):
         serialized = serialized.decode('utf-8')
-    translateSHAPE(serialized) 
-    break
+    translations.append((serialized, translateSHAPE(serialized)))
 
+
+file = open("shacl_translations.txt", "w", encoding="utf-8")
+
+
+for i, (shaclTranslation, nlTranslation) in enumerate(translations):
+    file.write(f"Translation #{i}\n")
+    file.write(shaclTranslation)
+    file.write("\n")
+    file.write(nlTranslation)
+    file.write("\n----\n\n")
+    
 
 
 
