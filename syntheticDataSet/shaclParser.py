@@ -33,36 +33,37 @@ shaclPrefixes = """
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 """
 
+def pullShapes():
+    with open('shaclDataset.ttl', 'r') as text:
+        text_shapes = []
+        curr = ""
+        for line in text:
+            if line.strip() == '':
+                if curr.strip():
+                    text_shapes.append(curr)
+                curr = ""
+            else:
+                curr += line
+        if curr.strip():
+            text_shapes.append(curr)
 
-with open('shaclDataset.ttl', 'r') as text:
-    text_shapes = []
-    curr = ""
-    for line in text:
-        if line.strip() == '':
-            if curr.strip():
-                text_shapes.append(curr)
-            curr = ""
-        else:
-            curr += line
-    if curr.strip():
-        text_shapes.append(curr)
+    shapes = []
+    for shape_text in text_shapes:
+        g = Graph()
+        g.parse(data=shaclPrefixes + shape_text, format='turtle')
 
-shapes = []
-for shape_text in text_shapes:
-   g = Graph()
-   g.parse(data=shaclPrefixes + shape_text, format='turtle')
-
-   shapes.append(g)
+        shapes.append(g)
 
 
-for i, g in enumerate(shapes):
-    serialized = g.serialize(format='turtle')
-    if isinstance(serialized,bytes):
-        serialized = serialized.decode('utf-8')
-    print(f"Shape {i} serialized:")
-    print(serialized)
-    print("------")
+    for i, g in enumerate(shapes):
+        serialized = g.serialize(format='turtle')
+        if isinstance(serialized,bytes):
+            serialized = serialized.decode('utf-8')
+        print(f"Shape {i} serialized:")
+        print(serialized)
+        print("------")
 
+    return shapes
 
 
 
