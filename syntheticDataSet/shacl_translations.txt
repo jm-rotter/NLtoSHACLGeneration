@@ -1,0 +1,1988 @@
+Translation #0
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Dokumentenname a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "Commercial invoice" "Credit advice" "Value credit" "Value debit" "Handelsrechnung" "Gutschriftsanzeige" "Wertgutschrift" "Wertbelastung" ) ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1001 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentType ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For instances of class InvoiceDetails, the property hasDocumentType must have exactly one value, which must be one of "Commercial invoice", "Credit advice", "Value credit", "Value debit", and if not, display the error message "Data element 1001 is missing in the BGM segment".
+----
+
+Translation #1
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1004 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For the class InvoiceDetails, the property hasDocumentNumber must have exactly one string value, otherwise, show the message: "Data element 1004 is missing in the BGM segment".
+----
+
+Translation #2
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 12 ;
+            sh:message "The data element 1004 in the BGM segment is too long" ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved sentence:
+
+For instances of the class InvoiceDetails, the property hasDocumentNumber, representing the document number, must be a string with a maximum length of 12 characters; if the length exceeds 12, an error will be raised with the message "The data element 1004 in the BGM segment is too long".
+----
+
+Translation #3
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Dokumentfunktion a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "Cancellation" "Replacement" "Duplicate" "Original" "Copy" "Additional transfer" "Stornierung" "Ersatz" "Duplikat" "Original" "Kopie" "Zusaetzliche Uebertragung" ) ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentFunction ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For each InvoiceDetails, the hasDocumentFunction property must have exactly one string value from the following list: "Cancellation", "Replacement", "Duplicate", "Original", "Copy", "Additional transfer", "Stornierung", "Ersatz", "Duplikat", "Original", "Kopie", "Zusaetzliche Uebertragung". If the property is missing or invalid, display the error message: "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function".
+----
+
+Translation #4
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Belegdatum a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The DTM+137 segment is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:documentDate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved sentence:
+
+For the class InvoiceDetails, the property documentDate must have exactly one string value; if missing or invalid, show the message "The DTM+137 segment is missing".
+----
+
+Translation #5
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:tatsaechliches_Lieferdatum a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The DTM+35 segment is missing" ;
+            sh:minCount 1 ;
+            sh:path p2p-o-inv:actualDeliveryDate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved sentence:
+
+For instances of class InvoiceDetails, the property actualDeliveryDate is required and must have exactly one value, which must be a string; if this constraint is not met, the error message "The DTM+35 segment is missing" will be displayed.
+----
+
+Translation #6
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The supplier's order number, RFF+VN, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the rewritten sentence:
+
+For each edifact-o:InvoiceDetails, the edifact-o:orderNumberSupplier property must be a string with exactly one value; if missing or incorrect, display the error message "The supplier's order number, RFF+VN, is missing from the header".
+----
+
+Translation #7
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+VN, in the header is too long" ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For instances of the class InvoiceDetails, the property orderNumberSupplier must be a string with a maximum length of 35 characters; the property must have exactly one value; if the length exceeds 35 characters, the following error message should be displayed: "The order number of the supplier, RFF+VN, in the header is too long".
+----
+
+Translation #8
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+VN, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is an improved version:
+
+"For instances of class InvoiceDetails, the property dateOrderNumberSupplier must have exactly one string value; if missing, display: 'The date of the supplier's order number, RFF+VN, is missing from the header'."
+
+Let me know if this meets your requirements!
+----
+
+Translation #9
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+VN, in the header is too long" ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For instances of the class InvoiceDetails, the property dateOrderNumberSupplier (representing the date of the supplier's order number, RFF+VN, in the header) must be a string with a maximum length of 8 characters; if the length exceeds 8 characters, the following error message should be displayed: "The date of the supplier's order number, RFF+VN, in the header is too long".
+----
+
+Translation #10
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The supplier's order number, RFF+ON, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+"For every edifact-o:InvoiceDetails, the edifact-o:orderNumberBuyer must have exactly one value, which is a string. If it's missing or invalid, display: "The supplier's order number, RFF+ON, is missing from the header"."
+----
+
+Translation #11
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+ON, in the header is too long" ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For instances of the class InvoiceDetails, the property orderNumberBuyer, representing the order number of the supplier, RFF+ON, in the header, must be a string with a maximum length of 35 characters; if the length exceeds this limit, the error message "The order number of the supplier, RFF+ON, in the header is too long" will be displayed.
+----
+
+Translation #12
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+ON, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+For instances of the class InvoiceDetails, the property dateOrderNumberBuyer must have exactly one string value; if this condition is not met, an error will be reported with the message "The date of the supplier's order number, RFF+ON, is missing from the header".
+----
+
+Translation #13
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+ON, in the header is too long" ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is an improved version:
+
+"For instances of the class InvoiceDetails, the property dateOrderNumberBuyer must be a string with a maximum length of 8 characters, representing the date of the supplier's order number; if the length exceeds 8 characters, the error message 'The date of the supplier's order number, RFF+ON, in the header is too long' will be displayed."
+----
+
+Translation #14
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The supplier's order number, RFF+DQ, is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:deliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For each resource of type InvoiceDetails, there must be exactly one value for the deliveryNoteNumber property, which must be a string; if this condition is not met, the error message "The supplier's order number, RFF+DQ, is missing" will be shown.
+----
+
+Translation #15
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The supplier's order number, RFF+DQ, is too long" ;
+            sh:path edifact-o:deliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For instances of class InvoiceDetails, the property deliveryNoteNumber must have exactly one value, which is a string with a maximum length of 35 characters; if the length exceeds 35 characters, display "The supplier's order number, RFF+DQ, is too long".
+----
+
+Translation #16
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+DQ, is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateDeliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For each instance of InvoiceDetails, the property "dateDeliveryNoteNumber" must have exactly one string value, which is mandatory; a failure to provide this value will result in an error message "The date of the supplier's order number, RFF+DQ, is missing".
+----
+
+Translation #17
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+DQ, is too long" ;
+            sh:path edifact-o:dateDeliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the rewritten sentence:
+
+For the class InvoiceDetails, the property dateDeliveryNoteNumber must be a single string value with a maximum length of 8 characters; if the constraint is violated, the error message "The date of the supplier's order number, RFF+DQ, is too long" will be displayed.
+----
+
+Translation #18
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzKaeufer a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+BY segment is missing" ;
+            sh:minCount 1 ;
+            sh:path p2p-o-inv:hasBuyer ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+Here is the rewritten sentence:
+
+For each E-Invoice, the hasBuyer property must have exactly one value; otherwise, an error will be raised with the message "The NAD+BY segment is missing".
+----
+
+Translation #19
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerKaeufer a sh:NodeShape ;
+    sh:message "The Segemnt RFF+VA is missing for the Segemnet NAD+BY, i.e. the buyer's VAT number is missing" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+For each FormalOrganization that does not have a rdf:type equal to "http://example.com/BuyerRole", it must have exactly one p2p-o-org:VATIdentifier value, which is a string characters long. If this condition is not met, display: “The Segment RFF+VA is missing for the Segment NAD+BY, i.e. the buyer’s VAT number is missing.”
+----
+
+Translation #20
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameKaeufer a sh:NodeShape ;
+    sh:message "The data element 3036 is missing for the Segemnet NAD+BY, i.e. specification of the formal names of the buyer" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is an improved version:
+
+"For each FormalOrganization (except those with a rdf:type of 'BuyerRole'), it is required to have exactly one formalName property, which must be a value up to 35 characters long. If this condition is not met, an error will be thrown with the message: 'The data element 3036 is missing for the Segment NAD+BY, i.e. specification of the formal names of the buyer'."
+
+This rewritten sentence aims to be more concise and clear, while also including all important constraints from the original SHACL shape.
+----
+
+Translation #21
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNKaeufer a sh:NodeShape ;
+    sh:message "Data element 3039 is missing for the Segemnet NAD+BY, i.e. specification of the GLN of the buyer." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+"For each FormalOrganization that is not rdf:type 'BuyerRole', exactly one integer globalLocationNumber property with a length of exactly 13 characters is required. If this constraint is not met, display the message: 'Data element 3039 is missing for the Segment NAD+BY, i.e. specification of the GLN of the buyer.'"
+
+I made the following changes:
+
+* Added "that is not" to make the sentence more readable
+* Changed "not identified as a Buyer" to "that is not rdf:type 'BuyerRole'" to make the condition more explicit
+* Changed "between 13 characters long" to "with a length of exactly 13 characters" to make the constraint more precise
+* Added "required" to emphasize the necessity of the constraint
+* Rephrased the message to make it a natural language sentence.
+----
+
+Translation #22
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtKaeufer a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+BY, i.e. specification of the buyer's city" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+For each FormalOrganization (not having a rdf:type of "http://example.com/BuyerRole"), it is required to have exactly one string value (up to 35 characters long) for the property "edifact-o:hasCity". If this constraint is not met, the error message will be: "The data element 3164 is missing for the Segment NAD+BY, i.e. specification of the buyer's city".
+----
+
+Translation #23
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandKaeufer a sh:NodeShape ;
+    sh:message "The data element 3207 is missing for the Segemnet NAD+BY, i.e. indication of the country of the buyer" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+"For each FormalOrganization that is not a BuyerRole, it must have exactly one hasCountryCode property with a string value of up to 3 characters long. If this constraint is not met, display the message: “The data element 3207 is missing for the Segment NAD+BY, i.e. indication of the country of the buyer”.
+----
+
+Translation #24
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseKaeufer a sh:NodeShape ;
+    sh:message "The data element 3042 is missing for the Segemnet NAD+BY, i.e. the buyer's street address." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+For each FormalOrganization that is not identified as having a BuyerRole, it must have exactly one hasStreetAddress property with a string value up to 35 characters long; otherwise, display: "The data element 3042 is missing for the Segment NAD+BY, i.e. the buyer's street address."
+----
+
+Translation #25
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZKaeufer a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+BY, i.e. specification of the buyer's postal code" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+"For each FormalOrganization that does not have a rdf:type of "http://example.com/BuyerRole", it must have exactly one vcard:postalCode property with a string value up to 9 characters long. If this condition is not met, display: "The data element 3251 is missing for the Segment NAD+BY, i.e. specification of the buyer's postal code".
+----
+
+Translation #26
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzLieferant a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+SU segment is missing" ;
+            sh:minCount 1 ;
+            sh:path p2p-o-inv:hasSupplier ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+Here is the improved natural language sentence:
+
+"For each E-Invoice instance, exactly one value for the 'hasSupplier' is required; otherwise, display the error message: 'The NAD+SU segment is missing'."
+
+This sentence is more concise and clear, mentioning the target class (E-Invoice), property name (hasSupplier), cardinality (exactly one), and the error message.
+----
+
+Translation #27
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerLieferant a sh:NodeShape ;
+    sh:message "The Segemnt RFF+VA is missing for the Segemnet NAD+SU, i.e. Angbae of the VAT number of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the rewritten sentence:
+
+For each FormalOrganization that is not a SupplierRole, it must have exactly one VATIdentifier value, which is up to 14 characters long. Otherwise, display the error message: "The Segment RFF+VA is missing for the Segment NAD+SU, i.e. Angabe of the VAT number of the supplier."
+----
+
+Translation #28
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameLieferant a sh:NodeShape ;
+    sh:message "The data element 3036 is missing for the Segemnet NAD+SU, i.e. specification of the formal name of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is a rewritten version of the sentence:
+
+"For each org:FormalOrganization, if it is not of type http://example.com/SupplierRole, then it must have exactly one p2p-o-org:formalName property with a string value up to 35 characters long; otherwise, display the error message 'The data element 3036 is missing for the Segment NAD+SU, i.e. specification of the formal name of the supplier'."
+
+Let me know if this meets your requirements!
+----
+
+Translation #29
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNLieferant a sh:NodeShape ;
+    sh:message "The data element 3039 is missing for the Segemnet NAD+SU, i.e. specification of the GLN of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the rewritten sentence:
+
+For each FormalOrganization that is not classified as a Supplier, exactly one globalLocationNumber must be specified, consisting of exactly 13 digits. If this requirement is not met, the following error message will be shown: "The data element 3039 is missing for the Segment NAD+SU, i.e. specification of the GLN of the supplier".
+----
+
+Translation #30
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtLieferant a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+SU, i.e. specification of the city of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved sentence:
+
+"For each FormalOrganization that is not identified as a SupplierRole, it must have exactly one hasCity value that is a string up to 35 characters long; otherwise, display the error message: 'The data element 3164 is missing for the Segment NAD+SU, i.e. specification of the city of the supplier'."
+----
+
+Translation #31
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandLieferant a sh:NodeShape ;
+    sh:message "Data element 3207 is missing for the Segemnet NAD+SU, i.e. specification of the supplier's country" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is a rewritten natural language sentence that clarifies and concisely conveys the SHACL constraint:
+
+"For each FormalOrganization that is not typed as a SupplierRole, it must have exactly one hasCountryCode property with a string value up to 3 characters long. If this constraint is not met, display: “Data element 3207 is missing for NAD+SU, i.e. specification of the supplier's country”."
+
+Let me know if this improved version meets your requirements!
+----
+
+Translation #32
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseLieferant a sh:NodeShape ;
+    sh:message "The data element 3042 is missing for the Segemnet NAD+SU, i.e. specification of the supplier's street" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is an improved version:
+
+Each FormalOrganization that is not a Supplier must have exactly one hasStreetAddress property with a value that is a string up to 35 characters long; otherwise, the error message "The data element 3042 is missing for the Segment NAD+SU, i.e. specification of the supplier's street" will be displayed.
+----
+
+Translation #33
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZLieferant a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+SU, i.e. specification of the supplier's postal code" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the rewritten natural language sentence:
+
+"For each FormalOrganization not having a type of SupplierRole, exactly one postalCode must be specified, which is a string with a maximum length of 9 characters. If this condition is not met, the data element 3251 is missing for the Segment NAD+SU, i.e. specification of the supplier's postal code."
+----
+
+Translation #34
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzRechnungsempfaenger a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+IV segment is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasInvoicee ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+Here is a rewritten and improved sentence:
+
+"For each E-Invoice, the hasInvoicee property is required and must have exactly one value is missing, an error will occur with the message "The NAD+IV segment is missing".
+----
+
+Translation #35
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The segemnt RFF+VA is missing for the segemnet NAD+IV, i.e. the VAT number of the invoice recipient is missing." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the rewritten sentence:
+
+For each FormalOrganization that is not of type Invoicee, it is required to have exactly one VATIdentifier property value, which must be a string of up to 14 characters long. If this condition is not met, the error message "The segment RFF+VA is missing for the segment NAD+IV, i.e. the VAT number of the invoice recipient is missing."
+----
+
+Translation #36
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameRechnungsempfaenger a sh:NodeShape ;
+    sh:message "Data element 3036 is missing for Segemnet NAD+IV, i.e. specification of the formal name of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here's a rewritten version that's even clearer and more concise:
+
+"Each FormalOrganization must have exactly one formalName property with a string value up to 35 characters long, unless it's identified as an InvoiceeRole; otherwise, display the error message 'Data element 3036 is missing for Segment NAD+IV, i.e. specification of the formal name of the invoice recipient'."
+
+I've preserved all the important constraints and made the sentence more readable and natural-sounding.
+----
+
+Translation #37
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The data element 3039 is missing for the Segemnet NAD+IV, i.e. specification of the GLN of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+"For each FormalOrganization not identified as an Invoicee, the globalLocationNumber property must have exactly one value, which is an integer with a length of exactly 13 characters. If this condition is not met, display: “The data element 3039 is missing for the Segment NAD+IV, i.e. specification of the GLN of the invoice recipient'.”
+----
+
+Translation #38
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+IV, i.e. specification of the city of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+"For each FormalOrganization that is not classified as an InvoiceeRole, it is required to have exactly one 'hasCity' property with a string value up to 35 characters long. Otherwise, the error message will be displayed: 'The data element 3164 is missing for the Segment NAD+IV, i.e. specification of the city of the invoice recipient.'"
+----
+
+Translation #39
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandRechnungsempfaenger a sh:NodeShape ;
+    sh:message "Data element 3207 is missing for Segemnet NAD+IV, i.e. specification of the country of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is a rewritten version of the natural language sentence:
+
+"For each FormalOrganization that is not an Invoicee, it must have exactly one hasCountryCode property that has a string value of exactly 3 characters long; otherwise, display the error message: 'Data element 3207 is missing for Segment NAD+IV, i.e. specification of the country of the invoice recipient'."
+
+I made a few minor adjustments to improve clarity and concision, but the original sentence was already quite clear!
+----
+
+Translation #40
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseRechnungsempfaenger a sh:NodeShape ;
+    sh:message "Data element 3042 is missing for Segemnet NAD+IV, i.e. specification of the invoice recipient's street address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the rewritten sentence:
+
+For each FormalOrganization that is not of type InvoiceeRole, the hasStreetAddress property must have exactly one value, which is a string with a maximum length of 35 characters; if this condition is not satisfied, the error message "Data element 3042 is missing for Segment NAD+IV, i.e. specification of the invoice recipient's street address" will be displayed.
+----
+
+Translation #41
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+IV, i.e. specification of the postal code of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+For each FormalOrganization that is not of type InvoiceeRole, the postalCode property must have exactly one value that is a string up to 9 characters long; otherwise, display the error message: "The data element 3251 is missing for the Segment NAD+IV, i.e. specification of the postal code of the invoice recipient".
+----
+
+Translation #42
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzLieferanschrift a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+PR segment is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDeliveryParty ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+Here is the improved sentence:
+
+For each E-Invoice, the hasDeliveryParty property must have exactly one value, representing the delivery party; otherwise, an error will be displayed with the message "The NAD+PR segment is missing".
+----
+
+Translation #43
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerLieferanschrift a sh:NodeShape ;
+    sh:message "The Segemnt RFF+VA is missing for the Segemnet NAD+DP, i.e. the VAT number of the delivery address is missing." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the rewritten natural language sentence:
+
+"For each FormalOrganization that is not a DeliveryPartyRole, it must have exactly one VATIdentifier property with a value that is a string between 1 and 14 characters long. If this condition is not met, the message 'The Segment RFF+VA is missing for the Segment NAD+DP, i.e. the VAT number of the delivery address is missing' will be displayed."
+----
+
+Translation #44
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3036 is missing for the Segemnet NAD+DP, i.e. specification of the formal name of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is a rewritten version of the natural language sentence:
+
+"For every FormalOrganization, if it is not identified as a DeliveryPartyRole, then it must have exactly one formalName property with a string value up to 35 characters long; otherwise, display the message: 'The data element 3036 is missing for the Segment NAD+DP, i.e. specification of the formal name of the delivery address'."
+
+This rephrased sentence aims to improve clarity and conciseness while ensuring that all important constraints are mentioned, including the target class, property name, cardinality, and message.
+----
+
+Translation #45
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3039 is missing for the Segemnet NAD+DP, i.e. specification of the GLN of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+For each FormalOrganization that is not a DeliveryPartyRole, it must have exactly one globalLocationNumber property with a value that is exactly 13 characters long; otherwise, display: "The data element 3039 is missing for the Segment NAD+DP, i.e. specification of the GLN of the delivery address".
+----
+
+Translation #46
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+DP, i.e. specification of the city of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here's a rewritten version that's even clearer and more comprehensive:
+
+"For each FormalOrganization that is not a DeliveryPartyRole, exactly one city specification (up to 35 characters long) must be provided via the hasCity property. Otherwise, an error will be displayed: 'The data element 3164 is missing for the Segment NAD+DP, i.e. specification of the city of the delivery address.'"
+----
+
+Translation #47
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandLieferanschrift a sh:NodeShape ;
+    sh:message "Data element 3207 is missing for the Segemnet NAD+DP, i.e. specification of the country of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the rewritten sentence:
+
+For each FormalOrganization that is not a DeliveryPartyRole, it must have exactly one 'hasCountryCode' property with a string value between 1 and 3 characters long; otherwise, the error message "Data element 3207 is missing for the Segment NAD+DP" will be displayed.
+
+I added the property name 'hasCountryCode' to make it clear which property is being constrained. I also replaced "not identified as a DeliveryPartyRole" with "that is not a DeliveryPartyRole" to make the sentence more concise and clear.
+----
+
+Translation #48
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3042 is missing for the Segemnet NAD+DP, i.e. specification of the street of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+For each FormalOrganization, if it is not identified as a DeliveryPartyRole, then the hasStreetAddress property must have exactly one string value between 1 and 35 characters; otherwise, display the error message "The data element 3042 is missing for the Segment NAD+DP, i.e. specification of the street of the delivery address".
+----
+
+Translation #49
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+DP, i.e. specification of the postal code of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+"For each FormalOrganization instance that does not have a type of DeliveryPartyRole, it must have exactly one postalCode property with a value that is a string, otherwise, display the message: “The data element 3251 is missing for the Segemnet NAD+DP, i.e. specification of the postal code of the delivery address”."
+----
+
+Translation #50
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Waehrung a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The CUX segment in the invoice header is missing" ;
+            sh:minCount 1 ;
+            sh:path schema1:currency ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For each edifact-o:InvoiceDetails, the schema1:currency property must be a string with exactly one value; if missing or invalid, show the message "The CUX segment in the invoice header is missing".
+----
+
+Translation #51
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:EANAtrikelnummer a sh:NodeShape ;
+    sh:message "The LIN segment with the value EN in data element 7143 is missing, i.e. the specification of the EAN article number or the PIA segment with the value SA in data element 7143 is missing, i.e. the specification of the supplier's article number." ;
+    sh:or ( [ sh:datatype xsd:string ;
+                sh:hasValue "International Article Number" ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasProductIdentification ] [ sh:datatype xsd:string ;
+                sh:minCount 1 ;
+                sh:path edifact-o:itemNumberSupplier ] ) ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+"For each item (of type edifact-o:item), either the property edifact-o:hasProductIdentification must have exactly one string value "International Article Number', or the property edifact-o:itemNumberSupplier must have at least one string value; otherwise, display the error message."
+----
+
+Translation #52
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BerechneteMenge a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 15 ;
+            sh:message "The segment QTY+12 is missing, i.e. the specification of the calculated quantity." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:deliveredQuantity ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is an improved version:
+
+For each edifact:item, the edifact:deliveredQuantity must be a float value between 1 and 15 digits, with exactly one occurrence, else show the message: "The segment QTY+12 is missing, i.e. the specification of the calculated quantity."
+----
+
+Translation #53
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-doc-line: <https://purl.org/p2p-o/documentline#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BerechneteMenge a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 15 ;
+            sh:message "The segment QTY+47 is missing, i.e. the specification of the calculated quantity." ;
+            sh:minCount 1 ;
+            sh:path p2p-o-doc-line:invoicedQuantity ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+"For each EDIFACT item, the invoicedQuantity property must be a float value (up to 15 digits) with exactly one occurrence, representing the calculated quantity; if missing or invalid, show the message: “The segment QTY+47 is missing, i.e. the specification of the calculated quantity.”"
+
+I added the following information:
+
+* Mentioned the target class "EDIFACT item"
+* Clarified the dataType constraint as "float value (up to 15 digits)"
+* Kept the message and property name explicitly mentioned.
+----
+
+Translation #54
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BerechneteMenge a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 14 ;
+            sh:message "The segment MOA+203 is missing, i.e. the indication of the net position price." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasLineItemAmount ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the rewritten sentence:
+
+"For each edifact-o:item, the edifact-o:hasLineItemAmount property must be a float value with a maximum length of 14 characters and exactly one occurrence; if missing or invalid, display the error message 'The segment MOA+203 is missing, i.e. the indication of the net position price.'"
+----
+
+Translation #55
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ArtikelNettopreis a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasNetpriceOfItem ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is an improved version:
+
+For each item (which must be of type edifact-o:item), the hasNetpriceOfItem property must have exactly one value, which must be a float up to 13 digits long. If this requirement is not met, the error message "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article." will be displayed.
+----
+
+Translation #56
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ArtikelBruttopreis a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The PRI+AAB segment is missing, i.e. the indication of the net price of an individual article." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasGrosspriceOfItem ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is an improved and concise version:
+
+"For each item (edifact-o:item), the hasGrosspriceOfItem property must have exactly one value, which is a float with a maximum of 13 characters. If this value is missing or invalid, display: “The PRI+AAB segment is missing, i.e. the net price of an individual article.”"
+----
+
+Translation #57
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerLieferant a sh:Shape ;
+    sh:constraint [ sh:message "The order number of the supplier, RFF+VN, is missing." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberSupplier ] .
+
+
+Here is the improved sentence:
+
+Each instance must have at least one` value for the `orderNumberSupplier` property; if not, display the error message "The order number of the supplier, RFF+VN, is missing."
+
+I added " Each instance" to make it clear that this constraint applies to each instance, not just any instance.
+----
+
+Translation #58
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The order number of the supplier, RFF+VN, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+"For each item, the property 'orderNumberSupplier' must have exactly one value. If missing or invalid, show the message: 'The order number of the supplier, RFF+VN, is missing in the item part.'"
+
+I made the following changes:
+
+* Added quotes around the property name to make it clear it's a specific name.
+* Removed "must be a string" as it's implied by the datatype constraint in the SHACL shape" and not directly relevant to the natural language sentence.
+* Made the sentence more concise and clear.
+----
+
+Translation #59
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+VN, in the item part is too long." ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is a rewritten version of the natural language sentence:
+
+"For each item (class: edifact-o:item), the 'orderNumberSupplier' property must be a string with a maximum length of 35 characters; if the length exceeds 35 character limit, the error message 'The order number of the supplier, RFF+VN, in the item part is too long.' will be displayed."
+
+Let me know if this meets your requirements!
+----
+
+Translation #60
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+VN, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+"For each item (which is an instance of edifact-o:item), the property 'dateOrderNumberSupplier' must have exactly one string value; otherwise, an error will occur with the message: 'The date of the supplier's order number, RFF+VN, is missing in the item part.'"
+----
+
+Translation #61
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+VN, in the item section must be long enough." ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+For each instance of the class "item", the property "dateOrderNumberSupplier" must be a string with a maximum length of 8 characters; if the length is less than 8, the error message "The date of the supplier's order number, RFF+VN, in the item section must be long enough" will be displayed.
+----
+
+Translation #62
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The order number of the supplier, RFF+ON, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is a rewritten version:
+
+"Each item must have exactly one orderNumberBuyer property with a string value. If missing or invalid, the error message will be: 'The order number of the supplier, RFF+ON, is missing in the item part.'"
+----
+
+Translation #63
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+ON, in the item part is too long." ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved sentence:
+
+For each instance of the class "item", the property "orderNumberBuyer" must be a string with a maximum length of 35 characters; if the length exceeds 35 characters, the error message "The order number of the supplier, RFF+ON, in the item part is too long." will be displayed.
+----
+
+Translation #64
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+ON, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+For each item, exactly one dateOrderNumberBuyer property with a string value is required; if missing or invalid, show the message "The date of the supplier's order number, RFF+ON, is missing in the item part."
+----
+
+Translation #65
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+ON, in the item part is too long." ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+"For each item (edifact-o:item), the property 'dateOrderNumberBuyer' must be a string with a maximum length of 8 characters. If the length exceeds 8 characters, show the error message: "The date of the supplier's order number, RFF+ON, in the item part is too long.""
+----
+
+Translation #66
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Rechnungsbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 14 ;
+            sh:message "The segment MOA+77 is missing, i.e. the invoice amount is missing." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasInvoiceAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved sentence:
+
+For instances of the class `InvoiceDetails`, the property `hasInvoiceAmount` must be a string with exactly one value that is between 1 and 14 characters long; if missing or invalid, show the message: "The segment MOA+77 is missing, i.e. the invoice amount is missing."
+----
+
+Translation #67
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Gesamtpositionsbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The segment MOA+79 is missing, i.e. the indication of the total position amount." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasTotalLineItemAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the rewritten sentence:
+
+For each instance of class InvoiceDetails, exactly one value is required for the property hasTotalLineItemAmount; if this value is missing or invalid, the error message "The segment MOA+79 is missing, i.e. the indication of the total position amount." will be shown.
+----
+
+Translation #68
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SummeZuAbschlaege a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasTotalAdditionsAndDeductions ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+"For each instance of InvoiceDetails, exactly one value is required for the property hasTotalAdditionsAndDuctions; otherwise, an error message will be shown: "The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions.""
+----
+
+Translation #69
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SteuerpflichtigerBetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The segment MOA+125 is missing, i.e. the indication of the taxable amount." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasTaxableAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the rewritten sentence:
+
+"For each instance of InvoiceDetails, exactly one value for the property 'hasTaxableAmount' is required; if missing or invalid, display the error message: 'The segment MOA+125 is missing, i.e. the indication of the taxable amount'."
+
+I added the phrase "instance of" to make it clear that InvoiceDetails is the class being targeted, and I changed "must be present" to "is required" to make the sentence more concise.
+----
+
+Translation #70
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:zusaetzlichePartneridentifikation a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 35 ;
+            sh:message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification." ;
+            sh:path edifact-o:additionalPartnerIdentificationEANCode ] ;
+    sh:targetClass org:FormalOrganization .
+
+
+Here is the improved natural language sentence:
+
+For each FormalOrganization, there must be exactly one additionalPartnerIdentificationEANCode property with a string value of at most 35 characters; if this constraint is violated, display the error message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification."
+----
+
+Translation #71
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Zahlungsbedingung a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "As usual" "Extended" "Wie ueblich" "Verlaengert" ) ;
+            sh:maxCount 5 ;
+            sh:message "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7." ;
+            sh:path edifact-o:paymentCondition ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the rewritten natural language sentence:
+
+For instances of class InvoiceDetails, the paymentCondition property must be a string with a value from the list {"As usual", "Extended", "Wie ueblich", "Verlaengert"} and may occur between 1 and 5 times. If the value is not in the list or occurs outside this range, the error message "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7." will be shown.
+----
+
+Translation #72
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ValutaDatum a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 8 ;
+            sh:message "The specified value date is too long, i.e. the DTM+209." ;
+            sh:path edifact-o:valutaDate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+For the class InvoiceDetails, the property valutaDate must be a single string value with a maximum length of 8 characters; if the length exceeds 8 characters, the following error message should be shown: "The specified value date is too long, i.e. the DTM+209."
+----
+
+Translation #73
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Abschlag a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 15 ;
+            sh:message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasAllowanceReason ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the rewritten sentence:
+
+"For each item of type 'item', the 'hasAllowanceReason' property must be a string with a minimum of 1 character and a maximum of 15 characters. If this requirement is not met, or if the property is missing, display the error message: 'The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification.'"
+----
+
+Translation #74
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Rabatt a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 15 ;
+            sh:message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasDiscountReason ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+"For each item, the hasDiscountReason property must be a string with a minimum length of 1 character and a maximum of 1 value (not more than 1 occurrence). If missing or invalid, show the message: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification.""
+----
+
+Translation #75
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Zuschlag a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 15 ;
+            sh:message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasChargeReason ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+For each edifact-o:item, the edifact-o:hasChargeReason property must be a string with a minimum length of 1 character and a maximum of 15 occurrences. If the constraint is not met, display the error message: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type."
+----
+
+Translation #76
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AbschlagProzentsatz a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 15 ;
+            sh:maxLength 5 ;
+            sh:message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasAllowancePercentage ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the rewritten sentence:
+
+For each edifact-o:item, the edifact-o:hasAllowancePercentage property must be a float value between 1 and 5 characters long, and can occur at most 15 times; if invalid or missing, show the message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
+----
+
+Translation #77
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:RabattProzentsatz a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 15 ;
+            sh:maxLength 5 ;
+            sh:message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasDiscountPercentage ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the rewritten sentence:
+
+For each item, the hasDiscountPercentage property must have exactly one value, which is a float with a minimum of 1, a maximum of 15, and a maximum length of 5 characters; if missing or invalid, show the message: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
+----
+
+Translation #78
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ZuschlagProzentsatz a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 15 ;
+            sh:maxLength 5 ;
+            sh:message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasChargePercentage ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved sentence:
+
+For each edifact-o:item, the edifact-o:hasChargePercentage property must be a float value with a minimum length of 1, a maximum length of 5, and can have between 1 and 15 values. If these conditions are not met, display: “The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge.”
+----
+
+Translation #79
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BruttoendbetragRechnunng a sh:NodeShape ;
+    sh:message "The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice." ;
+    sh:or ( [ sh:maxCount 2 ;
+                sh:maxLength 13 ;
+                sh:path p2p-o-inv:hasAllowanceAmount ] [ sh:maxCount 2 ;
+                sh:maxLength 13 ;
+                sh:path edifact-o:hasDiscountAmount ] ) ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved sentence:
+
+"For each edifact-o:item, the p2p-o-inv:hasAllowanceAmount property and the edifact-o:hasDiscountAmount property must each have at most 2 values, which are strings with a maximum length of 13 characters. If not, the error message is: 'The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice.'"
+----
+
+Translation #80
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SteuerangabenItem a sh:NodeShape ;
+    sh:property [ sh:maxCount 5 ;
+            sh:maxLength 5 ;
+            sh:message "The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect." ;
+            sh:path edifact-o:hasVATrate ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the rewritten sentence:
+
+For each item of type edifact-o:item, the edifact-o:hasVATrate property must be a string with a maximum length of 5 characters and may have up to 5 values; if the specified tax rate is invalid, display: “The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect.”
+----
+
+Translation #81
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-item: <https://purl.org/p2p-o/item#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Produktidentifikation a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name." ;
+            sh:minCount 1 ;
+            sh:path p2p-o-item:itemName ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is a rewritten sentence that includes all important constraints and is clear and concise:
+
+"For edifact-o:item, the p2p-o-item:itemName property must be a string with at least one value; if the data is missing or invalid, display the message: "The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name."
+----
+
+Translation #82
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Steuerbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." ;
+            sh:path edifact-o:hasTaxAmount ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved sentence:
+
+"For each EDIFACT item, the hasTaxAmount property must be a string with a maximum length of 13 characters and have exactly one value; if this condition is not met, display: “The segment MOA+124 is incorrect, i.e. the tax amount is not specified.”"
+
+I added "EDIFACT" to specify the type of item, and made the sentence more concise and clear.
+----
+
+Translation #83
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ZuAbschlagbetrag a sh:NodeShape ;
+    sh:message "The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect." ;
+    sh:or ( [ sh:maxCount 2 ;
+                sh:maxLength 18 ;
+                sh:message "Das Segment MOA+23 fehlt" ;
+                sh:path p2p-o-inv:hasAllowanceAmount ] [ sh:maxCount 2 ;
+                sh:maxLength 18 ;
+                sh:message "Das Segment MOA+204 fehlt" ;
+                sh:path edifact-o:hasDiscountAmount ] ) ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the improved natural language sentence:
+
+"For every edifact-o:item, it must have either exactly 1 or 2 p2p-o-inv:hasAllowanceAmount values that are strings up to 18 characters long, or exactly 1 or 2 edifact-o:hasDiscountAmount values that are strings up to 18 characters long; if none of these conditions are met, display the error message 'The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect.'"
+----
+
+Translation #84
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BasisZuAbschlagbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect." ;
+            sh:path edifact-o:hasAdditionDeductionBasis ] ;
+    sh:targetClass edifact-o:item .
+
+
+Here is the rewritten sentence:
+
+For each Edifact item, the "hasAdditionDeductionBasis" property must have exactly one value, which is a string of up to 13 characters long. If this condition is not met, show the error message: "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect."
+
+I made the following changes:
+
+* Added "Edifact" to specify the type of item
+* Quoted the property name to make it clear it's a exact match
+* Changed "exactly one value" to "have exactly one value" to improve clarity
+* Added "up to" to make it clear the string can be shorter than 13 characters
+----
+
+Translation #85
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SteuerangabenItem a sh:NodeShape ;
+    sh:property [ sh:maxCount 5 ;
+            sh:maxLength 5 ;
+            sh:message "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate." ;
+            sh:path edifact-o:hasVATrate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved natural language sentence:
+
+For instances of the class InvoiceDetails, the property hasVATrate must have between 0 and 5 values, each with a maximum length of 5 characters; if this constraint is not met, the error message "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate." will be displayed.
+----
+
+Translation #86
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Steuerbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." ;
+            sh:path edifact-o:hasTaxAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved sentence:
+
+For instances of class InvoiceDetails, the hasTaxAmount property must have exactly one value, which must not exceed 13 characters in length; if this condition is not met, the error message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." will be displayed.
+----
+
+Translation #87
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Prozesszugehoerigkeit a sh:NodeShape ;
+    sh:property [ sh:hasValue "ProcessExample" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path edifact-o:belongsToProcess ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+Here is an improved version:
+
+Each edifact-o:E-Invoice instance has exactly one belongsToProcess property with the value "ProcessExample", ensuring a specific process is associated with every electronic invoice.
+----
+
+Translation #88
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SumNetPrice a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount" ;
+            sh:prefixes [ sh:declare [ sh:namespace "https://purl.org/edifact/ontology#"^^xsd:anyURI ;
+                            sh:prefix "edifact-o" ] ] ;
+            sh:select """SELECT $this (edifact-o:hasTotalLineItemAmount AS ?path) (?totalAmount AS ?value)
+            WHERE { 
+                $this a edifact-o:InvoiceDetails ;
+                    edifact-o:hasTotalLineItemAmount ?totalAmount .
+                    {select $this (sum(?itemAmount) as ?sum) {
+                        ?item edifact-o:isItemOf ?invoice ; edifact-o:hasLineItemAmount ?itemAmount.
+                        ?invoice edifact-o:hasInvoiceDetails $this.
+                        } 
+                        group by $this }
+                FILTER (?sum != ?totalAmount) 
+                }""" ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here's a rewritten version:
+
+"In an InvoiceDetails, the value of hasTotalLineItemAmount must be the sum of all hasLineItemAmount values from its associated items. If this condition is not met, the following error message will be shown: 'edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount'."
+
+I made the following changes:
+
+* Made the sentence more concise and clear
+* Specified the exact error message that will be shown
+* Removed unnecessary words and phrases
+* Added "from its associated items" to clarify the scope of the hasLineItemAmount values
+* Changed "across its items" to "from its associated items" to improve clarity
+----
+
