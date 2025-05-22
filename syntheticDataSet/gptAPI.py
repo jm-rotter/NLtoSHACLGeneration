@@ -2,14 +2,17 @@ from openai import OpenAI
 from rdflib import Graph, Namespace, URIRef, Literal
 from shaclParser import pullShapes
 from dotenv import load_dotenv
+from groq import Groq
 import os
 
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
 load_dotenv(dotenv_path)
 
 API_KEY = os.getenv("OPENAI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-MODEL="gpt-4o"
+#MODEL="gpt-4o"
+MODEL="llama3-70b-8192"
 
 INITIAL_PROMPT = """
 You are an AI assistent. Your task is to convert the following SHACL shape into a clear natural language documentation sentence for a human reader.
@@ -38,29 +41,27 @@ If the length exceeds 12 characters, the following message should be shown: "The
 
 
 def buildPrompt(shape):
-    return f"""
-    Translate the following SHACL shape into natural language: formulate the response as documentation and respond only with the translation itself. 
+    return f"""\nTranslate the following SHACL shape into natural language: formulate the response as documentation and respond only with the translation itself. 
 
-    {shape}
-    """
+{shape}"""
 
 def buildRPrompt(shape, naturalLanguageTranslation):
     return f"""
-    You just translated the following SHACL shape:
-    {shape}
+You just translated the following SHACL shape:
+{shape}
 
-    into:
+into:
 
-    {naturalLanguageTranslation}
+{naturalLanguageTranslation}
 
-    Is the meaning clear and concise? Are all important constraints (target class, property name, cardinality, message) mentioned? 
-    If you find any missing or unclear information, rewrite and improve your answer.
-    Only return the improved natural language sentence.
-    """
+Is the meaning clear and concise? Are all important constraints (target class, property name, cardinality, message) mentioned? 
+If you find any missing or unclear information, rewrite and improve your answer.
+Only return the improved natural language sentence.
+"""
 
 
-client = OpenAI(api_key=API_KEY)
-
+#client = OpenAI(api_key=API_KEY)
+client = Groq(api_key=GROQ_API_KEY)
 
 def translateSHAPE(shape):
 
@@ -69,14 +70,21 @@ def translateSHAPE(shape):
             messages=[{"role": "user", "content": INITIAL_PROMPT + FEW_SHOT_EXAMPLES + buildPrompt(shape)}]
             )
     naturalLanguageTranslation = response.choices[0].message.content
-    print(naturalLanguageTranslation)
+    
+    print("INPUT: \n" + INITIAL_PROMPT + FEW_SHOT_EXAMPLES + buildPrompt(shape))
+    print("\n\n")
+    print("OUTPUT \n" + naturalLanguageTranslation)
+    print("\n\n")
 
     reflectionResponse = client.chat.completions.create(
             model=MODEL,
             messages=[{"role": "user", "content": buildRPrompt(shape, naturalLanguageTranslation)}]
             )
-    print(reflectionResponse.choices[0].message.content)
 
+    print("INPUT: \n" + buildRPrompt(shape, naturalLanguageTranslation))
+    print("\n\n")
+    print("OUTPUT \n" + reflectionResponse.choices[0].message.content)
+    print("\n\n")
     return reflectionResponse.choices[0].message.content 
 
 
@@ -85,7 +93,10 @@ shapes = pullShapes()
 translations = {}
 
 for shape in shapes:
-    translateSHAPE(shape) 
+    serialized = shape.serialize(format='turtle')
+    if isinstance(serialized,bytes):
+        serialized = serialized.decode('utf-8')
+    translateSHAPE(serialized) 
     break
 
 
