@@ -1,6 +1,6 @@
 from rdflib import Graph, Namespace, URIRef, Literal
 
-shacl_ttl = """
+shaclPrefixes = """
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
@@ -31,52 +31,56 @@ shacl_ttl = """
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
 @prefix schema: <http://schema.org/> .
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
-
-
-:Dokumentenname 
-    a sh:NodeShape;
-    sh:targetClass edifact-o:InvoiceDetails;
-    sh:property [
-        sh:path edifact-o:hasDocumentType;
-        sh:datatype xsd:string;
-        sh:minCount 1;
-        sh:maxCount 1;
-        sh:in ("Commercial invoice" "Credit advice" "Value credit" "Value debit" "Handelsrechnung" "Gutschriftsanzeige" "Wertgutschrift" "Wertbelastung");
-        sh:message "Data element 1001 is missing in the BGM segment";
-    ]
-.
 """
 
-g = Graph()
-g.parse(data=shacl_ttl, format="turtle")
 
-print("Namespaces in the graph:")
-for prefix, ns in g.namespace_manager.namespaces():
-    print(f"{prefix}: {ns}")
+with open('shaclDataset.ttl', 'r') as text:
+    text_shapes = []
+    curr = ""
+    for line in text:
+        if line.strip() == '':
+            if curr.strip():
+                text_shapes.append(curr)
+            curr = ""
+        else:
+            curr += line
+    if curr.strip():
+        text_shapes.append(curr)
 
-print("\nTriples with prefixes:")
+shapes = []
+for shape_text in text_shapes:
+   g = Graph()
+   g.parse(data=shaclPrefixes + shape_text, format='turtle')
 
-for s, p, o in g:
-    try:
-        prefix, namespace, local_name = g.namespace_manager.compute_qname(p)
-        pred_prefixed = f"{prefix}:{local_name}"
-    except Exception:
-        pred_prefixed = str(p)
+   shapes.append(g)
 
-    if isinstance(o, URIRef):
-        try:
-            prefix_o, ns_o, local_o = g.namespace_manager.compute_qname(o)
-            obj_prefixed = f"{prefix_o}:{local_o}"
-        except Exception:
-            obj_prefixed = str(o)
-    elif isinstance(o, Literal):
-        obj_prefixed = f'"{o}"'
-    else:
-        obj_prefixed = str(o)
 
-    print(f"Subject: {s}")
-    print(f"Predicate: {pred_prefixed}")
-    print(f"Object: {obj_prefixed}")
-    print("---")
+for i, g in enumerate(shapes):
+    serialized = g.serialize(format='turtle')
+    if isinstance(serialized,bytes):
+        serialized = serialized.decode('utf-8')
+    print(f"Shape {i} serialized:")
+    print(serialized)
+    print("------")
 
-print(g.serialize(format="turtle"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
