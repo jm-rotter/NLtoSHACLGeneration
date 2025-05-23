@@ -112,12 +112,6 @@ If this condition is not met, show: “hasTotalLineItemAmount must equal the sum
 
 
 
-
-
-
-
-
-
 def buildPrompt(shape):
     return f"""\nTranslate the following SHACL shape into natural language: formulate the response as documentation and respond only with the translation itself. 
 
