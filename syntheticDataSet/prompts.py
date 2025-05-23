@@ -1,22 +1,12 @@
+def build_prompt(shape: str, few_shot_examples: str, instruction: str) -> str:
+    return f"{instruction}\n\n{few_shot_examples}\n\nTranslate the following SHACL shape into natural language: formulate the response as documentation and respond only with the translation itself.\n\n{shape}"
 
-from rdflib import Graph, Namespace, URIRef, Literal
-from shaclParser import pullShapes
-from dotenv import load_dotenv
-from groq import Groq
-import os
+def build_reflection_prompt(shape: str, nl_translation: str) -> str:
+    return f"You just translated the following SHACL shape: \n{shape}\ninto:\n{nl_translation}\nIs the meaning clear and concise? Are all important constraints (target class, property name, cardinality, message) mentioned? If you find any missing or unclear information, rewrite and improve your answer. Only return the improved natural language sentence."
 
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
-load_dotenv(dotenv_path)
 
-API_KEY = os.getenv("OPENAI_API_KEY")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+INITIAL_PROMPT = "You are an AI assistent. Your task is to convert the following SHACL shape into a clear natural language documentation sentence for a human reader."
 
-#MODEL="gpt-4o"
-MODEL="llama3-70b-8192"
-
-INITIAL_PROMPT = """
-You are an AI assistent. Your task is to convert the following SHACL shape into a clear natural language documentation sentence for a human reader.
-"""
 
 FEW_SHOT_EXAMPLES = """
 Few Shot Examples
@@ -108,82 +98,6 @@ The hasTotalLineItemAmount of an InvoiceDetails must be equal to the sum of all 
 If this condition is not met, show: “hasTotalLineItemAmount must equal the sum of hasLineItemAmount.”
 
 """
-
-
-
-
-def buildPrompt(shape):
-    return f"""\nTranslate the following SHACL shape into natural language: formulate the response as documentation and respond only with the translation itself. 
-
-{shape}"""
-
-def buildRPrompt(shape, naturalLanguageTranslation):
-    return f"""
-You just translated the following SHACL shape:
-{shape}
-
-into:
-
-{naturalLanguageTranslation}
-
-Is the meaning clear and concise? Are all important constraints (target class, property name, cardinality, message) mentioned? 
-If you find any missing or unclear information, rewrite and improve your answer.
-Only return the improved natural language sentence.
-"""
-
-
-#client = OpenAI(api_key=API_KEY)
-client = Groq(api_key=GROQ_API_KEY)
-
-def translateSHAPE(shape):
-
-    response = client.chat.completions.create(
-            model=MODEL,
-            messages=[{"role": "user", "content": INITIAL_PROMPT + FEW_SHOT_EXAMPLES + buildPrompt(shape)}]
-            )
-    naturalLanguageTranslation = response.choices[0].message.content
-    
-    #print("INPUT: \n" + INITIAL_PROMPT + FEW_SHOT_EXAMPLES + buildPrompt(shape))
-    #print("\n\n")
-    #print("OUTPUT \n" + naturalLanguageTranslation)
-    #print("\n\n")
-
-    reflectionResponse = client.chat.completions.create(
-            model=MODEL,
-            messages=[{"role": "user", "content": buildRPrompt(shape, naturalLanguageTranslation)}]
-            )
-
-    #print("INPUT: \n" + buildRPrompt(shape, naturalLanguageTranslation))
-    #print("\n\n")
-    #print("OUTPUT \n" + reflectionResponse.choices[0].message.content)
-    #print("\n\n")
-    return reflectionResponse.choices[0].message.content 
-
-
-shapes = pullShapes()
-
-translations = [] 
-i = 0
-for shape in shapes:
-    print(i)
-    i += 1
-    serialized = shape.serialize(format='turtle')
-    if isinstance(serialized,bytes):
-        serialized = serialized.decode('utf-8')
-    translations.append((serialized, translateSHAPE(serialized)))
-
-
-file = open("shacl_translations.txt", "w", encoding="utf-8")
-
-
-for i, (shaclTranslation, nlTranslation) in enumerate(translations):
-    file.write(f"Translation #{i}\n")
-    file.write(shaclTranslation)
-    file.write("\n")
-    file.write(nlTranslation)
-    file.write("\n----\n\n")
-    
-
 
 
 
