@@ -3,7 +3,7 @@ from shaclParser import pullShapes
 from prompts import build_prompt, build_reflection_prompt, INITIAL_PROMPT, FEW_SHOT_EXAMPLES
 from groq import Groq
 from dotenv import load_dotenv
-from utils import printTranslationsToFile
+from utils import printTranslationsToFile, printTranslationsToJSONFile
 import os
 import sys
 
@@ -69,6 +69,6 @@ for shape in shapes:
         serialized = serialized.decode('utf-8')
     translations.append((serialized, translateShape(serialized, VERBOSE_FLAG)))
 
-printTranslationsToFile("shacl_translations.txt", translations)
-
+printTranslationsToFile("shacltranslations.txt", translations)
+printTranslationToJSONFile("shacltranslations.jsonl", translations)
 
