@@ -70,34 +70,30 @@ Corresponding NL Translation
 For each FormalOrganization not identified as a Buyer, it must have a VATIdentifier property with exactly one value that is a string up to 14 characters long.
 If neither applies, display: “The segment RFF+VA is missing for NAD+BY.”
 
-SHACL(4)
-:SumNetPrice a sh:NodeShape;
-    sh:targetClass edifact-o:InvoiceDetails;
-    sh:sparql [
-        a sh:SPARQLConstraint;
-        sh:message "hasTotalLineItemAmount must equal the sum of hasLineItemAmount";
-        sh:select \"\"\"SELECT $this (edifact-o:hasTotalLineItemAmount AS ?path) (?totalAmount AS ?value)
-         WHERE { 
-          $this a edifact-o:InvoiceDetails ;
-          edifact-o:hasTotalLineItemAmount ?totalAmount .
-        {
-        SELECT $this (SUM(?itemAmount) AS ?sum)
-        WHERE {
-            ?item edifact-o:isItemOf ?invoice ;
-                  edifact-o:hasLineItemAmount ?itemAmount .
-            ?invoice edifact-o:hasInvoiceDetails $this .
-        } GROUP BY $this
-    }
-    FILTER (?sum != ?totalAmount)
-}\"\"\";
 
-.
+SHACL(4)
+:CheckCountryCode a sh:NodeShape ;
+    sh:targetClass org:FormalOrganization ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "The country code must be one of the ISO 3166-1 alpha-3 codes" ;
+        sh:prefixes [
+            sh:declare [
+                sh:prefix "org" ;
+                sh:namespace "http://www.w3.org/ns/org#"^^xsd:anyURI ;
+            ]
+        ] ;
+        sh:select \"\"\"
+        SELECT ?this (?code AS ?value)
+         WHERE {
+        ?this org:hasCountryCode ?code .
+        FILTER (STRLEN(?code) != 3)
+    }
+        \"\"\";
+
+    ] .
 
 Corresponding NL Translation
-The hasTotalLineItemAmount of an InvoiceDetails must be equal to the sum of all hasLineItemAmount values across its items.
-If this condition is not met, show: “hasTotalLineItemAmount must equal the sum of hasLineItemAmount.”
-
+Each FormalOrganization must have a country code (hasCountryCode) with exactly 3 characters as per ISO 3166-1 alpha-3 standard. 
+If not, show: "The country code must be one of the ISO 3166-1 alpha-3 codes".
 """
-
-
-

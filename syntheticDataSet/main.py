@@ -5,6 +5,8 @@ from groq import Groq
 from dotenv import load_dotenv
 from utils import printTranslationsToFile
 import os
+import sys
+
 
 
 def translateShape(shape, verbose):
@@ -40,8 +42,11 @@ def translateShape(shape, verbose):
 
 
 
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
+from pathlib import Path
+
+dotenv_path = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path)
+
 
 VERBOSE_FLAG = False
 API_KEY = os.getenv("OPENAI_API_KEY")
