@@ -148,6 +148,7 @@ SHACL(7)
 Corresponding NL Translation
 For each org:FormalOrganization, the property p2p-o-org:VATIdentifier must be a string of up to 14 characters and appear exactly once. If missing or too long, show the error message: "VAT Identifier (RFF+VA) is missing or too long."
 
+
 """
 
 
