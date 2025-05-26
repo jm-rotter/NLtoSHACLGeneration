@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from utils import printTranslationsToFile, printTranslationsToJSONFile
 import os
 import sys
+from tqdm import tqdm
 
 
 
@@ -60,15 +61,12 @@ client = Groq(api_key=GROQ_API_KEY)
 shapes = pullShapes()
 
 translations = [] 
-i = 0
-for shape in shapes:
-    print(f"Translated {i} shapes so far")
-    i += 1
+for shape in tqdm(shapes, desc="Translating shapes"):
     serialized = shape.serialize(format='turtle')
     if isinstance(serialized,bytes):
         serialized = serialized.decode('utf-8')
     translations.append((serialized, translateShape(serialized, VERBOSE_FLAG)))
 
 printTranslationsToFile("shacltranslations.txt", translations)
-printTranslationToJSONFile("shacltranslations.jsonl", translations)
+printTranslationsToJSONFile("shacltranslations.jsonl", translations)
 
