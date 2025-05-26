@@ -2,3 +2,4 @@ rdflib
 openai
 dotenv
 groq
+tqdm
