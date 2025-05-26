@@ -15,9 +15,7 @@ Translation #0
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is a rewritten version of the translation:
-
-"For instances of edifact-o:InvoiceDetails, the property edifact-o:hasDocumentType must have exactly one value, which must be a string from the list: 'Commercial invoice', 'Credit advice', 'Value credit', 'Value debit', 'Handelsrechnung', 'Gutschriftsanzeige', 'Wertgutschrift', or 'Wertbelastung'. If this constraint is violated, the error message will be 'Data element 1001 is missing in the BGM segment'."
+For instances of edifact-o:InvoiceDetails, the edifact-o:hasDocumentType property must be a single string value, which is one of the following: "Commercial invoice", "Credit advice", "Value credit", "Value debit", "Handelsrechnung", "Gutschriftsanzeige", "Wertgutschrift", or "Wertbelastung". If this property is missing or invalid, display: "Data element 1001 is missing in the BGM segment".
 ----
 
 Translation #1
@@ -35,9 +33,7 @@ Translation #1
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasDocumentNumber property must be a string and must appear exactly once; if it does not meet this requirement, display the error message "Data element 1004 is missing in the BGM segment".
+For instances of edifact-o:InvoiceDetails, the edifact-o:hasDocumentNumber property must be a single string value, and a validation error with the message "Data element 1004 is missing in the BGM segment" will occur if this value is missing.
 ----
 
 Translation #2
@@ -54,9 +50,7 @@ Translation #2
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten sentence:
-
-For each instance of edifact-o:InvoiceDetails, the edifact-o:hasDocumentNumber property must be a string with exactly one value and a maximum length of 12 characters; if this constraint is violated, display the error message "The data element 1004 in the BGM segment is too long".
+For instances of edifact-o:InvoiceDetails, the edifact-o:hasDocumentNumber property must be a single string value with a maximum length of 12 characters; if it does, "The data element 1004 in the BGM segment is too long" will be reported.
 ----
 
 Translation #3
@@ -76,9 +70,7 @@ Translation #3
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten sentence:
-
-For every instance of edifact-o:hasDocumentFunction property in class edifact-o:InvoiceDetails, the value must be exactly one string selected from the list of "Cancellation", "Replacement", "Duplicate", "Original", "Copy", "Additional transfer", "Stornierung", "Ersatz", "Duplikat", "Original", "Kopie", "Zusaetzliche Uebertragung". If the property is missing or invalid, display: "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function".
+For edifact-o:InvoiceDetails, the edifact-o:hasDocumentFunction property must be a string with exactly one value from the list {"Cancellation", "Replacement", "Duplicate", "Original", "Copy", "Additional transfer", "Stornierung", "Ersatz", "Duplikat", "Original", "Kopie", "Zusaetzliche Uebertragung"}. If this property is missing or invalid, display: "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function".
 ----
 
 Translation #4
@@ -96,9 +88,7 @@ Translation #4
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language documentation:
-
-For each instance of edifact-o:InvoiceDetails class, the edifact-o:documentDate property must have exactly one string value; if not, an error message "The DTM+137 segment is missing" will be generated.
+For instances of edifact-o:InvoiceDetails, the edifact-o:documentDate property must be a single string value, otherwise, an error will be displayed with the message "The DTM+137 segment is missing".
 ----
 
 Translation #5
@@ -117,7 +107,7 @@ Translation #5
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For each instance of edifact-o:InvoiceDetails, exactly one value for the p2p-o-inv:actualDeliveryDate must be provided, and it must be a valid string; if this condition is not met, an error will be displayed with the message "The DTM+35 segment is missing".
+For instances of edifact-o:InvoiceDetails, the p2p-o-inv:actualDeliveryDate property must be a single string value, and it is required; if this property is not provided or is invalid, display the error message "The DTM+35 segment is missing".
 ----
 
 Translation #6
@@ -135,9 +125,7 @@ Translation #6
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberSupplier property must have exactly one value, which must be a string. If this requirement is not met, the error message "The supplier's order number, RFF+VN, is missing from the header" will be displayed.
+For instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberSupplier property must be a single string value, otherwise, show the error message "The supplier's order number, RFF+VN, is missing from the header".
 ----
 
 Translation #7
@@ -154,9 +142,7 @@ Translation #7
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten sentence:
-
-For each edifact-o:InvoiceDetails instance, the edifact-o:orderNumberSupplier must be a string with a maximum length of 35 characters; otherwise, show the error message "The order number of the supplier, RFF+VN, in the header is too long".
+For instances of edifact-o:InvoiceDetails, the property edifact-o:orderNumberSupplier must be a string with a maximum length of 35 characters; exactly one value is allowed; if it exceeds 35 characters, show: "The order number of the supplier, RFF+VN, in the header is too long".
 ----
 
 Translation #8
@@ -174,9 +160,7 @@ Translation #8
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberSupplier property must have exactly one string value; if it is missing or has multiple values, display: "The date of the supplier's order number, RFF+VN, is missing from the header".
+For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberSupplier property must be a single string value, otherwise, show the error message "The date of the supplier's order number, RFF+VN, is missing from the header"".
 ----
 
 Translation #9
@@ -193,11 +177,7 @@ Translation #9
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberSupplier property must be a single string value with a maximum length of 8 characters; if it does not meet this requirement, display: "The date of the supplier's order number, RFF+VN, in the header is too long".
-
-I added "single string value" to make it clear that the property must have exactly one string value, and not, for example, a list of strings.
+For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberSupplier property must be a single string value with a maximum length of 8 characters; if it does, show the error message "The date of the supplier's order number, RFF+VN, in the header is too long".
 ----
 
 Translation #10
@@ -215,11 +195,7 @@ Translation #10
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-"For instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberBuyer property is required, must have exactly one string value, and if not provided or provided multiple times, an error message 'The supplier's order number, RFF+ON, is missing from the header' will be displayed."
-
-Let me know if this looks good!
+For instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberBuyer property must be a single string value, otherwise, the error message "The supplier's order number, RFF+ON, is missing from the header" will be displayed.
 ----
 
 Translation #11
@@ -236,11 +212,7 @@ Translation #11
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten natural language sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberBuyer property must be a single string value with a maximum length of 35 characters; if it does, show the error message "The order number of the supplier, RFF+ON, in the header is too long".
-
-I added "single string value" to make it explicit that the cardinality is 1, and moved the error message to the end to make it clear that it's a consequence of violating the constraint. Let me know if this meets your requirements!
+In instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberBuyer property must exactly have one value which is a string with a maximum length of 35 characters; if it exceeds 35 characters, show: "The order number of the supplier, RFF+ON, in the header is too long".
 ----
 
 Translation #12
@@ -258,9 +230,7 @@ Translation #12
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberBuyer property must be a string and must appear exactly once; if it is missing or appears multiple times, an error message will be displayed: "The date of the supplier's order number, RFF+ON, is missing from the header".
+For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberBuyer property must be a single string value, and it is mandatory to provide this value; if it is missing or invalid, show the error message "The date of the supplier's order number, RFF+ON, is missing from the header".
 ----
 
 Translation #13
@@ -277,11 +247,7 @@ Translation #13
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-"For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberBuyer property must be a single string value with a maximum length of 8 characters; otherwise, an error will be reported with the message 'The date of the supplier's order number, RFF+ON, in the header is too long'."
-
-I added "single" to indicate a single value (cardinality), and changed "show" to "an error will be reported with the message" to make it clearer that it's an error condition.
+For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberBuyer property must be a single string value with a maximum length of 8 characters; if not, display the error message "The date of the supplier's order number, RFF+ON, in the header is too long".
 ----
 
 Translation #14
@@ -299,9 +265,7 @@ Translation #14
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-"For instances of edifact-o:InvoiceDetails, the edifact-o:deliveryNoteNumber property must be a string with exactly one value; failure to provide this value will result in the error message: 'The supplier's order number, RFF+DQ, is missing'."
+For instances of edifact-o:InvoiceDetails, the edifact-o:deliveryNoteNumber property must be a single string value; otherwise, an error will occur with the message "The supplier's order number, RFF+DQ, is missing".
 ----
 
 Translation #15
@@ -318,9 +282,7 @@ Translation #15
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten sentence:
-
-For every edifact-o:InvoiceDetails instance, the edifact-o:deliveryNoteNumber must be a string with a maximum length of 35 characters; if it exceeds this limit, display the error message "The supplier's order number, RFF+DQ, is too long".
+For instances of edifact-o:InvoiceDetails, the edifact-o:deliveryNoteNumber property must exist and be a string value having a maximum of 35 characters; if it exceeds 35 characters, display the error message "The supplier's order number, RFF+DQ, is too long".
 ----
 
 Translation #16
@@ -338,9 +300,7 @@ Translation #16
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateDeliveryNoteNumber property must have exactly one string value; if this value is missing, display the error message "The date of the supplier's order number, RFF+DQ, is missing".
+For instances of edifact-o:InvoiceDetails, the edifact-o:dateDeliveryNoteNumber property must be a single string value, and it is mandatory; if this property is missing or invalid, display: "The date of the supplier's order number, RFF+DQ, is missing".
 ----
 
 Translation #17
@@ -357,9 +317,7 @@ Translation #17
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved sentence:
-
-For every instance of edifact-o:InvoiceDetails, the edifact-o:dateDeliveryNoteNumber property must be a string with a maximum length of 8 characters; if this condition is not met, the error message "The date of the supplier's order number, RFF+DQ, is too long" will be displayed.
+For instances of edifact-o:InvoiceDetails, the edifact-o:dateDeliveryNoteNumber property must be a string with a maximum length of 8 characters; absence of this property is allowed. If the length exceeds 8 characters, show: "The date of the supplier's order number, RFF+DQ, is too long".
 ----
 
 Translation #18
@@ -377,9 +335,7 @@ Translation #18
     sh:targetClass edifact-o:E-Invoice .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:E-Invoice, there must be exactly one property p2p-o-inv:hasBuyer; if this property is missing, an error will occur with the message 'The NAD+BY segment is missing'."
+For instances of edifact-o:E-Invoice, the property p2p-o-inv:hasBuyer must have exactly one value; if this property is missing, an error will occur with the message "The NAD+BY segment is missing".
 ----
 
 Translation #19
@@ -401,9 +357,7 @@ Translation #19
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-For an org:FormalOrganization, if it has rdf:type "http://example.com/BuyerRole", then it must have exactly one p2p-org:VATIdentifier property value, which is a string with a maximum length of 14 characters; otherwise, the error message "The Segemnt RFF+VA is missing for the Segment NAD+BY, i.e. the buyer's VAT number is missing" will be displayed.
+For org:FormalOrganization instances, if they have rdf:type "http://example.com/BuyerRole", then no p2p-o-org:VATIdentifier is required; otherwise, they must have exactly one p2p-o-org:VATIdentifier property, which is a string with a maximum length of 14 characters, and if not provided, display: "The Segment RFF+VA is missing for the Segment NAD+BY, i.e. the buyer's VAT number is missing".
 ----
 
 Translation #20
@@ -426,9 +380,7 @@ Translation #20
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten natural language sentence:
-
-"For each Formal Organization, if it is not classified as a Buyer Role, then it must have exactly one Formal Name property with a string value of up to 35 characters; otherwise, the error message 'The data element 3036 is missing for the Segment NAD+BY, i.e. specification of the formal names of the buyer' will be displayed."
+For org:FormalOrganization instances that are not of rdf:type "http://example.com/BuyerRole", the p2p-o-org:formalName property must be a string with a length between 1 and 35 characters, and exactly one value, otherwise display: "The data element 3036 is missing for the Segment NAD+BY, i.e. specification of the formal names of the buyer".
 ----
 
 Translation #21
@@ -452,9 +404,7 @@ Translation #21
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For each organization of type org:FormalOrganization, if it doesn't have a rdf:type of "http://example.com/BuyerRole", then it must have exactly one p2p-o-org:globalLocationNumber property with a value that is an integer of exactly 13 digits. If this property is missing or doesn't meet these conditions, display the error message: "Data element 3039 is missing for the Segment NAD+BY, i.e. specification of the GLN of the buyer.""
+For an org:FormalOrganization, if it's not of rdf:type "http://example.com/BuyerRole", then it must have exactly one p2p-org:globalLocationNumber property, which is an integer with exactly 13 digits; otherwise, display: "Data element 3039 is missing for the Segment NAD+BY, i.e. specification of the GLN of the buyer."
 ----
 
 Translation #22
@@ -477,11 +427,7 @@ Translation #22
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten sentence:
-
-"For each org:FormalOrganization that is not of rdf:type 'http://example.com/BuyerRole', the edifact-o:hasCity property must be a string with a maximum length of 35 characters and must appear exactly once. If this property is missing, or it does not meet these conditions, display: 'The data element 3164 is missing for the Segment NAD+BY, specification of the buyer's city'."
-
-Let me know if you want me to improve it further!
+For org:FormalOrganization, unless it has rdf:type "http://example.com/BuyerRole", it must have exactly one edifact-o:hasCity property with a string value of maximum 35 characters; otherwise, display "The data element 3164 is missing for the Segment NAD+BY, i.e. specification of the buyer's city".
 ----
 
 Translation #23
@@ -504,9 +450,7 @@ Translation #23
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For an organizational entity (org:FormalOrganization), if it is not a 'BuyerRole' (rdf:type), then it must have exactly one 'hasCountryCode' property (frapo:hasCountryCode) with a string value of exactly 3 characters; otherwise, display the error message 'The data element 3207 is missing for the Segment NAD+BY, i.e. indication of the country of the buyer'."
+For org:FormalOrganization instances, either the rdf:type must be "http://example.com/BuyerRole" or they must have exactly one frapo:hasCountryCode property with a string value of maximum 3 characters; otherwise, the error message "The data element 3207 is missing for the Segment NAD+BY, i.e. indication of the country of the buyer" will be shown.
 ----
 
 Translation #24
@@ -529,9 +473,7 @@ Translation #24
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"If an org:FormalOrganization is not of rdf:type 'http://example.com/BuyerRole', it must have exactly one vcard:hasStreetAddress with a maximum length of 35 characters; otherwise, display: "The data element 3042 is missing for the Segment NAD+BY, i.e. the buyer's street address"."
+For an org:FormalOrganization, if it is not of rdf:type "http://example.com/BuyerRole", then it must have exactly one vcard:hasStreetAddress property with a string value of maximum length 35; otherwise, show: "The data element 3042 is missing for the Segment NAD+BY, i.e. the buyer's street address."
 ----
 
 Translation #25
@@ -554,9 +496,7 @@ Translation #25
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten natural language sentence:
-
-"For each organization (org:FormalOrganization), if it is not a buyer (rdf:type "http://example.com/BuyerRole"), it must have exactly one postal code property (vcard:postalCode) with a maximum length of 9 characters. If not, display the error message: 'The data element 3251 is missing for the Segment NAD+BY, i.e. specification of the buyer's postal code'."
+If an org:FormalOrganization is not of rdf:type "http://example.com/BuyerRole", then it has no constraint, but if it is, then it must have exactly one vcard:postalCode property, which is a string with a maximum length of 9, and absence of this data is indicated by the message "The data element 3251 is missing for the Segment NAD+BY, i.e. specification of the buyer's postal code".
 ----
 
 Translation #26
@@ -574,9 +514,7 @@ Translation #26
     sh:targetClass edifact-o:E-Invoice .
 
 
-Here is the rewritten sentence:
-
-Each edifact-o:E-Invoice must have exactly one p2p-o-inv:hasSupplier property; if this property is missing or appears multiple times, display the error message "The NAD+SU segment is missing".
+For instances of edifact-o:E-Invoice, the p2p-o-inv:hasSupplier property is required to exist with exactly one value, and if not, display the error message "The NAD+SU segment is missing".
 ----
 
 Translation #27
@@ -598,9 +536,9 @@ Translation #27
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten natural language sentence:
+Here is the improved translation:
 
-"For each organization, if it is not classified as a supplier, then it must have exactly one VAT number property (a string up to 14 characters long); otherwise, an error message will be displayed, stating that the VAT number is missing for the supplier organization.
+For each org:FormalOrganization, if it is not of rdf:type "http://example.com/SupplierRole", then it must have exactly one p2p-o-org:VATIdentifier property with a string value of maximum 14 characters. Otherwise, the system will display the error message "The Segment RFF+VA is missing for the Segment NAD+SU, i.e. Angabe of the VAT number of the supplier".
 ----
 
 Translation #28
@@ -623,9 +561,7 @@ Translation #28
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For each org:FormalOrganization, if it is not of rdf:type 'http://example.com/SupplierRole', then it must have exactly one p2p-o-org:formalName with a string value not exceeding 35 characters in length; otherwise, display the error message 'The data element 3036 is missing for the Segment NAD+SU, i.e. specification of the formal name of the supplier'."
+For org:FormalOrganization instances, if they are not of rdf:type "http://example.com/SupplierRole", they must have exactly one p2p-o-org:formalName property with a string value of maximum 35 characters; otherwise, the validation will fail with the message "The data element 3036 is missing for the Segment NAD+SU, i.e. specification of the formal name of the supplier".
 ----
 
 Translation #29
@@ -649,9 +585,7 @@ Translation #29
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-For each organization of type org:FormalOrganization, if it is not of type "http://example.com/SupplierRole", then it must have exactly one property p2p-o-org:globalLocationNumber with a value that is an integer with exactly 13 digits. If this property is missing or invalid, display: "The data element 3039 is missing for the Segment NAD+SU, i.e. specification of the GLN of the supplier".
+For instances of org:FormalOrganization, if it is not of rdf:type "http://example.com/SupplierRole", then the p2p-o-org:globalLocationNumber property must exist exactly once, its value must be an integer with exactly 13 digits, and if this condition is not met, show: "The data element 3039 is missing for the Segment NAD+SU, i.e. specification of the GLN of the supplier".
 ----
 
 Translation #30
@@ -674,11 +608,7 @@ Translation #30
     sh:targetClass org:FormalOrganization .
 
 
-Here is a rewritten version of the sentence:
-
-"For each org:FormalOrganization, if it is not of type http://example.com/SupplierRole, then it must have exactly one edifact-o:hasCity property with a string value up to 35 characters long; otherwise, display the error message 'The data element 3164 is missing for the Segment NAD+SU, specification of the city of the supplier'."
-
-Let me know if this meets your requirements!
+For instances of org:FormalOrganization, if the rdf:type is not "http://example.com/SupplierRole", then the edifact-o:hasCity property must have exactly one string value with a maximum length of 35 characters; otherwise, show the error message "The data element 3164 is missing for the Segment NAD+SU, i.e. specification of the city of the supplier".
 ----
 
 Translation #31
@@ -701,9 +631,7 @@ Translation #31
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten sentence:
-
-For each org:FormalOrganization, if it is not of rdf:type "http://example.com/SupplierRole", it must have exactly one frapo:hasCountryCode with a string value of exactly 3 characters. If this property is missing or invalid, display: "Data element 3207 is missing for the Segment NAD+SU, i.e. specification of the supplier's country".
+For instances of org:FormalOrganization, if the rdf:type is not "http://example.com/SupplierRole", the frapo:hasCountryCode property must have exactly one string with a maximum length of 3 characters; otherwise, display "Data element 3207 is missing for the Segment NAD+SU, i.e. specification of the supplier's country".
 ----
 
 Translation #32
@@ -726,9 +654,7 @@ Translation #32
     sh:targetClass org:FormalOrganization .
 
 
-Here is a rewritten version of the sentence:
-
-"For each organization of type org:FormalOrganization, if it is not classified as a SupplierRole, then it must have exactly one vcard:hasStreetAddress property with a string value no longer than 35 characters; otherwise, the error message "The data element 3042 is missing for the Segment NAD+SU, i.e. specification of the supplier's street" will be displayed.
+If an org:FormalOrganization is not of rdf:type "http://example.com/SupplierRole", it must have exactly one vcard:hasStreetAddress property with a string value of maximum length 35; otherwise, show: "The data element 3042 is missing for the Segment NAD+SU, i.e. specification of the supplier's street".
 ----
 
 Translation #33
@@ -751,11 +677,7 @@ Translation #33
     sh:targetClass org:FormalOrganization .
 
 
-Here is a rewritten version of the sentence:
-
-"For each organization (org:FormalOrganization), if it does not have a type of 'http://example.com/SupplierRole', then it must have exactly one 'vcard:postalCode' property with a string value of maximum 9 characters. If this property is missing or invalid, display the error message: 'The data element 3251 is missing for the Segment NAD+SU, i.e. specification of the supplier's postal code'."
-
-This rewritten sentence aims to make the meaning clearer and more explicit, ensuring that all important constraints are mentioned, including the target class, property name, cardinality, and message.
+For org:FormalOrganization instances, if they are not of type "http://example.com/SupplierRole", then they must have exactly one vcard:postalCode property with a string value of maximum 9 characters; otherwise, an error will occur with the message "The data element 3251 is missing for the Segment NAD+SU, i.e. the supplier's postal code".
 ----
 
 Translation #34
@@ -772,9 +694,7 @@ Translation #34
     sh:targetClass edifact-o:E-Invoice .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:E-Invoice, the property edifact-o:hasInvoicee must occur exactly once; failure to provide it will result in an error with the message 'The NAD+IV segment is missing'."
+For instances of edifact-o:E-Invoice, the property edifact-o:hasInvoicee must have exactly one value; if this property is missing or invalid, display the error message "The NAD+IV segment is missing".
 ----
 
 Translation #35
@@ -796,9 +716,7 @@ Translation #35
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For instances of org:FormalOrganization, if rdf:type is not "http://example.com/InvoiceeRole', then exactly one p2p-o-org:VATIdentifier property, which is a string with a maximum length of 14 characters. If this condition is not met, the error message is: 'The segment RFF+VA is missing for the segment NAD+IV, i.e. the VAT number of the invoice recipient is missing.'"
+If an org:FormalOrganization is of rdf:type "http://example.com/InvoiceeRole", it must have exactly one p2p-o-org:VATIdentifier property, which is a string with a maximum length of 14 characters; otherwise, the error message "The segment RFF+VA is missing for the segment NAD+IV, i.e. the VAT number of the invoice recipient is missing." will be displayed.
 ----
 
 Translation #36
@@ -821,9 +739,7 @@ Translation #36
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten sentence:
-
-For org:FormalOrganization instances, if they are not of type "http://example.com/InvoiceeRole", then exactly one p2p-o-org:formalName property is required, with a string value of up to 35 characters; otherwise, the error message "Data element 3036 is missing for Segment NAD+IV, i.e. specification of the formal name of the invoice recipient" will be displayed.
+For instances of org:FormalOrganization, if not of rdf:type "http://example.com/InvoiceeRole", the p2p-o-org:formalName property must be a single string value, having a maximum length of 35 characters; otherwise, display "Data element 3036 is missing for Segment NAD+IV, i.e. specification of the formal name of the invoice recipient".
 ----
 
 Translation #37
@@ -847,9 +763,7 @@ Translation #37
     sh:targetClass org:FormalOrganization .
 
 
-Here is a rewritten and improved natural language sentence:
-
-"For each FormalOrganization, if it does not have the role of InvoiceeRole, then it must have exactly one globalLocationNumber property with a value that is an integer with a length of exactly 13 characters; otherwise, the error message 'The data element 3039 is missing for the Segment NAD+IV, i.e. specification of the GLN of the invoice recipient' will be displayed."
+For instances of org:FormalOrganization, they must either have an rdf:type of "http://example.com/InvoiceeRole" or have exactly one p2p-o-org:globalLocationNumber property with a value that is an integer of exactly 13 digits in length; otherwise, display "The data element 3039 is missing for the Segment NAD+IV, i.e. specification of the GLN of the invoice recipient".
 ----
 
 Translation #38
@@ -872,11 +786,7 @@ Translation #38
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten natural language sentence:
-
-"For each organization (of type org:FormalOrganization), if it does not have a rdf:type of 'http://example.com/InvoiceeRole', then it must have exactly one edifact-o:hasCity property with a string value of maximum 35 characters. If not, display the error message: 'The data element 3164 is missing for the Segment NAD+IV, i.e. specification of the city of the invoice recipient'."
-
-I made some minor adjustments to improve clarity and concision, but the meaning remains the same. All important constraints (target class, property name, cardinality, message) are mentioned.
+For org:FormalOrganization instances, if they are not of type "http://example.com/InvoiceeRole", then they must have exactly one edifact-o:hasCity property with a string value no longer than 35 characters; otherwise, display the error message "The data element 3164 is missing for the Segment NAD+IV, i.e. the specification of the city of the invoice recipient".
 ----
 
 Translation #39
@@ -899,11 +809,7 @@ Translation #39
     sh:targetClass org:FormalOrganization .
 
 
-Here is a rewritten version of the sentence:
-
-"For each org:FormalOrganization instance, if it is not an instance of http://example.com/InvoiceeRole, then it must have exactly one frapo:hasCountryCode property with a string value of maximum length 3; otherwise, an error message will be displayed indicating that 'Data element 3207 is missing for Segment NAD+IV, i.e. specification of the country of the invoice recipient'."
-
-Let me know if this is clear and concise!
+For org:FormalOrganization instances, they must have a frapo:hasCountryCode property with exactly one string value, maximum length 3, unless they are of rdf:type "http://example.com/InvoiceeRole", otherwise the error message "Data element 3207 is missing for Segment NAD+IV, i.e. specification of the country of the invoice recipient" will be shown.
 ----
 
 Translation #40
@@ -926,9 +832,7 @@ Translation #40
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For each Formal Organization, if it doesn't have rdf:type "http://example.com/InvoiceeRole", then it must have exactly one vcard:hasStreetAddress property with a string value between 1 and 35 characters. If this property is missing or invalid, display: "Data element 3042 is missing for Segment NAD+IV, i.e. specification of the invoice recipient's street address".
+For org:FormalOrganization instances, if they are not of type http://example.com/InvoiceeRole, they must have exactly one vcard:hasStreetAddress property with a string value of no more than 35 characters; otherwise, display "Data element 3042 is missing for Segment NAD+IV, i.e. specification of the invoice recipient's street address".
 ----
 
 Translation #41
@@ -951,9 +855,7 @@ Translation #41
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For each org:FormalOrganization, if it doesn't have rdf:type "http://example.com/InvoiceeRole", then it must have exactly one vcard:postalCode with a maximum length of 9 characters; otherwise, display the error message "The data element 3251 is missing for the Segment NAD+IV, i.e. specification of the postal code of the invoice recipient".
+For org:FormalOrganization instances, if they do not have rdf:type "http://example.com/InvoiceeRole", then they must have exactly one vcard:postalCode with a string value of exactly 1 to 9 characters; otherwise, display the error message "The data element 3251 is missing for the Segment NAD+IV, i.e. specification of the postal code of the invoice recipient".
 ----
 
 Translation #42
@@ -970,9 +872,7 @@ Translation #42
     sh:targetClass edifact-o:E-Invoice .
 
 
-Here is the improved natural language sentence:
-
-"For every instance of edifact-o:E-Invoice, exactly one edifact-o:hasDeliveryParty property is required; otherwise, an error message 'The NAD+PR segment is missing' will be displayed.
+For instances of edifact-o:E-Invoice, the edifact-o:hasDeliveryParty property must have exactly one value; otherwise, display the error message "The NAD+PR segment is missing".
 ----
 
 Translation #43
@@ -994,9 +894,7 @@ Translation #43
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For an organization of type org:FormalOrganization, if it does not have the rdf:type 'http://example.com/DeliveryPartyRole', then it must have exactly one p2p-o-org:VATIdentifier property, which is a string value of maximum 14 characters; otherwise, show the error message: "The Segment RFF+VA is missing for the Segment NAD+DP, i.e. the VAT number of the delivery address is missing"."
+For an org:FormalOrganization, if it has rdf:type "http://example.com/DeliveryPartyRole", then it must not have a p2p-o-org:VATIdentifier property, otherwise, it must have exactly one p2p-o-org:VATIdentifier property with a string value between 1 and 14 characters; failure to meet this condition will display "The Segment RFF+VA is missing for the Segment NAD+DP, i.e. the VAT number of the delivery address is missing."
 ----
 
 Translation #44
@@ -1019,9 +917,7 @@ Translation #44
     sh:targetClass org:FormalOrganization .
 
 
-Here is a rewritten sentence that aims to improve clarity and conciseness:
-
-"For each org:FormalOrganization, if it is not of type http://example.com/DeliveryPartyRole, then it must have exactly one p2p-o-org:formalName property with a string value of up to 35 characters; otherwise, the following error message will be displayed: "The data element 3036 is missing for the Segment NAD+DP, specification of the formal name of the delivery address".
+For instances of org:FormalOrganization, the p2p-o-org:formalName property must be a string with exactly one value, having a maximum length of 35 characters; if this property is missing or invalid, display: "The data element 3036 is missing for the Segment NAD+DP, i.e. specification of the formal name of the delivery address".
 ----
 
 Translation #45
@@ -1045,9 +941,7 @@ Translation #45
     sh:targetClass org:FormalOrganization .
 
 
-Here is an improved version of the natural language sentence:
-
-"If an organization (org:FormalOrganization) is classified as a delivery party role (rdf:type "http://example.com/DeliveryPartyRole"), then it must have exactly one global location number (p2p-o-org:globalLocationNumber) with a value that is an integer between 1 and 13 digits. Otherwise, display the error message: 'The data element 3039 is missing for the Segment NAD+DP, i.e. specification of the GLN of the delivery address'."
+For org:FormalOrganization instances, unless they are of rdf:type "http://example.com/DeliveryPartyRole", the p2p-o-org:globalLocationNumber property must exist exactly once and have a value that is an integer of exactly 13 digits, otherwise, show: "The data element 3039 is missing for the Segment NAD+DP, i.e. specification of the GLN of the delivery address".
 ----
 
 Translation #46
@@ -1070,9 +964,7 @@ Translation #46
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-"For each org:FormalOrganization that is not of type http://example.com/DeliveryPartyRole, it must have exactly one edifact-o:hasCity with a string value no longer than 35 characters; otherwise, display the type restriction and the message: "The data element 3164 is missing for the Segment NAD+DP, i.e. specification of the city of the delivery address"."
+For org:FormalOrganization instances, if they are not of type "http://example.com/DeliveryPartyRole", then they must have exactly one edifact-o:hasCity property with a string value of maximum 35 characters; otherwise, report an error with the message "The data element 3164 is missing for the Segment NAD+DP, i.e. specification of the city of the delivery address".
 ----
 
 Translation #47
@@ -1095,9 +987,7 @@ Translation #47
     sh:targetClass org:FormalOrganization .
 
 
-Here is the rewritten sentence:
-
-For each org:FormalOrganization, if it is not of rdf:type "http://example.com/DeliveryPartyRole", it must have exactly one frapo:hasCountryCode property with a string value of maximum length 3; otherwise, display the error message "Data element 3207 is missing for the Segment NAD+DP, i.e. specification of the country of the delivery address".
+For instances of org:FormalOrganization, if the rdf:type is not "http://example.com/DeliveryPartyRole", then the frapo:hasCountryCode property must be a single string value with a maximum length of 3 characters; otherwise, display the error message "Data element 3207 is missing for the Segment NAD+DP, i.e. specification of the country of the delivery address".
 ----
 
 Translation #48
@@ -1120,9 +1010,7 @@ Translation #48
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved natural language sentence:
-
-For each organization (org:FormalOrganization), if it does not have a type of "http://example.com/DeliveryPartyRole", then it must have exactly one string value for the property "street address" (vcard:hasStreetAddress) with a maximum length of 35 characters; otherwise, an error will be raised with the message "The data element 3042 is missing for the Segment NAD+DP, i.e. specification of the street of the delivery address".
+For instances of org:FormalOrganization, if they are not of rdf:type "http://example.com/DeliveryPartyRole", the vcard:hasStreetAddress property must be a string with exactly one value, a maximum length of 35 characters, and it must be present; otherwise, display the error message "The data element 3042 is missing for the Segment NAD+DP, i.e. specification of the street of the delivery address".
 ----
 
 Translation #49
@@ -1145,11 +1033,7 @@ Translation #49
     sh:targetClass org:FormalOrganization .
 
 
-Here is a rewritten version of the natural language sentence:
-
-"For each org:FormalOrganization, if it is not of rdf:type 'http://example.com/DeliveryPartyRole', then it must have exactly one vcard:postalCode property, which must be a string with a maximum length of 9 characters. If this property is missing or invalid, display the error message: 'The data element 3251 is missing for the Segment NAD+DP, i.e. specification of the postal code of the delivery address'."
-
-Let me know if this is more concise and clear!
+For org:FormalOrganization, it must have exactly one vcard:postalCode property with a string value of maximum 9 characters), unless it is of rdf:type "http://example.com/DeliveryPartyRole", otherwise, the error message "The data element is missing for the Segment NAD+DP, i.e. specification of the postal code of the delivery address" will be shown.
 ----
 
 Translation #50
@@ -1168,9 +1052,7 @@ Translation #50
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-For instances of edifact-o:InvoiceDetails, the schema1:currency property must have exactly one string. If it's missing, show: "The CUX segment in the invoice header is missing".
+For instances of edifact-o:InvoiceDetails, the schema1:currency property must be a string with exactly one value; if it is missing or invalid, show the error message "The CUX segment in the invoice header is missing".
 ----
 
 Translation #51
@@ -1191,15 +1073,7 @@ Translation #51
     sh:targetClass edifact-o:item .
 
 
-Here is the rewritten natural language sentence:
-
-"For each edifact-o:item, exactly one of the following conditions must be met: the edifact-o:hasProductIdentification property must have at least one string value equal to 'International Article Number', or the edifact-o:itemNumberSupplier property must have at least one string value. If neither condition is met, display: 'The LIN segment with the value EN in data element 7143 is missing, i.e. the specification of the EAN article number or the PIA segment with the value SA in data element 7143 is missing, i.e. the specification of the supplier's article number.'"
-
-I made the following changes:
-
-* Added "have at least one string value" to clarify the cardinality constraint.
-* Changed "be a string" to "have at least one string value" to make it clear that the property can have multiple values, but at least one of them must meet the condition.
-* Emphasized that both conditions are required to be met, and if neither is met, the error message will be displayed.
+For instances of edifact-o:item, either the edifact-o:hasProductIdentification property must have at least one string value equal to "International Article Number" or the edifact-o:itemNumberSupplier property must have at least one string value; if neither condition is met, display: "The LIN segment with the value EN in data element 7143 is missing, i.e. the specification of the EAN article number or the PIA segment with the value SA in data element 7143 is missing, i.e. the specification of the supplier's article number.
 ----
 
 Translation #52
@@ -1218,9 +1092,7 @@ Translation #52
     sh:targetClass edifact-o:item .
 
 
-Here is the rewritten sentence:
-
-For each instance of edifact-o:item, exactly one edifact-o:deliveredQuantity property is required, which must be a float value not exceeding 15 characters in length; failure to meet this constraint will trigger the error message "The segment QTY+12 is missing, i.e. the specification of the calculated quantity."
+For instances of edifact-o:item, the property edifact-o:deliveredQuantity must be specified exactly once with a value that is a floating-point number with a maximum of 15 digits; if this property is missing or invalid, show "The segment QTY+12 is missing, i.e. the specification of the calculated quantity."
 ----
 
 Translation #53
@@ -1240,18 +1112,7 @@ Translation #53
     sh:targetClass edifact-o:item .
 
 
-Here is a rewritten version of the natural language sentence:
-
-"For each edifact-o:item, the p2p-o-doc-line:invoicedQuantity property must appear exactly once and have a value that is a float number with at most 15 digits. If this property does not meet these requirements or is missing, display the error message: 'The segment QTY+47 is missing, i.e. the specification of the calculated quantity.'"
-
-This rewritten sentence aims to be clear and concise while also ensuring that all important constraints are mentioned, including:
-
-* Target class: edifact-o:item
-* Property name: p2p-o-doc-line:invoicedQuantity
-* Cardinality: exactly one
-* Data type: float
-* Maximum length: 15 digits
-* Error message: 'The segment QTY+47 is missing, i.e. the specification of the calculated quantity.'
+For instances of edifact-o:item, the p2p-o-doc-line:invoicedQuantity property must be a float value with exactly one occurrence, a maximum length of 15 characters, and is mandatory; if it is missing or invalid, show the error message "The segment QTY+47 is missing, i.e. the specification of the calculated quantity."
 ----
 
 Translation #54
@@ -1270,9 +1131,7 @@ Translation #54
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-For instances of class edifact-o:item, the property edifact-o:hasLineItemAmount must have exactly one float value with a maximum of 14 characters; if this property is absent or appears more than once, the error message is "The segment MOA+203 is missing, i.e. the indication of the net position price."
+For instances of edifact-o:item, the edifact-o:hasLineItemAmount property must be a float with exactly one value, a maximum of 14 digits, and is required; if it is missing or invalid, display: "The segment MOA+203 is missing, i.e. the indication of the net position price."
 ----
 
 Translation #55
@@ -1291,9 +1150,7 @@ Translation #55
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-For each item (edifact-o:item class), there must be exactly one edifact-o:hasNetpriceOfItem property with a float value that does not exceed 13 characters; if this property is missing or appears multiple times, display the error message "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article."
+For instances of edifact-o:item, the edifact-o:hasNetpriceOfItem property must be a float with exactly one value, a maximum length of 13 characters, and is mandatory, otherwise, show: "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article."
 ----
 
 Translation #56
@@ -1312,9 +1169,7 @@ Translation #56
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:item, there must be exactly one edifact-o:hasGrosspriceOfItem property with a float value no longer than 13 characters; if this property is missing or appears multiple times, an error will be reported with the message: 'The PRI+AAB segment is missing, i.e. the indication of the net price of an individual article'."
+For edifact-o:item, the edifact-o:hasGrosspriceOfItem property must be a float with exactly one value, a maximum length of 13 characters, and is mandatory; if this property is missing or invalid, display: "The PRI+AAB segment is missing, i.e. the indication of the net price of an individual article."
 ----
 
 Translation #57
@@ -1329,17 +1184,7 @@ Translation #57
             sh:path edifact-o:orderNumberSupplier ] .
 
 
-Here is the improved natural language sentence:
-
-"For any instance, the edifact-o:orderNumberSupplier property must appear exactly once, otherwise display 'The order number of the supplier, RFF+VN, is missing.'"
-
-I made the following changes:
-
-* Added "exactly" to specify that the cardinality is not just a minimum, but exactly one.
-* Removed "of any type" as it's implied by the fact that there is no target class specified.
-* Made the sentence more direct and concise.
-
-Let me know if you have any further requests!
+For instances, the edifact-o:orderNumberSupplier property must have exactly one value; otherwise, display the message "The order number of the supplier, RFF+VN, is missing".
 ----
 
 Translation #58
@@ -1357,9 +1202,7 @@ Translation #58
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-For each instance of edifact-o:item, exactly one value of type string is required for the property edifact-o:orderNumberSupplier. If this property is missing, an error message will be displayed: "The order number of the supplier, RFF+VN, is missing in the item part."
+For instances of edifact-o:item, the edifact-o:orderNumberSupplier property must be a string with exactly one value; if it is missing or invalid, show: "The order number of the supplier, RFF+VN, is missing in the item part."
 ----
 
 Translation #59
@@ -1376,9 +1219,7 @@ Translation #59
     sh:targetClass edifact-o:item .
 
 
-Here is a rewritten sentence that captures all the important constraints:
-
-"For each instance of edifact-o:item, the edifact-o:orderNumberSupplier property must be a string with a maximum length of 35 characters; if it exceeds this limit, an error will be raised with the message 'The order number of the supplier, RFF+VN, in the item part is too long.'"
+For instances of edifact-o:item, the edifact-o:orderNumberSupplier property must be a single string value with a maximum length of 35 characters; if it exceeds 35 characters, show: "The order number of the supplier, RFF+VN, in the item part is too long."
 ----
 
 Translation #60
@@ -1396,9 +1237,7 @@ Translation #60
     sh:targetClass edifact-o:item .
 
 
-Here is the improved sentence:
-
-For each item, the dateOrderNumberSupplier property must be a string with exactly one value; if missing, display: "The date of the supplier's order number, RFF+VN, is missing in the item part.""
+For instances of class edifact-o:item, the property edifact-o:dateOrderNumberSupplier must have exactly one string value; if it is missing or invalid, display: "The date of the supplier's order number, RFF+VN, is missing in the item part."
 ----
 
 Translation #61
@@ -1415,9 +1254,7 @@ Translation #61
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-For each instance of edifact-o:item, the edifact-o:dateOrderNumberSupplier property must be a string with a minimum length of 1 and a maximum length of 8 characters; if not, display: "The date of the supplier's order number, RFF+VN, in the item section must be long enough."
+For instances of edifact-o:item, the edifact-o:dateOrderNumberSupplier property must be a string with a minimum length of 1 and a maximum length of 8 characters; if not, show: "The date of the supplier's order number, RFF+VN, in the item section must be long enough."
 ----
 
 Translation #62
@@ -1435,9 +1272,7 @@ Translation #62
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"For each edifact-o:item, the edifact-o:orderNumberBuyer property must have exactly one value, which must be a string. If this property is missing, display: 'The order number of the supplier, RFF+ON, is missing in the item part.'"
+For instances of edifact-o:item, the edifact-o:orderNumberBuyer property must be a single string value, and it is mandatory; if it is invalid or absent, display: "The order number of the supplier, RFF+ON, is missing in the item part."
 ----
 
 Translation #63
@@ -1454,11 +1289,7 @@ Translation #63
     sh:targetClass edifact-o:item .
 
 
-Here is a rewritten version of the natural language sentence that conveys the meaning of the SHACL shape in a clear and concise manner:
-
-"For instances of edifact-o:item, the edifact-o:orderNumberBuyer property must be a string of up to 35 characters; if it exceeds this length, the error message 'The order number, RFF+ON, in the item part is too long' will be displayed."
-
-I made a few tweaks to ensure that the target class, property name, and cardinality (maximum length) are clearly stated, and the error message is properly attributed to the constraint violation. Let me know if this meets your requirements!
+For instances of edifact-o:item, the edifact-o:orderNumberBuyer property must be a single string value with a maximum length of 35 characters; if it exceeds 35 characters, show: "The order number of the supplier, RFF+ON, in the item part is too long."
 ----
 
 Translation #64
@@ -1476,9 +1307,7 @@ Translation #64
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-Each edifact-o:item must have exactly one edifact-o:dateOrderNumberBuyer property, which must be a string; if it's missing, display "The date of the supplier's order number, RFF+ON, is missing in the item part."
+For instances of edifact-o:item, the edifact-o:dateOrderNumberBuyer property must be a single string value; otherwise, an error will occur with the message "The date of the supplier's order number, RFF+ON, is missing in the item part."
 ----
 
 Translation #65
@@ -1495,9 +1324,7 @@ Translation #65
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:item class, the edifact-o:dateOrderNumberBuyer property must be a string with a maximum length of 8 characters; if the length exceeds 8 characters, the error message "The date of the supplier's order number, RFF+ON, in the item part is too long" will be displayed."
+For instances of edifact-o:item, the edifact-o:dateOrderNumberBuyer property must be a single string value with a maximum length of 8 characters, otherwise, show the error message "The date of the supplier's order number, RFF+ON, in the item part is too long."
 ----
 
 Translation #66
@@ -1515,9 +1342,7 @@ Translation #66
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-For each instance of edifact-o:InvoiceDetails, the edifact-o:hasInvoiceAmount property must appear exactly once with a value that is a string with a maximum length of 14 characters. If this constraint is not met, display the error message: "The segment MOA+77 is missing, i.e. the invoice amount is missing."
+For instances of edifact-o:InvoiceDetails, the edifact-o:hasInvoiceAmount property must be a single string value, exactly one occurrence, with a maximum length of 14 characters; if it does not meet these constraints, display the message "The segment MOA+77 is missing, i.e. the invoice amount is missing."
 ----
 
 Translation #67
@@ -1534,9 +1359,7 @@ Translation #67
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:InvoiceDetails, exactly one value is required for the property edifact-o:hasTotalLineItemAmount; if missing, display error message: 'The segment MOA+79 is missing, i.e. the indication of the total position amount.'"
+In an edifact-o:InvoiceDetails instance, exactly one value for the edifact-o:hasTotalLineItemAmount property is required, otherwise, the error message "The segment MOA+79 is missing, i.e. the indication of the total position amount." will be shown.
 ----
 
 Translation #68
@@ -1553,9 +1376,7 @@ Translation #68
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten natural language sentence:
-
-"For instances of edifact-o:InvoiceDetails, the edifact-o:hasTotalAdditionsAndDeductions property is required and can only appear once; if it is missing, an error will be raised with the message 'The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions.'"
+For instances of edifact-o:InvoiceDetails, exactly one value for the edifact-o:hasTotalAdditionsAndDeductions property is required; if it is missing or invalid, display the error message "The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions."
 ----
 
 Translation #69
@@ -1572,9 +1393,7 @@ Translation #69
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved sentence:
-
-For each instance of edifact-o:InvoiceDetails, the property edifact-o:hasTaxableAmount must occur exactly once; otherwise, an error will be displayed with the message "The segment MOA+125 is missing, i.e. the indication of the taxable amount."
+For instances of edifact-o:InvoiceDetails, the edifact-o:hasTaxableAmount property must be present with exactly one value, otherwise display "The segment MOA+125 is missing, i.e. the indication of the taxable amount."
 ----
 
 Translation #70
@@ -1593,9 +1412,7 @@ Translation #70
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved sentence:
-
-For each org:FormalOrganization, the edifact-o:additionalPartnerIdentificationEANCode property must be a string with a maximum length of 35 characters and must appear exactly once; if this constraint is violated, the error message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification." will be displayed.
+For instances of org:FormalOrganization, the edifact-o:additionalPartnerIdentificationEANCode property must be a string with a maximum length of 35 characters and exactly one value, otherwise the error message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification." is displayed.
 ----
 
 Translation #71
@@ -1614,11 +1431,7 @@ Translation #71
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:paymentCondition property must be a string with one of the following values: "As usual", "Extended", "Wie ueblich", or "Verlaengert", and can appear between 1 and 5 times. If the value is not one of the expected ones, show: "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7."
-
-Note that I added "between 1 and 5" to specify the exact cardinality range, which was implicit in the SHACL code.
+For instances of edifact-o:InvoiceDetails, the edifact-o:paymentCondition property must be a string with a maximum of 5 occurrences, each value being one of the following: "As usual", "Extended", "Wie üblich", "Verlængert"; if the specified payment term does not meet these conditions, display "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7."
 ----
 
 Translation #72
@@ -1636,9 +1449,7 @@ Translation #72
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:valutaDate property must be a string with a maximum length of 8 characters and must appear exactly once; if it exceeds 8 characters or appears multiple times, show the error message "The specified value date is too long, i.e. the DTM+209."
+For instances of edifact-o:InvoiceDetails, the edifact-o:valutaDate property must be a single string value not exceeding 8 characters; if it does, display "The specified value date is too long, i.e. the DTM+209.""
 ----
 
 Translation #73
@@ -1656,9 +1467,7 @@ Translation #73
     sh:targetClass edifact-o:item .
 
 
-Here is the rewritten sentence:
-
-For instances of edifact-o:item, the edifact-o:hasAllowanceReason property must be a string with a minimum length of 1 character and a maximum of 15 values. If this property is missing, has less than 1 character, or has more than 15 values, show: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the fee type specification."
+For instances of edifact-o:item, the edifact-o:hasAllowanceReason property must be a string with a minimum length of 1 character and a maximum of 15 occurrences, specifying multiple allowance reasons; if the data element 7160 or 7161 is missing in the ALC segment, show the error: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification."
 ----
 
 Translation #74
@@ -1676,11 +1485,7 @@ Translation #74
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:item, the edifact-o:hasDiscountReason property must have at least one occurrences and at most 15 occurrences, with a value that is a string of at least 1 character in length. If this property is missing or invalid, display the error message: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tree type specification.""
-
-Let me know if you need further improvements!
+For instances of edifact-o:item, the edifact-o:hasDiscountReason property must be a string with a minimum length of 1 and a maximum of 15 occurrences. If this property is missing or invalid, show: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification."
 ----
 
 Translation #75
@@ -1698,11 +1503,7 @@ Translation #75
     sh:targetClass edifact-o:item .
 
 
-Here is the improved sentence:
-
-For each edifact-o:item, the edifact-o:hasChargeReason property must be a string with a minimum length of 1 character and a maximum count of 15 occurrences; if the property is missing or invalid, display: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type."
-
-Let me know if this meets your requirements!
+For instances of edifact-o:item, the edifact-o:hasChargeReason property must be a string with a minimum length of 1 character and a maximum of 15 occurrences, with a constraint message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type."
 ----
 
 Translation #76
@@ -1721,9 +1522,7 @@ Translation #76
     sh:targetClass edifact-o:item .
 
 
-Here is the improved sentence:
-
-For each edifact-o:item, the edifact-o:hasAllowancePercentage property must be a float value with a minimum of 1 and a maximum length of 5 characters, appearing between 1 and 15 times. If the property is missing or invalid, display: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
+For instances of edifact-o:item, the edifact-o:hasAllowancePercentage property must be a float value with a minimum of 1 and a maximum of 5 characters, and have at most 15 occurrences. If it does not meet these conditions or is missing, show: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount".
 ----
 
 Translation #77
@@ -1742,9 +1541,7 @@ Translation #77
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:item, the property edifact-o:hasDiscountPercentage must be a float value with a minimum length of 1, a maximum length of 5, and must appear between 1 and 15 times. If this property is invalid or missing, display the error message: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
+For instances of edifact-o:item, the edifact-o:hasDiscountPercentage property must be a float with a minimum length of 1 character and a maximum length of 5 characters, and must have between 1 and 15 values; if it does not meet these constraints, display: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
 ----
 
 Translation #78
@@ -1763,9 +1560,7 @@ Translation #78
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"For instances of edifact-o:item, the edifact-o:hasChargePercentage property must be a float value between 1 and 5 characters, appearing at most 15 times. If it is missing or invalid, 'The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge.'"
+For instances of edifact-o:item, the edifact-o:hasChargePercentage property must be a float value between 1 and 5 characters long, with a maximum of 15 occurrences. If this constraint is not satisfied, the error message is: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge."
 ----
 
 Translation #79
@@ -1788,7 +1583,7 @@ Translation #79
 
 Here is the rewritten natural language sentence:
 
-"For each edifact-o:item, either p2p-o-inv:hasAllowanceAmount or edifact-o:hasDiscountAmount must be present, with a maximum of 2 occurrences each, and with a string value of maximum length 13 characters. If neither property is present or their values exceed the allowed length, show the error message: "The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice.""
+For every instance of edifact-o:item, exactly one or two values are allowed for either p2p-o-inv:hasAllowanceAmount or edifact-o:hasDiscountAmount, and each value must be a string with a maximum length of 13 characters; if this constraint is not met, "The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice."
 ----
 
 Translation #80
@@ -1805,9 +1600,7 @@ Translation #80
     sh:targetClass edifact-o:item .
 
 
-Here is the rewritten sentence:
-
-For each instance of edifact-o:item, the edifact-o:hasVATrate property must be a string with a maximum length of 5 characters and can appear between 1 to 5 times; if this constraint is violated, display the error message: "The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect."
+For each instance of class edifact-o:item, the property edifact-o:hasVATrate must be a string with a maximum length of 5 characters, and it may appear between 1 and 5 times; if this property is invalid or exceeds the specified limits, show the error message "The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect."
 ----
 
 Translation #81
@@ -1825,9 +1618,7 @@ Translation #81
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"Each edifact-o:item must have exactly one p2p-o-item:itemName property with a string value; if this property is missing or invalid, display the error message: 'The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name.'"
+For instances of edifact-o:item, the p2p-o-item:itemName property must be a string with exactly one value; otherwise, display the error message: "The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name."
 ----
 
 Translation #82
@@ -1844,9 +1635,7 @@ Translation #82
     sh:targetClass edifact-o:item .
 
 
-Here is the improved natural language sentence:
-
-"For each edifact-o:item, the edifact-o:hasTaxAmount property must be a string with a maximum length of 13 characters and must appear exactly once; otherwise, display: "The segment MOA+124 is incorrect, i.e. the tax amount is not specified.""
+For instances of edifact-o:item, the edifact-o:hasTaxAmount property must be a single string with a length of 13 characters, otherwise, the error message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." will be displayed.
 ----
 
 Translation #83
@@ -1869,9 +1658,7 @@ Translation #83
     sh:targetClass edifact-o:item .
 
 
-Here is a rewritten version of the sentence:
-
-"For instances of edifact-o:item, either the p2p-o-inv:hasAllowanceAmount property must be a string with a maximum length of 18 characters, appearing at most twice, or the edifact-o:hasDiscountAmount property must be a string with a maximum length of 18 characters, appearing at most twice; if neither property meets these conditions, the error message is: 'The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect.'"
+For instances of edifact-o:item, exactly one of the p2p-o-inv:hasAllowanceAmount property (a string with a maximum length of 18 characters and up to 2 values) or the edifact-o:hasDiscountAmount property (a string with a maximum length of 18 characters and up to 2 values) must be present; otherwise, display "The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect."
 ----
 
 Translation #84
@@ -1888,15 +1675,7 @@ Translation #84
     sh:targetClass edifact-o:item .
 
 
-Here is the rewritten sentence:
-
-For each edifact-o:item, the edifact-o:hasAdditionDeductionBasis property must be a string with a maximum length of 13 characters and must appear exactly once. If this property exceeds 13 characters or appears more than once, display: "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect".
-
-I made minor adjustments for clarity and concision:
-
-* "at most once" -> "exactly once" to emphasize the precise cardinality.
-* "appears multiple times" -> "appears more than once" for clarity.
-* Minor rewording for better sentence flow.
+For instances of edifact-o:item, the edifact-o:hasAdditionDeductionBasis property must be a single string value with a maximum length of 13 characters; otherwise, an error message will be displayed: "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect."
 ----
 
 Translation #85
@@ -1913,9 +1692,7 @@ Translation #85
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasVATrate property must have at most 5 occurrences, and each occurrence must be a string with at most 5 characters; if this constraint is violated, display the error message "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate."
+For instances of edifact-o:InvoiceDetails, the edifact-o:hasVATrate property must have between 1 and 5 values, each being a string with a maximum of 5 characters; otherwise, error message: "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate".
 ----
 
 Translation #86
@@ -1932,9 +1709,7 @@ Translation #86
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the rewritten sentence:
-
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasTaxAmount property must appear exactly once, with a maximum of 13 characters; if this condition is not met, display the error message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified."
+For instances of edifact-o:InvoiceDetails, the edifact-o:hasTaxAmount property must be a single string value with a maximum length of 13 characters; otherwise, an error will be raised with the message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified."
 ----
 
 Translation #87
@@ -1951,9 +1726,7 @@ Translation #87
     sh:targetClass edifact-o:E-Invoice .
 
 
-Here is the improved natural language sentence:
-
-Each instance of edifact-o:E-Invoice must have exactly one value "ProcessExample" for the edifact-o:belongsToProcess property.
+For instances of edifact-o:E-Invoice, the edifact-o:belongsToProcess property must have exactly one value, which must be "ProcessExample".
 ----
 
 Translation #88
@@ -1981,8 +1754,6 @@ Translation #88
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-Here is the improved natural language sentence:
-
-"For each instance of edifact-o:InvoiceDetails, the value of edifact-o:hasLineItemAmount must exactly equal the sum of all edifact-o:hasLineItemAmount values associated with the same invoice; otherwise, display the error message 'edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount'."
+For instances of edifact-o:InvoiceDetails, the value of edifact-o:hasTotalLineItemAmount must be equal to the sum of all values of edifact-o:hasLineItemAmount; if not, report "edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount".
 ----
 

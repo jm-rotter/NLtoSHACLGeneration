@@ -2,7 +2,7 @@ def build_prompt(shape: str, few_shot_examples: str, instruction: str) -> str:
     return f"{instruction}\n\n{few_shot_examples}\n\nTranslate the following SHACL shape into natural language: formulate the response as documentation and respond only with the translation itself.\n\n{shape}"
 
 def build_reflection_prompt(shape: str, nl_translation: str) -> str:
-    return f"You just translated the following SHACL shape: \n{shape}\ninto:\n{nl_translation}\nIs the meaning clear and concise? Are all important constraints (target class, property name, cardinality, message) mentioned? If you find any missing or unclear information, rewrite and improve your answer. Only return the improved natural language sentence."
+    return f"You just translated the following SHACL shape: \n{shape}\ninto:\n{nl_translation}\nIs the meaning clear and concise? Are all important constraints (target class, property name, cardinality, message) mentioned? If you find any missing or unclear information, rewrite and improve your answer. Only return the improved natural language sentence. Do not under any condition write anything other than the translation!"
 
 
 INITIAL_PROMPT = """You are an AI assistant. Your task is to convert the following SHACL shape into a clear natural language documentation sentence for a human reader.
@@ -75,6 +75,10 @@ Corresponding NL Translation
 If an org:FormalOrganization is not of rdf:type "http://example.com/BuyerRole", it must have a p2p-o-org:VATIdentifier property (a string with max length 14).
 Otherwise, show: "The segment RFF+VA is missing for NAD+BY".
 
+""" 
+
+"""
+
 SHACL(2)
 :CountryCodeValidation a sh:NodeShape;
     sh:targetClass org:FormalOrganization;
@@ -100,7 +104,6 @@ Corresponding NL Translation
 Each org:FormalOrganization must have a org:hasCountryCode that is exactly 3 characters long (per ISO 3166-1 alpha-3 standard).
 If not, display: "The country code must be a valid ISO 3166-1 alpha-3 code".
 
-
 SHACL(3)
 :Rechnungsdatum 
     a sh:NodeShape;
@@ -115,6 +118,8 @@ SHACL(3)
 
 Corresponding NL Translation
 For each edifact-o:InvoiceDetails, the property edifact-o:invoiceDate must be a date value and must appear exactly once. If this property is missing or appears multiple times, display: "The invoice date (DTM+137) is required and must appear exactly once."
+
+
 
 
 SHACL(4)
@@ -820,8 +825,6 @@ SHACL(50)
     ] .
 NL Translation:
 For each edifact-o:Entity50, the property edifact-o:invoiceDate must be of type date and must appear exactly once. If this condition is not met, display: "The value must appear exactly once."
-
-
 
 """
 

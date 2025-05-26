@@ -15,7 +15,5 @@ def printTranslationsToFile(fileName, translations):
 def printTranslationsToJSONFile(filename, translations):
     file = open(filename, "w")
     for (shacl, nl) in translations:
-            prompt = f"### Instruction:\nTranslate this natural language sentence to SHACL:\n\"{nl}\"\n### Response:"
-            response = shacl
-            json_line = json.dumps({"prompt": prompt, "response": response})
+            json_line = json.dumps({"prompt": nl, "response": shacl})
             file.write(json_line + "\n")
