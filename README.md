@@ -38,5 +38,5 @@ shacltranslations.jsonl is the first 84 (out of 89) translations from our synthe
 Last 5 are our test split (for right now).
 
 
-Currently the program computes 90.95 epochs? idk? and the output from that run is in `output.txt` along with the corresponding weights.
+Currently the program computes 90.95 epochs? idk? and the output from that run is in `output.txt` along with the corresponding weights. 
 
