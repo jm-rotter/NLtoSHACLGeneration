@@ -30,7 +30,7 @@ The dataset used for the synthetic data generation is provided by `https://githu
 In progress
 
 trainer.py loads the model and does the fine-tuning using LoRA described by the presentation mentioned above and saves the trained adaption layers to the file `lora_weights`. 
-`lora_weights` is not in the repo do to size limitations.
+`lora_weights` is not in the repo due to size limitations.
 inference.py loads the weights previously created by trainer.py and then does a basic inference of one of the 5 examples that was withheld in the split. 
 
 
