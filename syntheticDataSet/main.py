@@ -1,4 +1,5 @@
 from rdflib import Graph, Namespace, URIRef, Literal
+from pathlib import Path
 from shaclParser import pullShapes
 from prompts import build_prompt, build_reflection_prompt, INITIAL_PROMPT, FEW_SHOT_EXAMPLES
 from groq import Groq
@@ -43,7 +44,6 @@ def translateShape(shape, verbose):
 
 
 
-from pathlib import Path
 
 dotenv_path = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path)

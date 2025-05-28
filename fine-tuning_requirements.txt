@@ -1,0 +1,6 @@
+datasets
+accelerate
+peft
+bitsandbytes
+unsloth_zoo
+unsloth
