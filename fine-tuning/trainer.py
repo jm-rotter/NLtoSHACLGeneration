@@ -45,7 +45,7 @@ model = FastLanguageModel.get_peft_model(
     loftq_config = None,  # And LoftQ
 )
 
-
+# Load SHACL dataset
 shacl_dataset = load_dataset("json", data_files="shacltranslations.jsonl", split="train")
 
 def convert_to_conversation(examples):
@@ -67,9 +67,9 @@ shacl_conversations = tokenizer.apply_chat_template(
 shacl_data = pd.Series(shacl_conversations)
 shacl_data.name = "text"
 
-final_dataset = Dataset.from_pandas(pd.DataFrame(shacl_data))
-final_dataset = final_dataset.shuffle(seed=3407)
+final_dataset = Dataset.from_pandas(pd.DataFrame(shacl_data)).shuffle(seed=3407)
 
+# Train configuration
 trainer = SFTTrainer(
     model=model,
     tokenizer=tokenizer,
@@ -77,11 +77,11 @@ trainer = SFTTrainer(
     eval_dataset=None,
     args=SFTConfig(
         dataset_text_field="text",
-        per_device_train_batch_size=2,
-        gradient_accumulation_steps=4,
+        per_device_train_batch_size=4,        # <-- Increased from 2 to 4
+        gradient_accumulation_steps=2,        # <-- Reduced from 4 to 2
         warmup_steps=5,
         num_train_epochs=100,
-        learning_rate=2e-4,
+        learning_rate=2e-5,                   # <-- Lowered from 2e-4 to 2e-5
         logging_steps=1,
         optim="adamw_8bit",
         weight_decay=0.01,
@@ -91,7 +91,7 @@ trainer = SFTTrainer(
     ),
 )
 
-
+# Begin training
 print("starting training")
 
 gpu_stats = torch.cuda.get_device_properties(0)
@@ -102,20 +102,17 @@ print(f"{start_gpu_memory} GB of memory reserved.")
 
 trainer_stats = trainer.train()
 
-
 used_memory = round(torch.cuda.max_memory_reserved() / 1024 / 1024 / 1024, 3)
 used_memory_for_lora = round(used_memory - start_gpu_memory, 3)
 used_percentage = round(used_memory / max_memory * 100, 3)
 lora_percentage = round(used_memory_for_lora / max_memory * 100, 3)
+
 print(f"{trainer_stats.metrics['train_runtime']} seconds used for training.")
-print(
-    f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training."
-)
+print(f"{round(trainer_stats.metrics['train_runtime']/60, 2)} minutes used for training.")
 print(f"Peak reserved memory = {used_memory} GB.")
 print(f"Peak reserved memory for training = {used_memory_for_lora} GB.")
 print(f"Peak reserved memory % of max memory = {used_percentage} %.")
 print(f"Peak reserved memory for training % of max memory = {lora_percentage} %.")
 
-
-#output saved weights to lora_weights
+# Save trained weights
 model.save_pretrained("lora_weights")
