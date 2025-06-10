@@ -15,7 +15,7 @@ Translation #0
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasDocumentType property must be a single string value, which is one of the following: "Commercial invoice", "Credit advice", "Value credit", "Value debit", "Handelsrechnung", "Gutschriftsanzeige", "Wertgutschrift", or "Wertbelastung". If this property is missing or invalid, display: "Data element 1001 is missing in the BGM segment".
+The SHACL shape :Dokumentenname applies to all instances of the class edifact-o:InvoiceDetails, specifying that the property edifact-o:hasDocumentType must be a string with a value of either "Commercial invoice", "Credit advice", "Value credit", "Value debit", "Handelsrechnung", "Gutschriftsanzeige", "Wertgutschrift", or "Wertbelastung", and must occur exactly once, with validation failure resulting in the message "Data element 1001 is missing in the BGM segment" if this constraint is not met.
 ----
 
 Translation #1
@@ -33,7 +33,7 @@ Translation #1
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasDocumentNumber property must be a single string value, and a validation error with the message "Data element 1004 is missing in the BGM segment" will occur if this value is missing.
+The SHACL shape :ExistenzBelegnummer applies to all instances of the class edifact-o:InvoiceDetails, mandating a string value (xsd:string) for the property edifact-o:hasDocumentNumber, with exactly one occurrence, and failing validation with the message "Data element 1004 is missing in the BGM segment" if this constraint is not met.
 ----
 
 Translation #2
@@ -50,7 +50,7 @@ Translation #2
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasDocumentNumber property must be a single string value with a maximum length of 12 characters; if it does, "The data element 1004 in the BGM segment is too long" will be reported.
+The SHACL shape :LaengeBelegnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing that each has exactly one edifact-o:hasDocumentNumber property with a string value, maximum 12 characters long, and producing the message "The data element 1004 in the BGM segment is too long" if this constraint is violated.
 ----
 
 Translation #3
@@ -70,7 +70,7 @@ Translation #3
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For edifact-o:InvoiceDetails, the edifact-o:hasDocumentFunction property must be a string with exactly one value from the list {"Cancellation", "Replacement", "Duplicate", "Original", "Copy", "Additional transfer", "Stornierung", "Ersatz", "Duplikat", "Original", "Kopie", "Zusaetzliche Uebertragung"}. If this property is missing or invalid, display: "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function".
+The SHACL shape :Dokumentfunktion applies to all instances of the class edifact-o:InvoiceDetails, specifying a property constraint on edifact-o:hasDocumentFunction that requires exactly one string value (xsd:string), which must be one of the following: "Cancellation", "Replacement", "Duplicate", "Original", "Copy", "Additional transfer", "Stornierung", "Ersatz", "Duplikat", "Kopie", "Zusaetzliche Uebertragung", with a validation failure message "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function" if the property is missing or its value is outside this list.
 ----
 
 Translation #4
@@ -88,7 +88,7 @@ Translation #4
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:documentDate property must be a single string value, otherwise, an error will be displayed with the message "The DTM+137 segment is missing".
+The SHACL shape :Belegdatum targets all instances of the class edifact-o:InvoiceDetails, requiring exactly one string value for the property edifact-o:documentDate, and validation will fail with the message "The DTM+137 segment is missing" if the property is missing or appears more than once.
 ----
 
 Translation #5
@@ -107,7 +107,7 @@ Translation #5
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the p2p-o-inv:actualDeliveryDate property must be a single string value, and it is required; if this property is not provided or is invalid, display the error message "The DTM+35 segment is missing".
+The SHACL shape :tatsaechliches_Lieferdatum applies to all instances of the class edifact-o:InvoiceDetails, mandating a single string-valued property p2p-o-inv:actualDeliveryDate, with a failure message "The DTM+35 segment is missing" if this property is absent or duplicated.
 ----
 
 Translation #6
@@ -125,7 +125,7 @@ Translation #6
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberSupplier property must be a single string value, otherwise, show the error message "The supplier's order number, RFF+VN, is missing from the header".
+The SHACL shape :ExistenzAuftragsnummerLieferantKopf applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one string value for the property edifact-o:orderNumberSupplier, with a validation failure message "The supplier's order number, RFF+VN, is missing from the header" if this property is missing.
 ----
 
 Translation #7
@@ -142,7 +142,7 @@ Translation #7
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the property edifact-o:orderNumberSupplier must be a string with a maximum length of 35 characters; exactly one value is allowed; if it exceeds 35 characters, show: "The order number of the supplier, RFF+VN, in the header is too long".
+The SHACL shape :LaengeAuftragsnummerLieferantKopf applies to all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the required property edifact-o:orderNumberSupplier to have a string value with a maximum length of 35 characters, and returning the message "The order number of the supplier, RFF+VN, in the header is too long" if the constraint is violated.
 ----
 
 Translation #8
@@ -160,7 +160,7 @@ Translation #8
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberSupplier property must be a single string value, otherwise, show the error message "The date of the supplier's order number, RFF+VN, is missing from the header"".
+The SHACL shape :ExistenzDatumAuftragsnummerLieferantKopf applies to all instances of the class edifact-o:InvoiceDetails and requires a single string value (xsd:string) for the property edifact-o:dateOrderNumberSupplier, with a validation error message "The date of the supplier's order number, RFF+VN, is missing from the header" if the property is missing or has multiple values.
 ----
 
 Translation #9
@@ -177,7 +177,7 @@ Translation #9
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberSupplier property must be a single string value with a maximum length of 8 characters; if it does, show the error message "The date of the supplier's order number, RFF+VN, in the header is too long".
+The SHACL shape :LaengeDatumAuftragsnummerLieferantKopf applies to all instances of the class edifact-o:InvoiceDetails, specifying a single property constraint on edifact-o:dateOrderNumberSupplier, requiring its value to be a string (xsd:string) with a maximum length of 8 characters, and producing the validation message "The date of the supplier's order number, RFF+VN, in the header is too long" if this constraint is violated.
 ----
 
 Translation #10
@@ -195,7 +195,7 @@ Translation #10
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberBuyer property must be a single string value, otherwise, the error message "The supplier's order number, RFF+ON, is missing from the header" will be displayed.
+The SHACL shape :ExistenzAuftragsnummerKaeuferKopf applies to all instances of the class edifact-o:InvoiceDetails, mandating the presence of exactly one value for the property edifact-o:orderNumberBuyer, which must be a string, with a failure message "The supplier's order number, RFF+ON, is missing from the header" if this constraint is not met.
 ----
 
 Translation #11
@@ -212,7 +212,7 @@ Translation #11
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-In instances of edifact-o:InvoiceDetails, the edifact-o:orderNumberBuyer property must exactly have one value which is a string with a maximum length of 35 characters; if it exceeds 35 characters, show: "The order number of the supplier, RFF+ON, in the header is too long".
+The SHACL shape :LaengeAuftragsnummerKaeuferKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:orderNumberBuyer, which must be a string (xsd:string) with exactly one value, having a maximum length of 35 characters"; if this constraint is violated, the validation will produce the message: "The order number of the supplier, RFF+ON, in the header is too long."
 ----
 
 Translation #12
@@ -230,7 +230,7 @@ Translation #12
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberBuyer property must be a single string value, and it is mandatory to provide this value; if it is missing or invalid, show the error message "The date of the supplier's order number, RFF+ON, is missing from the header".
+The SHACL shape :ExistenzDatumAuftragsnummerKaeuferKopf targets all instances of the class edifact-o:InvoiceDetails, specifying a property constraint on edifact-o:dateOrderNumberBuyer, requiring exactly one string value, with a validation error message "The date of the supplier's order number, RFF+ON, is missing from the header" if the property is missing or appears more than once.
 ----
 
 Translation #13
@@ -247,7 +247,7 @@ Translation #13
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateOrderNumberBuyer property must be a single string value with a maximum length of 8 characters; if not, display the error message "The date of the supplier's order number, RFF+ON, in the header is too long".
+The SHACL shape :LaengeDatumAuftragsnummerKaeuferKopf applies to all instances of the class edifact-o:InvoiceDetails, requiring the property edifact-o:dateOrderNumberBuyer to have exactly one string value (xsd:string) with a maximum length of 8 characters; if this constraint is violated, the validation will produce the message: "The date of the supplier's order number, RFF+ON, in the header is too long."
 ----
 
 Translation #14
@@ -265,7 +265,7 @@ Translation #14
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:deliveryNoteNumber property must be a single string value; otherwise, an error will occur with the message "The supplier's order number, RFF+DQ, is missing".
+The SHACL shape :ExistenzLieferscheinnummer applies to all instances of the class edifact-o:InvoiceDetails, mandating a single string value (xsd:string) for the edifact-o:deliveryNoteNumber property, with a validation error message "The supplier's order number, RFF+DQ, is missing" if this constraint is not met.
 ----
 
 Translation #15
@@ -282,7 +282,7 @@ Translation #15
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:deliveryNoteNumber property must exist and be a string value having a maximum of 35 characters; if it exceeds 35 characters, display the error message "The supplier's order number, RFF+DQ, is too long".
+The SHACL shape :LaengeLieferscheinnummer targets all instances of the class edifact-o:InvoiceDetails, specifying that each must have exactly one property edifact-o:deliveryNoteNumber with a value that is a string of maximum 35 characters, and if this constraint is violated, the validation will produce the message "The supplier's order number, RFF+DQ, is too long."
 ----
 
 Translation #16
@@ -300,7 +300,7 @@ Translation #16
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateDeliveryNoteNumber property must be a single string value, and it is mandatory; if this property is missing or invalid, display: "The date of the supplier's order number, RFF+DQ, is missing".
+The SHACL shape :ExistenzDatumLieferscheinnummer applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one string value (xsd:string) for the property edifact-o:dateDeliveryNoteNumber, with a validation error message "The date of the supplier's order number, RFF+DQ, is missing" if it's missing or appears more than once.
 ----
 
 Translation #17
@@ -317,7 +317,7 @@ Translation #17
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:dateDeliveryNoteNumber property must be a string with a maximum length of 8 characters; absence of this property is allowed. If the length exceeds 8 characters, show: "The date of the supplier's order number, RFF+DQ, is too long".
+The SHACL shape :LaengeDatumLieferscheinnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:dateDeliveryNoteNumber, which must be a single value (no cardinality constraint specified) with a string datatype and a maximum of 8 characters, producing the validation error message "The date of the supplier's order number, RFF+DQ, is too long" if this constraint is not met.
 ----
 
 Translation #18
@@ -335,7 +335,7 @@ Translation #18
     sh:targetClass edifact-o:E-Invoice .
 
 
-For instances of edifact-o:E-Invoice, the property p2p-o-inv:hasBuyer must have exactly one value; if this property is missing, an error will occur with the message "The NAD+BY segment is missing".
+The SHACL shape :ExistenzKaeufer applies to all instances of edifact-o:E-Invoice, specifying that the p2p-o-inv:hasBuyer property must appear exactly once, and if it's missing or appears more than once, validation will fail with the message "The NAD+BY is missing".
 ----
 
 Translation #19
@@ -357,7 +357,7 @@ Translation #19
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, if they have rdf:type "http://example.com/BuyerRole", then no p2p-o-org:VATIdentifier is required; otherwise, they must have exactly one p2p-o-org:VATIdentifier property, which is a string with a maximum length of 14 characters, and if not provided, display: "The Segment RFF+VA is missing for the Segment NAD+BY, i.e. the buyer's VAT number is missing".
+The SHACL shape :UmsatzsteuernummerKaeufer applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/BuyerRole", then it must have a single p2p-o-org:VATIdentifier property with a string value of up to 14 characters; otherwise, validation will fail with the message "The Segment RFF+VA is missing for the Segment NAD+BY, i.e. the buyer's VAT number is missing".
 ----
 
 Translation #20
@@ -380,7 +380,7 @@ Translation #20
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances that are not of rdf:type "http://example.com/BuyerRole", the p2p-o-org:formalName property must be a string with a length between 1 and 35 characters, and exactly one value, otherwise display: "The data element 3036 is missing for the Segment NAD+BY, i.e. specification of the formal names of the buyer".
+The SHACL shape :FormalNameKaeufer applies to all instances of the class org:FormalOrganization, requiring that either the organization is not a "http://example.com/BuyerRole, or it has a p2p-o-org:formalName property with exactly one string literal value (minimum and maximum count of 1) with a maximum length of 35 characters; otherwise, the validation will fail with the error "The data element 3036 is missing for the Segment NAD+BY, i.e. specification of the formal names of the buyer".
 ----
 
 Translation #21
@@ -404,7 +404,7 @@ Translation #21
     sh:targetClass org:FormalOrganization .
 
 
-For an org:FormalOrganization, if it's not of rdf:type "http://example.com/BuyerRole", then it must have exactly one p2p-org:globalLocationNumber property, which is an integer with exactly 13 digits; otherwise, display: "Data element 3039 is missing for the Segment NAD+BY, i.e. specification of the GLN of the buyer."
+The SHACL shape :GLNKaeufer applies to all instances of the class org:FormalOrganization, specifying that if an organization is of type "http://example.com/BuyerRole, then it must have exactly one property p2p-o-org:globalLocationNumber with an integer value of exactly 13 characters in length; otherwise, the validation will fail with the message "Data element 3039 is missing for the Segment NAD+BY, i.e. specification of the GLN of the buyer."
 ----
 
 Translation #22
@@ -427,7 +427,7 @@ Translation #22
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization, unless it has rdf:type "http://example.com/BuyerRole", it must have exactly one edifact-o:hasCity property with a string value of maximum 35 characters; otherwise, display "The data element 3164 is missing for the Segment NAD+BY, i.e. specification of the buyer's city".
+The SHACL shape :StadtKaeufer applies to all instances of org:FormalOrganization, specifying that either the organization is not of type "http://example.com/BuyerRole" or, if it is, the property edifact-o:hasCity must be a string with a maximum length of 35 characters and present exactly once, otherwise, the validation will fail with the message "The data element 3164 is missing for the Segment NAD+BY, i.e. specification of the buyer's city".
 ----
 
 Translation #23
@@ -450,7 +450,7 @@ Translation #23
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, either the rdf:type must be "http://example.com/BuyerRole" or they must have exactly one frapo:hasCountryCode property with a string value of maximum 3 characters; otherwise, the error message "The data element 3207 is missing for the Segment NAD+BY, i.e. indication of the country of the buyer" will be shown.
+The SHACL shape :LandKaeufer applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/BuyerRole", then the property frapo:hasCountryCode must be present exactly once with a string value of maximum 3 characters. If this condition is not met, the validation will fail with the message: "The data element 3207 is missing for the Segment NAD+BY, i.e. indication of the country of the buyer".
 ----
 
 Translation #24
@@ -473,7 +473,7 @@ Translation #24
     sh:targetClass org:FormalOrganization .
 
 
-For an org:FormalOrganization, if it is not of rdf:type "http://example.com/BuyerRole", then it must have exactly one vcard:hasStreetAddress property with a string value of maximum length 35; otherwise, show: "The data element 3042 is missing for the Segment NAD+BY, i.e. the buyer's street address."
+The SHACL shape :StrasseKaeufer applies to all instances of the class org:FormalOrganization, requiring that either the organization is not a buyer (http://example.com/BuyerRole) or, if it is a buyer, then it must have exactly one vcard:hasStreetAddress property with a string value not exceeding 35 characters, otherwise the validation will fail with the message: "The data element 3042 is missing for the Segment NAD+BY, i.e. the buyer's street address."
 ----
 
 Translation #25
@@ -496,7 +496,7 @@ Translation #25
     sh:targetClass org:FormalOrganization .
 
 
-If an org:FormalOrganization is not of rdf:type "http://example.com/BuyerRole", then it has no constraint, but if it is, then it must have exactly one vcard:postalCode property, which is a string with a maximum length of 9, and absence of this data is indicated by the message "The data element 3251 is missing for the Segment NAD+BY, i.e. specification of the buyer's postal code".
+The SHACL shape :PLZKaeufer applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/BuyerRole", then it must have exactly one vcard:postalCode property with a string value no longer than 9 characters; otherwise, validation will fail with the message "The data element 3251 is missing for the Segment NAD+BY, i.e. specification of the buyer's postal code."
 ----
 
 Translation #26
@@ -514,7 +514,7 @@ Translation #26
     sh:targetClass edifact-o:E-Invoice .
 
 
-For instances of edifact-o:E-Invoice, the p2p-o-inv:hasSupplier property is required to exist with exactly one value, and if not, display the error message "The NAD+SU segment is missing".
+The SHACL shape :ExistenzLieferant applies to all instances of the class edifact-o:E-Invoice, requiring exactly one property p2p-o-inv:hasSupplier, which must occur once and only once; otherwise, validation will fail with the message "The NAD+SU segment is missing".
 ----
 
 Translation #27
@@ -536,9 +536,7 @@ Translation #27
     sh:targetClass org:FormalOrganization .
 
 
-Here is the improved translation:
-
-For each org:FormalOrganization, if it is not of rdf:type "http://example.com/SupplierRole", then it must have exactly one p2p-o-org:VATIdentifier property with a string value of maximum 14 characters. Otherwise, the system will display the error message "The Segment RFF+VA is missing for the Segment NAD+SU, i.e. Angabe of the VAT number of the supplier".
+The SHACL shape :UmsatzsteuernummerLieferant applies to all instances of the class org:FormalOrganization. It specifies a validation rule with an "or" condition: either the organization is not of type "http://example.com/SupplierRole" or, if it is, then it must have exactly one (mandatory) property p2p-o-org:VATIdentifier with a string value of maximum 14 characters. If neither condition is met, validation will fail with the message: "The Segment RFF+VA is missing for the Segment NAD+SU, i.e. Angabe of the VAT number of the supplier".
 ----
 
 Translation #28
@@ -561,7 +559,7 @@ Translation #28
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, if they are not of rdf:type "http://example.com/SupplierRole", they must have exactly one p2p-o-org:formalName property with a string value of maximum 35 characters; otherwise, the validation will fail with the message "The data element 3036 is missing for the Segment NAD+SU, i.e. specification of the formal name of the supplier".
+The SHACL shape :FormalNameLieferant applies to all instances of the class org:FormalOrganization, requiring that either the organization is not a supplier (rdf:type "http://example.com/SupplierRole") or, if it is a supplier, the property p2p-o-org:formalName must be present with a single string value (minCount 1, maxCount 1) of up to 35 characters; otherwise, the validation will fail with the message "The data element 3036 is missing for the Segment NAD+SU, i.e. specification of the formal name of the supplier".
 ----
 
 Translation #29
@@ -585,7 +583,7 @@ Translation #29
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, if it is not of rdf:type "http://example.com/SupplierRole", then the p2p-o-org:globalLocationNumber property must exist exactly once, its value must be an integer with exactly 13 digits, and if this condition is not met, show: "The data element 3039 is missing for the Segment NAD+SU, i.e. specification of the GLN of the supplier".
+The SHACL shape :GLNLieferant applies to all instances of the class org:FormalOrganization, requiring that either the organization is not a supplier (i.e., it does not have the RDF type "http://example.com/SupplierRole"), or, if it is a supplier, then it must have exactly one property p2p-o-org:globalLocationNumber with an integer value of exactly 13 characters; if neither condition is met, the validation will fail with the message "The data element 3039 is missing for the Segment NAD+SU, i.e. specification of the GLN of the supplier".
 ----
 
 Translation #30
@@ -608,7 +606,7 @@ Translation #30
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, if the rdf:type is not "http://example.com/SupplierRole", then the edifact-o:hasCity property must have exactly one string value with a maximum length of 35 characters; otherwise, show the error message "The data element 3164 is missing for the Segment NAD+SU, i.e. specification of the city of the supplier".
+The SHACL shape :StadtLieferant applies to all instances of the class org:FormalOrganization and specifies that if an organization has the RDF type "http://example.com/SupplierRole", then the property edifact-o:hasCity must be present exactly once with a value that is a string with a maximum length of 35 characters; otherwise, the validation will fail with the message "The data element 3164 is missing for the Segment NAD+SU, i.e. specification of the city of the supplier."
 ----
 
 Translation #31
@@ -631,7 +629,7 @@ Translation #31
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, if the rdf:type is not "http://example.com/SupplierRole", the frapo:hasCountryCode property must have exactly one string with a maximum length of 3 characters; otherwise, display "Data element 3207 is missing for the Segment NAD+SU, i.e. specification of the supplier's country".
+The SHACL shape :LandLieferant applies to all instances of the class org:FormalOrganization and specifies that either the organization is not a SupplierRole or it has a single country code (frapo:hasCountryCode) with a string value of maximum 3 characters; otherwise, the validation will fail with "Data element 3207 is missing for the Segment NAD+SU, i.e. specification of the supplier's country".
 ----
 
 Translation #32
@@ -654,7 +652,7 @@ Translation #32
     sh:targetClass org:FormalOrganization .
 
 
-If an org:FormalOrganization is not of rdf:type "http://example.com/SupplierRole", it must have exactly one vcard:hasStreetAddress property with a string value of maximum length 35; otherwise, show: "The data element 3042 is missing for the Segment NAD+SU, i.e. specification of the supplier's street".
+The SHACL shape :StrasseLieferant applies to all instances of the class org:FormalOrganization, specifying that if they have the RDF type "http://example.com/SupplierRole", then the property vcard:hasStreetAddress must be present exactly once with a string value no longer than 35 characters; otherwise, the validation will fail with the message "The data element 3042 is missing for the Segment NAD+SU, i.e. specification of the supplier's street".
 ----
 
 Translation #33
@@ -677,7 +675,7 @@ Translation #33
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, if they are not of type "http://example.com/SupplierRole", then they must have exactly one vcard:postalCode property with a string value of maximum 9 characters; otherwise, an error will occur with the message "The data element 3251 is missing for the Segment NAD+SU, i.e. the supplier's postal code".
+The SHACL shape :PLZLieferant applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/SupplierRole", then the property vcard:postalCode must be present exactly once with a string value of maximum 9 characters; otherwise, validation will fail with the message "The data element 3251 is missing for the Segment NAD+SU, i.e. specification of the supplier's postal code".
 ----
 
 Translation #34
@@ -694,7 +692,7 @@ Translation #34
     sh:targetClass edifact-o:E-Invoice .
 
 
-For instances of edifact-o:E-Invoice, the property edifact-o:hasInvoicee must have exactly one value; if this property is missing or invalid, display the error message "The NAD+IV segment is missing".
+The SHACL shape :ExistenzRechnungsempfaenger applies to all instances of the class edifact-o:E-Invoice, mandating a single occurrence of the property edifact-o:hasInvoicee, with a validation error message "The NAD+IV segment is missing" if this requirement is not met.
 ----
 
 Translation #35
@@ -716,7 +714,7 @@ Translation #35
     sh:targetClass org:FormalOrganization .
 
 
-If an org:FormalOrganization is of rdf:type "http://example.com/InvoiceeRole", it must have exactly one p2p-o-org:VATIdentifier property, which is a string with a maximum length of 14 characters; otherwise, the error message "The segment RFF+VA is missing for the segment NAD+IV, i.e. the VAT number of the invoice recipient is missing." will be displayed.
+The SHACL shape :UmsatzsteuernummerRechnungsempfaenger applies to all instances of the class org:FormalOrganization, specifying that an organization must either not have the RDF type "http://example.com/InvoiceeRole" or, if it does, must have exactly one p2p-o-org:VATIdentifier property with a string value of up to 14 characters; otherwise, validation will fail with the message "The segment RFF+VA is missing for the segment NAD+IV, i.e. the VAT number of the invoice recipient is missing."
 ----
 
 Translation #36
@@ -739,7 +737,7 @@ Translation #36
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, if not of rdf:type "http://example.com/InvoiceeRole", the p2p-o-org:formalName property must be a single string value, having a maximum length of 35 characters; otherwise, display "Data element 3036 is missing for Segment NAD+IV, i.e. specification of the formal name of the invoice recipient".
+The SHACL shape :FormalNameRechnungsempfaenger applies to all instances of the class org:FormalOrganization, requiring that if they have the RDF type "http://example.com/InvoiceeRole", then the property p2p-o-org:formalName must be present exactly once with a string value no longer than 35 characters; otherwise, validation will fail with the message "Data element 3036 is missing for Segment NAD+IV, i.e. specification of the formal name of the invoice recipient".
 ----
 
 Translation #37
@@ -763,7 +761,7 @@ Translation #37
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, they must either have an rdf:type of "http://example.com/InvoiceeRole" or have exactly one p2p-o-org:globalLocationNumber property with a value that is an integer of exactly 13 digits in length; otherwise, display "The data element 3039 is missing for the Segment NAD+IV, i.e. specification of the GLN of the invoice recipient".
+The SHACL shape :GLNRechnungsempfaenger applies to all instances of the class org:FormalOrganization, requiring either the absence of rdf:type "http://example.com/InvoiceeRole" or, if present, a single occurrence (exactly one) of the property p2p-o-org:globalLocationNumber with an integer value of exactly 13 characters in length; otherwise, validation will fail with the message "The data element 3039 is missing for the Segment NAD+IV, i.e. specification of the GLN of the invoice recipient".
 ----
 
 Translation #38
@@ -786,7 +784,7 @@ Translation #38
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, if they are not of type "http://example.com/InvoiceeRole", then they must have exactly one edifact-o:hasCity property with a string value no longer than 35 characters; otherwise, display the error message "The data element 3164 is missing for the Segment NAD+IV, i.e. the specification of the city of the invoice recipient".
+The SHACL shape :StadtRechnungsempfaenger applies to all instances of the class org:FormalOrganization, requiring that either they do not have the RDF type "http://example.com/InvoiceeRole" or, if they do, they must have a single string property edifact-o:hasCity with a maximum length of 35 characters; otherwise, the validation will fail with the message "The data element 3164 is missing for the Segment NAD+IV, i.e. specification of the city of the invoice recipient".
 ----
 
 Translation #39
@@ -809,7 +807,7 @@ Translation #39
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, they must have a frapo:hasCountryCode property with exactly one string value, maximum length 3, unless they are of rdf:type "http://example.com/InvoiceeRole", otherwise the error message "Data element 3207 is missing for Segment NAD+IV, i.e. specification of the country of the invoice recipient" will be shown.
+The SHACL shape :LandRechnungsempfaenger applies to all instances of the class org:FormalOrganization. It specifies a validation rule with an sh:or condition. Either the organization does not have the RDF type "http://example.com/InvoiceeRole", or, if it does have this type, the property frapo:hasCountryCode must be present exactly once with a value of a string having a maximum length of 3 characters. If neither of these conditions is met, the validation will fail with the message: "Data element 3207 is missing for Segment NAD+IV, i.e. specification of the country of the invoice recipient".
 ----
 
 Translation #40
@@ -832,7 +830,9 @@ Translation #40
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, if they are not of type http://example.com/InvoiceeRole, they must have exactly one vcard:hasStreetAddress property with a string value of no more than 35 characters; otherwise, display "Data element 3042 is missing for Segment NAD+IV, i.e. specification of the invoice recipient's street address".
+Here is the improved translation:
+
+The SHACL shape :StrasseRechnungsempfaenger applies to all instances of the class org:FormalOrganization and specifies a validation rule: an organization must either not have the RDF type "http://example.com/InvoiceeRole" or have exactly one vcard:hasStreet property with a string value of maximum 35 characters; otherwise, the validation fails with the message "Data element 3042 is missing for Segment NAD+IV, specification of the invoice recipient's street address".
 ----
 
 Translation #41
@@ -855,7 +855,7 @@ Translation #41
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, if they do not have rdf:type "http://example.com/InvoiceeRole", then they must have exactly one vcard:postalCode with a string value of exactly 1 to 9 characters; otherwise, display the error message "The data element 3251 is missing for the Segment NAD+IV, i.e. specification of the postal code of the invoice recipient".
+The SHACL shape :PLZRechnungsempfaenger applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/InvoiceeRole", then it must have exactly one vcard:postalCode property, which must be a string with a maximum length of 9 characters; otherwise, validation will fail with the message "The data element 3251 is missing for the Segment NAD+IV, i.e. specification of the postal code of the invoice recipient".
 ----
 
 Translation #42
@@ -872,7 +872,7 @@ Translation #42
     sh:targetClass edifact-o:E-Invoice .
 
 
-For instances of edifact-o:E-Invoice, the edifact-o:hasDeliveryParty property must have exactly one value; otherwise, display the error message "The NAD+PR segment is missing".
+The SHACL shape :ExistenzLieferanschrift applies to all instances of the class edifact-o:E-Invoice and requires exactly one value for each instance, which must be related to the property edifact-o:hasDeliveryParty, with a validation failure message "The NAD+PR segment is missing" if this property is not provided.
 ----
 
 Translation #43
@@ -894,7 +894,9 @@ Translation #43
     sh:targetClass org:FormalOrganization .
 
 
-For an org:FormalOrganization, if it has rdf:type "http://example.com/DeliveryPartyRole", then it must not have a p2p-o-org:VATIdentifier property, otherwise, it must have exactly one p2p-o-org:VATIdentifier property with a string value between 1 and 14 characters; failure to meet this condition will display "The Segment RFF+VA is missing for the Segment NAD+DP, i.e. the VAT number of the delivery address is missing."
+Here is an improved version of the natural language sentence:
+
+The SHACL shape :UmsatzsteuernummerLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that either the organization must not be of RDF type "http://example.com/DeliveryPartyRole", or it must have exactly one p2p-o-org:VATIdentifier property with a string value of maximum 14 characters; if neither condition is met, validation fails with the message "The Segment RFF+VA is missing for the Segment NAD+DP, i.e. the VAT number of the delivery address is missing."
 ----
 
 Translation #44
@@ -917,7 +919,7 @@ Translation #44
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, the p2p-o-org:formalName property must be a string with exactly one value, having a maximum length of 35 characters; if this property is missing or invalid, display: "The data element 3036 is missing for the Segment NAD+DP, i.e. specification of the formal name of the delivery address".
+The SHACL shape :FormalNameLieferanschrift applies to all instances of the class org:FormalOrganization, requiring that either they do not have the RDF type "http://example.com/DeliveryPartyRole" or, if they do, they must have exactly one string value for the property p2p-o-org:formalName with a maximum length of 35 characters; otherwise, the validation will fail with the message: "The data element 3036 is missing for the Segment NAD+DP, i.e. specification of the formal name of the delivery address".
 ----
 
 Translation #45
@@ -941,7 +943,7 @@ Translation #45
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, unless they are of rdf:type "http://example.com/DeliveryPartyRole", the p2p-o-org:globalLocationNumber property must exist exactly once and have a value that is an integer of exactly 13 digits, otherwise, show: "The data element 3039 is missing for the Segment NAD+DP, i.e. specification of the GLN of the delivery address".
+The SHACL shape :GLNLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that either the organization must not have the RDF type "http://example.com/DeliveryPartyRole" or, if it does, it must have exactly one property p2p-o-org:globalLocationNumber with an integer value of exactly 13 digits, failing validation with the message "The data element 3039 is missing for the Segment NAD+DP, i.e. specification of the GLN of the delivery address" if these conditions are not met.
 ----
 
 Translation #46
@@ -964,7 +966,7 @@ Translation #46
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization instances, if they are not of type "http://example.com/DeliveryPartyRole", then they must have exactly one edifact-o:hasCity property with a string value of maximum 35 characters; otherwise, report an error with the message "The data element 3164 is missing for the Segment NAD+DP, i.e. specification of the city of the delivery address".
+The SHACL shape :StadtLieferanschrift applies to all instances of org:FormalOrganization, specifying that an instance either does not have the RDF type "http://example.com/DeliveryPartyRole" or, if it does, it must have a single string-valued property edifact-o:hasCity with a maximum length of 35 characters; if these conditions are not met, the validation will fail with the message "The data element 3164 is missing for the Segment NAD+DP, i.e. specification of the city of the delivery address."
 ----
 
 Translation #47
@@ -987,7 +989,7 @@ Translation #47
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, if the rdf:type is not "http://example.com/DeliveryPartyRole", then the frapo:hasCountryCode property must be a single string value with a maximum length of 3 characters; otherwise, display the error message "Data element 3207 is missing for the Segment NAD+DP, i.e. specification of the country of the delivery address".
+The SHACL shape :LandLieferanschrift applies to all instances of the class org:FormalOrganization, requiring that either the organization does not have the RDF type "http://example.com/DeliveryPartyRole" or, if it does, the property frapo:hasCountryCode must be present exactly once with a string value of exactly 3 characters; otherwise, the validation will fail with the message "Data element 3207 is missing for the Segment NAD+DP, i.e. specification of the country of the delivery address".
 ----
 
 Translation #48
@@ -1010,7 +1012,7 @@ Translation #48
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, if they are not of rdf:type "http://example.com/DeliveryPartyRole", the vcard:hasStreetAddress property must be a string with exactly one value, a maximum length of 35 characters, and it must be present; otherwise, display the error message "The data element 3042 is missing for the Segment NAD+DP, i.e. specification of the street of the delivery address".
+The SHACL shape :StrasseLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that an instance must either not have the RDF type "http://example.com/DeliveryPartyRole" or, if it does, it must have exactly one string value for the property vcard:hasStreetAddress with a length of up to 35 characters; if these conditions are not fulfilled, the validation will fail with the message "The data element 3042 is missing for the Segment NAD+DP, i.e. specification of the street of the delivery address".
 ----
 
 Translation #49
@@ -1033,7 +1035,7 @@ Translation #49
     sh:targetClass org:FormalOrganization .
 
 
-For org:FormalOrganization, it must have exactly one vcard:postalCode property with a string value of maximum 9 characters), unless it is of rdf:type "http://example.com/DeliveryPartyRole", otherwise, the error message "The data element is missing for the Segment NAD+DP, i.e. specification of the postal code of the delivery address" will be shown.
+The SHACL shape :PLZLieferanschrift applies to all instances of the class org:FormalOrganization, requiring that either the organization is not of type "http://example.com/DeliveryPartyRole" or, if it is, then it must have exactly one vcard:postalCode property with a string value of up to 9 characters; failure to meet this condition will result in the error message "The data element 3251 is missing for the Segment NAD+DP, i.e. specification of the postal code of the delivery address."
 ----
 
 Translation #50
@@ -1052,7 +1054,7 @@ Translation #50
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the schema1:currency property must be a string with exactly one value; if it is missing or invalid, show the error message "The CUX segment in the invoice header is missing".
+The SHACL shape :Waehrung applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one string value (xsd:string) for the property schema1:currency, with a validation error message "The CUX segment in the invoice header is missing" if this property is missing or has an incorrect cardinality.
 ----
 
 Translation #51
@@ -1073,7 +1075,7 @@ Translation #51
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, either the edifact-o:hasProductIdentification property must have at least one string value equal to "International Article Number" or the edifact-o:itemNumberSupplier property must have at least one string value; if neither condition is met, display: "The LIN segment with the value EN in data element 7143 is missing, i.e. the specification of the EAN article number or the PIA segment with the value SA in data element 7143 is missing, i.e. the specification of the supplier's article number.
+The SHACL shape :EANAtrikelnummer applies to all instances of the class edifact-o:item, specifying that exactly one of the following conditions must be met: either the property edifact-o:hasProductIdentification must have a value "International Article Number" with a minimum count of 1, or the property edifact-o:itemNumberSupplier must have a minimum count of 1, both with a string value (xsd:string); otherwise, the validation will fail with the message "The LIN segment with the value EN in data element 7143 is missing, i.e. the specification of the EAN article number or the PIA segment with the value SA in data element 7143 is missing, i.e. the specification of the supplier's article number."
 ----
 
 Translation #52
@@ -1092,7 +1094,7 @@ Translation #52
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the property edifact-o:deliveredQuantity must be specified exactly once with a value that is a floating-point number with a maximum of 15 digits; if this property is missing or invalid, show "The segment QTY+12 is missing, i.e. the specification of the calculated quantity."
+The SHACL shape :BerechneteMenge applies to all instances of edifact-o:item and requires exactly one edifact-o:deliveredQuantity, which must be a float value with a length of up to 15 characters. If this property is missing or appears more than once, validation will fail with the message "The segment QTY+12 is missing, i.e. the specification of the calculated quantity."
 ----
 
 Translation #53
@@ -1112,7 +1114,9 @@ Translation #53
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the p2p-o-doc-line:invoicedQuantity property must be a float value with exactly one occurrence, a maximum length of 15 characters, and is mandatory; if it is missing or invalid, show the error message "The segment QTY+47 is missing, i.e. the specification of the calculated quantity."
+Here is a improved translation:
+
+The SHACL shape :BerechneteMenge applies to all instances of the class edifact-o:item and requires exactly one value for the property p2p-o-doc-line:invoicedQuantity, which must be a floating-point number with a maximum length of 15 characters; if this property is missing or appears more than once, validation will fail with the message "The segment QTY+47 is missing, i.e. the specification of the calculated quantity."
 ----
 
 Translation #54
@@ -1131,7 +1135,7 @@ Translation #54
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasLineItemAmount property must be a float with exactly one value, a maximum of 14 digits, and is required; if it is missing or invalid, display: "The segment MOA+203 is missing, i.e. the indication of the net position price."
+The SHACL shape :BerechneteMenge applies to all instances of edifact-o:item, specifying a mandatory property edifact-o:hasLineItemAmount, which must have exactly one occurrence, with a value that is a floating-point number not exceeding 14 characters in length, and will trigger a validation error with the message "The segment MOA+203 is missing, i.e. the indication of the net position price" if not met.
 ----
 
 Translation #55
@@ -1150,7 +1154,7 @@ Translation #55
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasNetpriceOfItem property must be a float with exactly one value, a maximum length of 13 characters, and is mandatory, otherwise, show: "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article."
+The SHACL shape :ArtikelNettopreis applies to all instances of the class edifact-o:item, requiring exactly one value (minCount 1, maxCount 1) for the property edifact-o:hasNetpriceOfItem, which must be a floating-point number (xsd:float), and will trigger a validation error with the message "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article" if this constraint is not met.
 ----
 
 Translation #56
@@ -1169,7 +1173,7 @@ Translation #56
     sh:targetClass edifact-o:item .
 
 
-For edifact-o:item, the edifact-o:hasGrosspriceOfItem property must be a float with exactly one value, a maximum length of 13 characters, and is mandatory; if this property is missing or invalid, display: "The PRI+AAB segment is missing, i.e. the indication of the net price of an individual article."
+The SHACL shape :ArtikelBruttopreis applies to all instances of the class edifact-o:item, requiring exactly one value of type float (xsd:float) for the property edifact-o:hasGrosspriceOfItem, with a maximum length of 13 characters, and validation will fail with the message "The PRI+AAB segment is missing, i.e. the indication of the net price of an individual article" if this constraint is not met.
 ----
 
 Translation #57
@@ -1184,7 +1188,7 @@ Translation #57
             sh:path edifact-o:orderNumberSupplier ] .
 
 
-For instances, the edifact-o:orderNumberSupplier property must have exactly one value; otherwise, display the message "The order number of the supplier, RFF+VN, is missing".
+The SHACL shape :ExistenzAuftragsnummerLieferant specifies a property constraint on edifact-o:orderNumberSupplier, requiring exactly one value, and validation will fail with the message "The order number of the supplier, RFF+VN, is missing." if it is missing.
 ----
 
 Translation #58
@@ -1202,7 +1206,7 @@ Translation #58
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:orderNumberSupplier property must be a string with exactly one value; if it is missing or invalid, show: "The order number of the supplier, RFF+VN, is missing in the item part."
+The SHACL shape :ExistenzAuftragsnummerLieferantArtikel applies to all instances of the class edifact-o:item, mandating a single string value (xsd:string) for the property edifact-o:orderNumberSupplier, with a validation failure message "The order number of the supplier, RFF+VN, is missing in the item part." if this requirement is not met.
 ----
 
 Translation #59
@@ -1219,7 +1223,7 @@ Translation #59
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:orderNumberSupplier property must be a single string value with a maximum length of 35 characters; if it exceeds 35 characters, show: "The order number of the supplier, RFF+VN, in the item part is too long."
+The SHACL shape :LaengeAuftragsnummerLieferantArtikel applies to all instances of edifact-o:item, enforcing that the value of edifact-o:orderNumberSupplier is a string with a maximum length of 35 characters) and producing the message "The order number of the supplier, RFF+VN, in the item part is too long." if this constraint is violated.
 ----
 
 Translation #60
@@ -1237,7 +1241,7 @@ Translation #60
     sh:targetClass edifact-o:item .
 
 
-For instances of class edifact-o:item, the property edifact-o:dateOrderNumberSupplier must have exactly one string value; if it is missing or invalid, display: "The date of the supplier's order number, RFF+VN, is missing in the item part."
+The SHACL shape :ExistenzDatumAuftragsnummerLieferantArtikel applies to all instances of the class edifact-o:item, requiring exactly one string value for the property edifact-o:dateOrderNumberSupplier, with a failure message "The date of the supplier's order number, RFF+VN, is missing in the item part." if the property is missing.
 ----
 
 Translation #61
@@ -1254,7 +1258,7 @@ Translation #61
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:dateOrderNumberSupplier property must be a string with a minimum length of 1 and a maximum length of 8 characters; if not, show: "The date of the supplier's order number, RFF+VN, in the item section must be long enough."
+The SHACL shape :LaengeDatumAuftragsnummerLieferantArtikel applies to all instances of the class edifact-o:item, requiring the property edifact-o:dateOrderNumberSupplier to have exactly one value that is a string with a maximum length of 8 characters), and will produce the validation message "The date of the supplier's order number, RFF+VN, in the item section must be long enough" if this constraint is not met.
 ----
 
 Translation #62
@@ -1272,7 +1276,7 @@ Translation #62
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:orderNumberBuyer property must be a single string value, and it is mandatory; if it is invalid or absent, display: "The order number of the supplier, RFF+ON, is missing in the item part."
+The SHACL shape :ExistenzAuftragsnummerKaeuferArtikel applies to all instances of the class edifact-o:item, specifying that exactly one string value (xsd:string) is required for the property edifact-o:orderNumberBuyer, with a validation error message "The order number of the supplier, RFF+ON, is missing in the item part." if this property is missing.
 ----
 
 Translation #63
@@ -1289,7 +1293,7 @@ Translation #63
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:orderNumberBuyer property must be a single string value with a maximum length of 35 characters; if it exceeds 35 characters, show: "The order number of the supplier, RFF+ON, in the item part is too long."
+The SHACL shape :LaengeAuftragsnummerKaeuferArtikel applies to all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:orderNumberBuyer, which must have exactly one value that is a string (xsd:string) with a maximum length of 35 characters, and will produce the validation message "The order number of the supplier, RFF+ON, in the item part is too long" if this constraint is violated.
 ----
 
 Translation #64
@@ -1307,7 +1311,7 @@ Translation #64
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:dateOrderNumberBuyer property must be a single string value; otherwise, an error will occur with the message "The date of the supplier's order number, RFF+ON, is missing in the item part."
+The SHACL shape :ExistenzDatumAuftragsnummerKaeuferArtikel applies to all instances of the class edifact-o:item, requiring a single string value (xsd:string) for the edifact-o:dateOrderNumberBuyer property, with a validation failure message "The date of the supplier's order number, RFF+ON, is missing in the item part" if the value is missing or appears more than once.
 ----
 
 Translation #65
@@ -1324,7 +1328,7 @@ Translation #65
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:dateOrderNumberBuyer property must be a single string value with a maximum length of 8 characters, otherwise, show the error message "The date of the supplier's order number, RFF+ON, in the item part is too long."
+The SHACL shape :LaengeDatumAuftragsnummerKaeuferArtikel applies to all instances of the class edifact-o:item, enforcing a constraint on the single valued property edifact-o:dateOrderNumberBuyer, which must have a string value (xsd:string) with a maximum length of 8 characters; if this constraint is violated, the validation will produce the message: "The date of the supplier's order number, RFF+ON, in the item part is too long."
 ----
 
 Translation #66
@@ -1342,7 +1346,7 @@ Translation #66
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasInvoiceAmount property must be a single string value, exactly one occurrence, with a maximum length of 14 characters; if it does not meet these constraints, display the message "The segment MOA+77 is missing, i.e. the invoice amount is missing."
+The SHACL shape :Rechnungsbetrag applies to all instances of the class edifact-o:InvoiceDetails, requiring a single value (exactly one) for the property edifact-o:hasInvoiceAmount, which must be a string with a maximum length of 14 characters, and will result in a validation error with the message "The segment MOA+77 is missing, i.e. the invoice amount is missing" if this constraint is not met.
 ----
 
 Translation #67
@@ -1359,7 +1363,7 @@ Translation #67
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-In an edifact-o:InvoiceDetails instance, exactly one value for the edifact-o:hasTotalLineItemAmount property is required, otherwise, the error message "The segment MOA+79 is missing, i.e. the indication of the total position amount." will be shown.
+The SHACL shape :Gesamtpositionsbetrag applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one value (minCount 1, maxCount 1) for the property edifact-o:hasTotalLineItemAmount, with a validation error message "The segment MOA+79 is missing, i.e. the indication of the total position amount" if this constraint is not met.
 ----
 
 Translation #68
@@ -1376,7 +1380,7 @@ Translation #68
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, exactly one value for the edifact-o:hasTotalAdditionsAndDeductions property is required; if it is missing or invalid, display the error message "The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions."
+The SHACL shape :SummeZuAbschlaege applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one edifact-o:hasTotalAdditionsAndDeductions property, with a minimum and maximum count of 1, and throwing an error with the message "The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions" if the property is missing or appears more than once.
 ----
 
 Translation #69
@@ -1393,7 +1397,7 @@ Translation #69
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasTaxableAmount property must be present with exactly one value, otherwise display "The segment MOA+125 is missing, i.e. the indication of the taxable amount."
+The SHACL shape :SteuerpflichtigerBetrag applies to all instances of the class edifact-o:InvoiceDetails, mandating one and only one value for the property edifact-o:hasTaxableAmount, with a failure message "The segment MOA+125 is missing, i.e. the indication of the taxable amount" if this constraint is not met.
 ----
 
 Translation #70
@@ -1412,7 +1416,7 @@ Translation #70
     sh:targetClass org:FormalOrganization .
 
 
-For instances of org:FormalOrganization, the edifact-o:additionalPartnerIdentificationEANCode property must be a string with a maximum length of 35 characters and exactly one value, otherwise the error message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification." is displayed.
+The SHACL shape :zusaetzlichePartneridentifikation applies to all instances of the class org:FormalOrganization, requiring a single value (cardinality of 1) for the property edifact-o:additionalPartnerIdentificationEANCode, which must be a string with a maximum length of 35 characters, and failure to meet these constraints will result in the error message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification."
 ----
 
 Translation #71
@@ -1431,7 +1435,7 @@ Translation #71
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:paymentCondition property must be a string with a maximum of 5 occurrences, each value being one of the following: "As usual", "Extended", "Wie üblich", "Verlængert"; if the specified payment term does not meet these conditions, display "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7."
+The SHACL shape :Zahlungsbedingung applies to all instances of edifact-o:InvoiceDetails, requiring edifact-o:paymentCondition to be a string (xsd:string) selected from "As usual", "Extended", "Wie ueblich", "Verlaengert", allowing up to 5 occurrences, and validating with the message "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7" if the value is not in the list.
 ----
 
 Translation #72
@@ -1449,7 +1453,7 @@ Translation #72
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:valutaDate property must be a single string value not exceeding 8 characters; if it does, display "The specified value date is too long, i.e. the DTM+209.""
+The SHACL shape applies to all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:valutaDate, which must be a string (xsd:string) with a maximum length of 8 characters, appearing exactly once, and producing the error message "The specified value date is too long, i.e. the DTM+209" if this constraint is violated.
 ----
 
 Translation #73
@@ -1467,7 +1471,7 @@ Translation #73
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasAllowanceReason property must be a string with a minimum length of 1 character and a maximum of 15 occurrences, specifying multiple allowance reasons; if the data element 7160 or 7161 is missing in the ALC segment, show the error: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification."
+The SHACL shape :Abschlag applies to all instances of the class edifact-o:item, specifying that the property edifact-o:hasAllowanceReason with at least one string value (minimum length of 1 character) and a maximum of 15 values; if this property is missing or its value does not meet these constraints, validation will produce the message: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the fee type specification."
 ----
 
 Translation #74
@@ -1485,7 +1489,7 @@ Translation #74
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasDiscountReason property must be a string with a minimum length of 1 and a maximum of 15 occurrences. If this property is missing or invalid, show: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification."
+The SHACL shape :Rabatt targets all instances of the class edifact-o:item, specifying that it must have exactly 1 to 15 occurrences of the edifact-o:hasDiscountReason property, with each value being a string of at least one character; if this property is missing, appears more than 15, has an invalid value, or doesn't meet these constraints, validation will fail with the message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification."
 ----
 
 Translation #75
@@ -1503,7 +1507,7 @@ Translation #75
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasChargeReason property must be a string with a minimum length of 1 character and a maximum of 15 occurrences, with a constraint message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type."
+The SHACL shape :Zuschlag applies to all instances of the class edifact-o:item, enforcing that the property edifact-o:hasChargeReason must have a value with a minimum length of 1 character, and it must occur at most 15 times; if the property is invalid or missing, validation will fail with the error message: "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type."
 ----
 
 Translation #76
@@ -1522,7 +1526,7 @@ Translation #76
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasAllowancePercentage property must be a float value with a minimum of 1 and a maximum of 5 characters, and have at most 15 occurrences. If it does not meet these conditions or is missing, show: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount".
+The SHACL shape :AbschlagProzentsatz applies to all instances of the class edifact-o:item, specifying that the property edifact-o:hasAllowancePercentage must have a value that is a float, between 1 and 5 characters, and can appear at most 15 times; if the property is missing or its value is invalid, the message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount." will be reported.
 ----
 
 Translation #77
@@ -1541,7 +1545,7 @@ Translation #77
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasDiscountPercentage property must be a float with a minimum length of 1 character and a maximum length of 5 characters, and must have between 1 and 15 values; if it does not meet these constraints, display: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
+The SHACL shape :RabattProzentsatz applies to all instances of the class edifact-o:item, specifying a property constraint that must have a minimum of one and a maximum of 15 on edifact-o:hasDiscountPercentage, with a value that is a float between 1 and 5 characters in length; if this property is missing or its value is outside these constraints, validation will produce the message: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
 ----
 
 Translation #78
@@ -1560,7 +1564,7 @@ Translation #78
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasChargePercentage property must be a float value between 1 and 5 characters long, with a maximum of 15 occurrences. If this constraint is not satisfied, the error message is: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge."
+The SHACL shape :ZuschlagProzentsatz applies to all instances of the class edifact-o:item, requiring a property edifact-o:hasChargePercentage with a float value, minimum length of 1 character, maximum length of 5, and a maximum occurrence of 15 times, with a validation failure message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge" if any of these constraints are not met.
 ----
 
 Translation #79
@@ -1581,9 +1585,7 @@ Translation #79
     sh:targetClass edifact-o:item .
 
 
-Here is the rewritten natural language sentence:
-
-For every instance of edifact-o:item, exactly one or two values are allowed for either p2p-o-inv:hasAllowanceAmount or edifact-o:hasDiscountAmount, and each value must be a string with a maximum length of 13 characters; if this constraint is not met, "The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice."
+The SHACL shape :BruttoendbetragRechnunng applies to all instances of the class edifact-o:item, requiring either the property p2p-o-inv:hasAllowanceAmount or edifact-o:hasDiscountAmount to be present at most twice with a maximum length of 13 characters, and failing validation with the message "The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice" if this condition is not met.
 ----
 
 Translation #80
@@ -1600,7 +1602,7 @@ Translation #80
     sh:targetClass edifact-o:item .
 
 
-For each instance of class edifact-o:item, the property edifact-o:hasVATrate must be a string with a maximum length of 5 characters, and it may appear between 1 and 5 times; if this property is invalid or exceeds the specified limits, show the error message "The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect."
+The SHACL shape :SteuerangabenItem targets all instances of the class edifact-o:item, specifying that each instance must have a property edifact-o:hasVATrate with a maximum of 5 values, each with a maximum string length of 5 characters, and failure to comply will result in the validation error message "The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect."
 ----
 
 Translation #81
@@ -1618,7 +1620,7 @@ Translation #81
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the p2p-o-item:itemName property must be a string with exactly one value; otherwise, display the error message: "The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name."
+The SHACL shape :Produktidentifikation applies to all instances of the class edifact-o:item, requiring exactly one string value (xsd:string) for the property p2p-o-item:itemName, and will report validation errors with the message "The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name."
 ----
 
 Translation #82
@@ -1635,7 +1637,7 @@ Translation #82
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasTaxAmount property must be a single string with a length of 13 characters, otherwise, the error message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." will be displayed.
+The SHACL shape :Steuerbetrag applies to all instances of the class edifact-o:item, specifying that each item must have exactly one edifact-o:hasTaxAmount property with a string value not exceeding 13 characters in length, and if this constraint is violated, the error message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." will be displayed during validation.
 ----
 
 Translation #83
@@ -1658,7 +1660,7 @@ Translation #83
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, exactly one of the p2p-o-inv:hasAllowanceAmount property (a string with a maximum length of 18 characters and up to 2 values) or the edifact-o:hasDiscountAmount property (a string with a maximum length of 18 characters and up to 2 values) must be present; otherwise, display "The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect."
+The SHACL shape :ZuAbschlagbetrag applies to all instances of the class edifact-o:item, requiring either exactly one or two occurrences of the property p2p-o-inv:hasAllowanceAmount with a maximum length of 18 characters, or exactly one or two occurrences of the property edifact-o:hasDiscountAmount with a maximum length of 18 characters; if neither condition is met, the validation will fail with the message "The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect."
 ----
 
 Translation #84
@@ -1675,7 +1677,7 @@ Translation #84
     sh:targetClass edifact-o:item .
 
 
-For instances of edifact-o:item, the edifact-o:hasAdditionDeductionBasis property must be a single string value with a maximum length of 13 characters; otherwise, an error message will be displayed: "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect."
+The SHACL shape :BasisZuAbschlagbetrag applies to all instances of the class edifact-o:item, specifying a property constraint on edifact-o:hasAdditionDeductionBasis that requires exactly one string value with a maximum length of 13 characters, and will produce the message "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect." if this constraint is violated during validation.
 ----
 
 Translation #85
@@ -1692,7 +1694,7 @@ Translation #85
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasVATrate property must have between 1 and 5 values, each being a string with a maximum of 5 characters; otherwise, error message: "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate".
+The SHACL shape :SteuerangabenItem applies to all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasVATrate, which must appear at most 5 times and have a string value with a maximum length of 5 characters, and will produce the message "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate" if violated.
 ----
 
 Translation #86
@@ -1709,7 +1711,7 @@ Translation #86
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the edifact-o:hasTaxAmount property must be a single string value with a maximum length of 13 characters; otherwise, an error will be raised with the message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified."
+The SHACL shape :Steuerbetrag targets all instances of the class edifact-o:InvoiceDetails, enforcing a single-valued (maxCount 1) property edifact-o:hasTaxAmount, which must be a string of maximum 13 characters in length, and returns the error message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified" if the constraint is violated.
 ----
 
 Translation #87
@@ -1726,7 +1728,7 @@ Translation #87
     sh:targetClass edifact-o:E-Invoice .
 
 
-For instances of edifact-o:E-Invoice, the edifact-o:belongsToProcess property must have exactly one value, which must be "ProcessExample".
+The SHACL shape :Prozesszugehoerigkeit applies to all instances of the class edifact-o:E-Invoice, mandating a single occurrence (exactly one) of the property edifact-o:belongsToProcess with a value of "ProcessExample", and will result in validation failure if it is absent, duplicated, or has a different value.
 ----
 
 Translation #88
@@ -1754,6 +1756,6 @@ Translation #88
     sh:targetClass edifact-o:InvoiceDetails .
 
 
-For instances of edifact-o:InvoiceDetails, the value of edifact-o:hasTotalLineItemAmount must be equal to the sum of all values of edifact-o:hasLineItemAmount; if not, report "edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount".
+The SHACL shape :SumNetPrice targets all instances of the class edifact-o:InvoiceDetails, requiring that each instance has exactly one value for edifact-o:hasTotalLineItemAmount that equals the sum of all edifact-o:hasLineItemAmount values associated with its related items, with a failure message "edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount" in case of constraint violation.
 ----
 
