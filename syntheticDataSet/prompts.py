@@ -95,6 +95,10 @@ The SHACL shape :edifact-oEntity50Shape applies to all instances of the class ed
 If this property is missing or appears more than once, validation will fail with the message:
 "The value must appear exactly once."
 
+
+
+
+
 """
 
 

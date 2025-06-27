@@ -38,6 +38,7 @@ model.to(device)
 model.eval()
 
 # Known entity → prefix mapping
+
 ENTITY_PREFIXES = {
     "InvoiceDetails": "edifact-o:",
     "VATIdentifier": "p2p-o-org:",

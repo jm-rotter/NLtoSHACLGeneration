@@ -1,3 +1,33 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://mapping.example.com/> .
+@prefix cmns-id: <https://www.omg.org/spec/Commons/Identifiers/> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix dc: <http://purl.org/dc/elements/1.1#> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix eli: <http://publications.europa.eu/resource/dataset/eli/> .
+@prefix fnml: <http://semweb.mmlab.be/ns/fnml#> .
+@prefix fno: <https://w3id.org/function/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix p2p-o: <https://purl.org/p2p-o#> .
+@prefix p2p-o-doc: <https://purl.org/p2p-o/document#> .
+@prefix p2p-o-doc-line: <https://purl.org/p2p-o/documentline#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix p2p-o-item: <https://purl.org/p2p-o/item#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix schema: <http://schema.org/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 :Dokumentenname 
     a sh:NodeShape;
     sh:targetClass edifact-o:InvoiceDetails;
@@ -1412,3 +1442,538 @@
                 FILTER (?sum != ?totalAmount) 
                 }""" ; 
             ] .
+
+### Buyer Shape
+p2p-o-inv:BuyerShape
+  a sh:NodeShape ;
+  sh:targetClass p2p-o-org:Buyer ;
+  sh:property [
+    sh:path p2p-o-org:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxLength 100 ;
+    sh:message "Buyer name is required and must be 100 characters or less."
+  ] ;
+  [
+    sh:path p2p-o-org:address ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxLength 200 ;
+    sh:message "Buyer address is required and must be 200 characters or less."
+  ] .
+
+### Supplier Shape
+p2p-o-inv:SupplierShape
+  a sh:NodeShape ;
+  sh:targetClass p2p-o-org:Supplier ;
+  sh:property [
+    sh:path p2p-o-org:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxLength 100 ;
+    sh:message "Supplier name is required and must be 100 characters or less."
+  ] ;
+  [
+    sh:path p2p-o-org:vatNumber ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+    sh:maxLength 20 ;
+    sh:message "Supplier VAT number must be 20 characters or less."
+  ] .
+
+### Invoice Header Shape
+p2p-o-inv:InvoiceHeaderShape
+  a sh:NodeShape ;
+  sh:targetClass p2p-o-inv:Invoice ;
+  sh:property [
+    sh:path p2p-o-inv:documentNumber ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxLength 20 ;
+    sh:message "Invoice document number is required and must be 20 characters or less."
+  ] ;
+  [
+    sh:path p2p-o-inv:issueDate ;
+    sh:datatype xsd:date ;
+    sh:minCount 1 ;
+    sh:message "Invoice issue date is required."
+  ] ;
+  [
+    sh:path p2p-o-inv:currency ;
+    sh:datatype xsd:string ;
+    sh:in ("EUR" "USD" "GBP") ;
+    sh:minCount 1 ;
+    sh:message "Invoice currency must be one of EUR, USD, or GBP."
+  ] .
+
+### Order Info Shape
+p2p-o-inv:OrderInfoShape
+  a sh:NodeShape ;
+  sh:targetClass p2p-o-inv:OrderInfo ;
+  sh:property [
+    sh:path p2p-o-inv:supplierOrderNumber ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+    sh:maxLength 20 ;
+    sh:message "Supplier order number must be 20 characters or less."
+  ] ;
+  [
+    sh:path p2p-o-inv:buyerOrderNumber ;
+    sh:datatype xsd:string ;
+    sh:minCount 0 ;
+    sh:maxLength 20 ;
+    sh:message "Buyer order number must be 20 characters or less."
+  ] .
+
+### Item Details Shape
+p2p-o-inv:ItemDetailsShape
+  a sh:NodeShape ;
+  sh:targetClass p2p-o-inv:Item ;
+  sh:property [
+    sh:path p2p-o-inv:articleID ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxLength 20 ;
+    sh:message "Article ID is required and must be 20 characters or less."
+  ] ;
+  [
+    sh:path p2p-o-inv:quantity ;
+    sh:datatype xsd:integer ;
+    sh:minCount 1 ;
+    sh:message "Quantity is required."
+  ] ;
+  [
+    sh:path p2p-o-inv:netPrice ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:message "Net price is required."
+  ] .
+
+### Invoice Line Shape (continued)
+p2p-o-inv:InvoiceLineShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:InvoiceLine ;
+ sh:property [
+ sh:path p2p-o-inv:lineNumber ;
+ sh:datatype xsd:integer ;
+ sh:minCount1 ;
+ sh:message "Line number is required."
+ ] ;
+ [
+ sh:path p2p-o-inv:item ;
+ sh:node p2p-o-inv:ItemDetailsShape ;
+ sh:minCount1 ;
+ sh:message "Item details are required."
+ ] .
+
+### Tax Exemption Shape
+p2p-o-inv:TaxExemptionShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:TaxExemption ;
+ sh:property [
+ sh:path p2p-o-inv:exemptionReason ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Exemption reason is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:exemptionCertificate ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength20 ;
+ sh:message "Exemption certificate must be20 characters or less."
+ ] .
+
+### Item Group Shape
+p2p-o-inv:ItemGroupShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:ItemGroup ;
+ sh:property [
+ sh:path p2p-o-inv:groupName ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Group name is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:groupDescription ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength200 ;
+ sh:message "Group description must be200 characters or less."
+ ] .
+
+### Allowance Group Shape
+p2p-o-inv:AllowanceGroupShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:AllowanceGroup ;
+ sh:property [
+ sh:path p2p-o-inv:groupName ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Group name is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:groupAllowance ;
+ sh:node p2p-o-inv:AllowanceShape ;
+ sh:minCount1 ;
+ sh:message "Group allowance is required."
+ ] .
+
+### Charge Group Shape
+p2p-o-inv:ChargeGroupShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:ChargeGroup ;
+ sh:property [
+ sh:path p2p-o-inv:groupName ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Group name is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:groupCharge ;
+ sh:node p2p-o-inv:ChargeShape ;
+ sh:minCount1 ;
+ sh:message "Group charge is required."
+ ] .
+
+### Payment Terms Shape
+p2p-o-inv:PaymentTermsShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:PaymentTerms ;
+ sh:property [
+ sh:path p2p-o-inv:paymentTerm ;
+ sh:datatype xsd:string ;
+ sh:in ("cash" "bank transfer") ;
+ sh:minCount1 ;
+ sh:message "Payment term must be either cash or bank transfer."
+ ] ;
+ [
+ sh:path p2p-o-inv:paymentDueDate ;
+ sh:datatype xsd:date ;
+ sh:minCount1 ;
+ sh:message "Payment due date is required."
+ ] .
+
+### Delivery Terms Shape
+p2p-o-inv:DeliveryTermsShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:DeliveryTerms ;
+ sh:property [
+ sh:path p2p-o-inv:deliveryTerm ;
+ sh:datatype xsd:string ;
+ sh:in ("FOB" "DDS") ;
+ sh:minCount1 ;
+ sh:message "Delivery term must be either FOB or DDS."
+ ] ;
+ [
+ sh:path p2p-o-inv:deliveryLocation ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Delivery location is required and must be100 characters or less."
+ ] .
+
+### Insurance Shape
+p2p-o-inv:InsuranceShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Insurance ;
+ sh:property [
+ sh:path p2p-o-inv:insuranceType ;
+ sh:datatype xsd:string ;
+ sh:in ("liability" " cargo") ;
+ sh:minCount1 ;
+ sh:message "Insurance type must be either liability or cargo."
+ ] ;
+ [
+ sh:path p2p-o-inv:insuranceAmount ;
+ sh:datatype xsd:decimal ;
+ sh:minCount1 ;
+ sh:message "Insurance amount is required."
+ ] .
+
+ ### Warranty Shape
+p2p-o-inv:WarrantyShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Warranty ;
+ sh:property [
+ sh:path p2p-o-inv:warrantyType ;
+ sh:datatype xsd:string ;
+ sh:in ("limited" "unlimited") ;
+ sh:minCount1 ;
+ sh:message "Warranty type must be either limited or unlimited."
+ ] ;
+ [
+ sh:path p2p-o-inv:warrantyDuration ;
+ sh:datatype xsd:integer ;
+ sh:minCount1 ;
+ sh:message "Warranty duration is required."
+ ] .
+
+### Maintenance Shape
+p2p-o-inv:MaintenanceShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Maintenance ;
+ sh:property [
+ sh:path p2p-o-inv:maintenanceType ;
+ sh:datatype xsd:string ;
+ sh:in (" routine" "breakdown") ;
+ sh:minCount1 ;
+ sh:message "Maintenance type must be either routine or breakdown."
+ ] ;
+ [
+ sh:path p2p-o-inv:maintenanceSchedule ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength100 ;
+ sh:message "Maintenance schedule must be100 characters or less."
+ ] .
+
+### Support Shape
+p2p-o-inv:SupportShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Support ;
+ sh:property [
+ sh:path p2p-o-inv:supportType ;
+ sh:datatype xsd:string ;
+ sh:in ("phone" "email") ;
+ sh:minCount1 ;
+ sh:message "Support type must be either phone or email."
+ ] ;
+ [
+ sh:path p2p-o-inv:supportHours ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength20 ;
+ sh:message "Support hours must be20 characters or less."
+ ] .
+
+### Returns Shape
+p2p-o-inv:ReturnsShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Returns ;
+ sh:property [
+ sh:path p2p-o-inv:returnPolicy ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Return policy is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:returnProcedure ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength200 ;
+ sh:message "Return procedure must be200 characters or less."
+ ] .
+
+### Cancellation Shape
+p2p-o-inv:CancellationShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Cancellation ;
+ sh:property [
+ sh:path p2p-o-inv:cancellationPolicy ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Cancellation policy is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:cancellationFee ;
+ sh:datatype xsd:decimal ;
+ sh:minCount0 ;
+ sh:message "Cancellation fee must be a decimal value."
+ ] .
+
+### Refund Shape
+p2p-o-inv:RefundShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Refund ;
+ sh:property [
+ sh:path p2p-o-inv:refundPolicy ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Refund policy is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:refundProcedure ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength200 ;
+ sh:message "Refund procedure must be200 characters or less."
+ ] .
+
+### Credit Note Shape
+p2p-o-inv:CreditNoteShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:CreditNote ;
+ sh:property [
+ sh:path p2p-o-inv:creditNoteNumber ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength20 ;
+ sh:message "Credit note number is required and must be20 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:creditNoteDate ;
+ sh:datatype xsd:date ;
+ sh:minCount1 ;
+ sh:message "Credit note date is required."
+ ] .
+
+### Debit Note Shape
+p2p-o-inv:DebitNoteShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:DebitNote ;
+ sh:property [
+ sh:path p2p-o-inv:debitNoteNumber ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength20 ;
+ sh:message "Debit note number is required and must be20 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:debitNoteDate ;
+ sh:datatype xsd:date ;
+ sh:minCount1 ;
+ sh:message "Debit note date is required."
+ ] .
+
+### Different Domain Shapes
+
+### Domain: Logistics
+p2p-o-inv:LogisticsShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Logistics ;
+ sh:property [
+ sh:path p2p-o-inv:carrier ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Carrier is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:trackingNumber ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength20 ;
+ sh:message "Tracking number must be20 characters or less."
+ ] .
+
+### Domain: Insurance
+p2p-o-inv:InsuranceShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Insurance ;
+ sh:property [
+ sh:path p2p-o-inv:insuranceProvider ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Insurance provider is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:insurancePolicyNumber ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength20 ;
+ sh:message "Insurance policy number must be20 characters or less."
+ ] .
+
+### Domain: Customs
+p2p-o-inv:CustomsShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Customs ;
+ sh:property [
+ sh:path p2p-o-inv:customsBroker ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Customs broker is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:customsDeclarationNumber ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength20 ;
+ sh:message "Customs declaration number must be20 characters or less."
+ ] .
+
+### Domain: Warehouse
+p2p-o-inv:WarehouseShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Warehouse ;
+ sh:property [
+ sh:path p2p-o-inv:warehouseLocation ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Warehouse location is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:warehouseContact ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength20 ;
+ sh:message "Warehouse contact must be20 characters or less."
+ ] .
+
+### Domain: Freight
+p2p-o-inv:FreightShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Freight ;
+ sh:property [
+ sh:path p2p-o-inv:freightCarrier ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Freight carrier is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:freightTrackingNumber ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength20 ;
+ sh:message "Freight tracking number must be20 characters or less."
+ ] .
+
+### Domain: Quality Control
+p2p-o-inv:QualityControlShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:QualityControl ;
+ sh:property [
+ sh:path p2p-o-inv:qualityControlProcedure ;
+ sh:datatype xsd:string ;
+ sh:minCount1 ;
+ sh:maxLength100 ;
+ sh:message "Quality control procedure is required and must be100 characters or less."
+ ] ;
+ [
+ sh:path p2p-o-inv:qualityControlResults ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength200 ;
+ sh:message "Quality control results must be200 characters or less."
+ ] .
+
+### Domain: Packaging
+p2p-o-inv:PackagingShape
+ a sh:NodeShape ;
+ sh:targetClass p2p-o-inv:Packaging ;
+ sh:property [
+ sh:path p2p-o-inv:packagingType ;
+ sh:datatype xsd:string ;
+ sh:in ("box" "crate") ;
+ sh:minCount1 ;
+ sh:message "Packaging type must be either box or crate."
+ ] ;
+ [
+ sh:path p2p-o-inv:packagingDescription ;
+ sh:datatype xsd:string ;
+ sh:minCount0 ;
+ sh:maxLength100 ;
+ sh:message "Packaging description must be100 characters or less."
+ ] .
