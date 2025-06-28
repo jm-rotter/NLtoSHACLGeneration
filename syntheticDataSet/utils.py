@@ -1,17 +1,13 @@
 import json
 
-def printTranslationsToFile(fileName, translations):
-    with open(fileName, "w", encoding="utf-8") as file:
-        for i, (shaclTranslation, nlTranslation) in enumerate(translations):
+def printTranslationsToFile(file, shaclTranslation, nlTranslation, i):
             file.write(f"Translation #{i}\n")
             file.write(shaclTranslation)
             file.write("\n")
             file.write(nlTranslation)
             file.write("\n----\n\n")
 
-def printTranslationsToJSONFile(filename, translations):
-    with open(filename, "w", encoding="utf-8") as file:
-        for (shacl, nl) in translations:
+def printTranslationsToJSONFile(file, shacl, nl, i):
             json_line = json.dumps({"prompt": nl, "response": shacl})
             file.write(json_line + "\n")
 
