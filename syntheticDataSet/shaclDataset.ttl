@@ -31,7 +31,10 @@
 
 @prefix edu: <http://example.org/edu#> .
 @prefix it: <http://example.org/it#> .
-
+@prefix prod:     <http://example.org/product#> .
+@prefix food:     <http://example.org/food#> .
+@prefix civic:    <http://example.org/civic#> .
+@prefix pub:      <http://example.org/publication#> .
 
 :Dokumentenname 
     a sh:NodeShape;
