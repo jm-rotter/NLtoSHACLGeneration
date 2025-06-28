@@ -1,0 +1,3367 @@
+Translation #0
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Dokumentenname a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "Commercial invoice" "Credit advice" "Value credit" "Value debit" "Handelsrechnung" "Gutschriftsanzeige" "Wertgutschrift" "Wertbelastung" ) ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1001 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentType ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Dokumentenname targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasDocumentType, which must have exactly one string value (xsd:string) that is one of the following: "Commercial invoice", "Credit advice", "Value credit", "Value debit", "Handelsrechnung", "Gutschriftsanzeige", "Wertgutschrift", or "Wertbelastung", with a validation failure message "Data element 1001 is missing in the BGM segment" if this property is missing or its value is outside this list.
+----
+
+Translation #0
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Dokumentenname a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "Commercial invoice" "Credit advice" "Value credit" "Value debit" "Handelsrechnung" "Gutschriftsanzeige" "Wertgutschrift" "Wertbelastung" ) ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1001 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentType ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Dokumentenname targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasDocumentType, which must have exactly one string value (xsd:string) selected from the allowed list: "Commercial invoice", "Credit advice", "Value credit", "Value debit", "Handelsrechnung", "Gutschriftsanzeige", "Wertgutschrift", "Wertbelastung", and will return a validation error with the message "Data element 1001 is missing in the BGM segment" if the property is missing, appears more than once, or has an invalid value.
+----
+
+Translation #0
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1004 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzBelegnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a single string value (xsd:string) for the property edifact-o:hasDocumentNumber, with a mandatory occurrence (exactly one value), and returns the error message "Data element 1004 is missing in the BGM segment" if this property is absent.
+----
+
+Translation #0
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 12 ;
+            sh:message "The data element 1004 in the BGM segment is too long" ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeBelegnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasDocumentNumber, which must be a single string value (xsd:string) with a maximum length of 12 characters, and will produce the validation message "The data element 1004 in the BGM segment is too long" if this constraint is violated.
+----
+
+Translation #0
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Dokumentenname a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "Commercial invoice" "Credit advice" "Value credit" "Value debit" "Handelsrechnung" "Gutschriftsanzeige" "Wertgutschrift" "Wertbelastung" ) ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1001 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentType ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Dokumentenname applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one value for the property edifact-o:hasDocumentType, which must be a string from the predefined list: "Commercial invoice", "Credit advice", "Value credit", "Value debit", "Handelsrechnung", "Gutschriftsanzeige", "Wertgutschrift", "Wertbelastung", with a validation failure message "Data element 1001 is missing in the BGM segment" if the property is missing, appears more than once, or its value is outside this list.
+----
+
+Translation #1
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1004 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzBelegnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the edifact-o:hasDocumentNumber property, which must have exactly one string value, with a mandatory presence, and will result in validation failure with the message "Data element 1004 is missing in the BGM segment" if this property is missing or appears more than once.
+----
+
+Translation #2
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 12 ;
+            sh:message "The data element 1004 in the BGM segment is too long" ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeBelegnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasDocumentNumber to have exactly one value, which must be a string (xsd:string) with a maximum length of 12 characters, and producing the validation message "The data element 1004 in the BGM segment is too long" if this constraint is violated.
+----
+
+Translation #3
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Dokumentfunktion a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "Cancellation" "Replacement" "Duplicate" "Original" "Copy" "Additional transfer" "Stornierung" "Ersatz" "Duplikat" "Original" "Kopie" "Zusaetzliche Uebertragung" ) ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentFunction ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Dokumentfunktion applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one value (xsd:string) for the property edifact-o:hasDocumentFunction, which must be one of the specified allowed values: "Cancellation", "Replacement", "Duplicate", "Original", "Copy", "Additional transfer", "Stornierung", "Ersatz", "Duplikat", "Original", "Kopie", "Zusaetzliche Uebertragung", and enforcing validation to fail with the message "Data element 1225 is missing in the BGM segment, i.e. the specification of the document function" if this property is missing or its value is outside this list.
+----
+
+Translation #4
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Belegdatum a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The DTM+137 segment is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:documentDate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Belegdatum targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:documentDate, which must have exactly one string value (xsd:string), with a minimum and maximum count of 1, and if not met, validation fails with the error message "The DTM+137 segment is missing".
+----
+
+Translation #5
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:tatsaechliches_Lieferdatum a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The DTM+35 segment is missing" ;
+            sh:minCount 1 ;
+            sh:path p2p-o-inv:actualDeliveryDate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+Here is the improved translation:
+
+The SHACL shape :tatsaechliches_Lieferdatum applies to all instances of edifact-o:InvoiceDetails, mandating a single string value (xsd:string) for the p2p-o-inv:actualDeliveryDate property, with validation failure and an error message "The DTM+35 segment is missing" if this property is either missing or appears more than once.
+----
+
+Translation #6
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The supplier's order number, RFF+VN, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzAuftragsnummerLieferantKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the required property edifact-o:orderNumberSupplier, which must have exactly one value that is a string, with a validation failure message "The supplier's order number, RFF+VN, is missing from the header" if this condition is not met.
+----
+
+Translation #7
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+VN, in the header is too long" ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeAuftragsnummerLieferantKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:orderNumberSupplier, which must be a single string value with a maximum length of 35 characters, and will produce the validation message "The order number of the supplier, RFF+VN, in the header is too long" if this constraint is violated.
+----
+
+Translation #8
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+VN, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzDatumAuftragsnummerLieferantKopf applies to all instances of the class edifact-o:InvoiceDetails, mandating a single string value (xsd:string) for the property edifact-o:dateOrderNumberSupplier, with a validation error message "The date of the supplier's order number, RFF+VN, is missing from the header" if this property is either missing or appears more than once.
+----
+
+Translation #9
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerLieferantKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+VN, in the header is too long" ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeDatumAuftragsnummerLieferantKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:dateOrderNumberSupplier, which must be a single string value (xsd:string) with a maximum length of 8 characters, and returns the message "The date of the supplier's order number, RFF+VN, in the header is too long" if this constraint is violated.
+----
+
+Translation #10
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The supplier's order number, RFF+ON, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzAuftragsnummerKaeuferKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:orderNumberBuyer to have exactly one string value, with a validation failure message "The supplier's order number, RFF+ON, is missing from the header" if this property is missing or appears more than once.
+----
+
+Translation #11
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+ON, in the header is too long" ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeAuftragsnummerKaeuferKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:orderNumberBuyer, which must be a single string value (xsd:string) with a maximum length of 35 characters, and producing the validation message "The order number of the supplier, RFF+ON, in the header is too long" if this constraint is violated.
+----
+
+Translation #12
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+ON, is missing from the header" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzDatumAuftragsnummerKaeuferKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:dateOrderNumberBuyer, which must have exactly one string value; if this property is missing or appears more than once, validation will fail with the message "The date of the supplier's order number, RFF+ON, is missing from the header".
+----
+
+Translation #13
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerKaeuferKopf a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+ON, in the header is too long" ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeDatumAuftragsnummerKaeuferKopf targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:dateOrderNumberBuyer, requiring its value to be a single string (xsd:string) with a maximum length of 8 characters, and producing the message "The date of the supplier's order number, RFF+ON, in the header is too long" if this constraint is violated.
+----
+
+Translation #14
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The supplier's order number, RFF+DQ, is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:deliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzLieferscheinnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:deliveryNoteNumber to have exactly one value, which must be a string, and if missing, validation will fail with the message "The supplier's order number, RFF+DQ, is missing".
+----
+
+Translation #15
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The supplier's order number, RFF+DQ, is too long" ;
+            sh:path edifact-o:deliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeLieferscheinnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:deliveryNoteNumber, which must be a single value (implicitly, as no cardinality is specified) of type string (xsd:string) with a maximum length of 35 characters, and producing the message "The supplier's order number, RFF+DQ, is too long" if this constraint is violated.
+----
+
+Translation #16
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+DQ, is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateDeliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzDatumLieferscheinnummer targets all instances of the class edifact-o:InvoiceDetails, specifying a required property edifact-o:dateDeliveryNoteNumber with exactly one string value, triggering a validation error with the message "The date of the supplier's order number, RFF+DQ, is missing" if this property is not provided.
+----
+
+Translation #17
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumLieferscheinnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+DQ, is too long" ;
+            sh:path edifact-o:dateDeliveryNoteNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeDatumLieferscheinnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:dateDeliveryNoteNumber, which must be a single string value (xsd:string) with a maximum length of 8 characters; if this constraint is violated, the validation will produce the message: "The date of the supplier's order number, RFF+DQ, is too long.
+----
+
+Translation #18
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzKaeufer a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+BY segment is missing" ;
+            sh:minCount 1 ;
+            sh:path p2p-o-inv:hasBuyer ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+The SHACL shape :ExistenzKaeufer applies to all instances of the class edifact-o:E-Invoice, mandating a single occurrence of the property p2p-o-inv:hasBuyer, with a minimum and maximum count of 1, and will trigger a validation error with the message "The NAD+BY segment is missing" if this property is absent or appears more than once.
+----
+
+Translation #19
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerKaeufer a sh:NodeShape ;
+    sh:message "The Segemnt RFF+VA is missing for the Segemnet NAD+BY, i.e. the buyer's VAT number is missing" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :UmsatzsteuernummerKaeufer applies to all instances of the class org:FormalOrganization, requiring that if they have the RDF type "http://example.com/BuyerRole", then they must have exactly one p2p-o-org:VATIdentifier property with a string value of maximum 14 characters; otherwise, validation will fail with the message "The Segment RFF+VA is missing for the Segment NAD+BY, i.e. the buyer's VAT number is missing".
+----
+
+Translation #20
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameKaeufer a sh:NodeShape ;
+    sh:message "The data element 3036 is missing for the Segemnet NAD+BY, i.e. specification of the formal names of the buyer" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :FormalNameKaeufer applies to all instances of the class org:FormalOrganization, requiring that either they do not have the RDF type "http://example.com/BuyerRole" or, if they do, they must have exactly one p2p-o-org:formalName property with a string value no longer than 35 characters; if these conditions are not met, validation will fail with the message "The data element 3036 is missing for the Segment NAD+BY, i.e. specification of the formal names of the buyer."
+----
+
+Translation #21
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNKaeufer a sh:NodeShape ;
+    sh:message "Data element 3039 is missing for the Segemnet NAD+BY, i.e. specification of the GLN of the buyer." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :GLNKaeufer applies to all instances of the class org:FormalOrganization, specifying that either the organization is not of type "http://example.com/BuyerRole" or, if it is, it must have exactly one p2p-o-org:globalLocationNumber property with an integer value of exactly 13 characters in length; otherwise, validation will fail with the message "Data element 3039 is missing for the Segment NAD+BY, i.e. specification of the GLN of the buyer."
+----
+
+Translation #22
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtKaeufer a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+BY, i.e. specification of the buyer's city" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StadtKaeufer applies to all instances of the class org:FormalOrganization, requiring that they either not have the RDF type "http://example.com/BuyerRole" or, if they do, then they must have exactly one edifact-o:hasCity property with a string value between 1 and 35 characters in length; if this condition is not met, the validation will fail with the message "The data element 3164 is missing for the Segment NAD+BY, i.e. specification of the buyer's city."
+----
+
+Translation #23
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandKaeufer a sh:NodeShape ;
+    sh:message "The data element 3207 is missing for the Segemnet NAD+BY, i.e. indication of the country of the buyer" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :LandKaeufer applies to all instances of the class org:FormalOrganization, specifying that either the organization must not have the RDF type "http://example.com/BuyerRole", or it must have exactly one frapo:hasCountryCode property with a string value of maximum 3 characters in length; failure to meet this condition will result in a validation error with the message "The data element 3207 is missing for the Segment NAD+BY, i.e. indication of the country of the buyer".
+----
+
+Translation #24
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseKaeufer a sh:NodeShape ;
+    sh:message "The data element 3042 is missing for the Segemnet NAD+BY, i.e. the buyer's street address." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StrasseKaeufer applies to all instances of the class org:FormalOrganization, specifying that either the organization must not be of type "http://example.com/BuyerRole", or if it is, then it must have exactly one vcard:hasStreetAddress property with a string value no longer than 35 characters; if these conditions are not met, validation will fail with the message "The data element 3042 is missing for the Segemnet NAD+BY, i.e. the buyer's street address."
+----
+
+Translation #25
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZKaeufer a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+BY, i.e. specification of the buyer's postal code" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/BuyerRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :PLZKaeufer applies to all instances of the class org:FormalOrganization, specifying that either the organization does not have the RDF type "http://example.com/BuyerRole" or, if it does, then it must have exactly one vcard:postalCode property with a string value of up to 9 characters; otherwise, validation will fail with the message "The data element 3251 is missing for the Segment NAD+BY, i.e. specification of the buyer's postal code".
+----
+
+Translation #26
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzLieferant a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+SU segment is missing" ;
+            sh:minCount 1 ;
+            sh:path p2p-o-inv:hasSupplier ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+The SHACL shape :ExistenzLieferant applies to all instances of the class edifact-o:E-Invoice, mandating exactly one occurrence of the property p2p-o-inv:hasSupplier, with a validation error message "The NAD+SU segment is missing" if this requirement is not met.
+----
+
+Translation #27
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerLieferant a sh:NodeShape ;
+    sh:message "The Segemnt RFF+VA is missing for the Segemnet NAD+SU, i.e. Angbae of the VAT number of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :UmsatzsteuernummerLieferant applies to all instances of the class org:FormalOrganization, specifying that either the organization must not have the RDF type "http://example.com/SupplierRole" or, if it does, it must have exactly one p2p-o-org:VATIdentifier property with a string value between 1 and 14 characters in length; if these conditions are not met, the validation will fail with the message "The Segemnt RFF+VA is missing for the Segemnt NAD+SU, i.e. Angbae of the VAT number of the supplier".
+----
+
+Translation #28
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameLieferant a sh:NodeShape ;
+    sh:message "The data element 3036 is missing for the Segemnet NAD+SU, i.e. specification of the formal name of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :FormalNameLieferant applies to all instances of the class org:FormalOrganization, requiring that either the organization is not a supplier (lacking RDF type "http://example.com/SupplierRole") or, if it is a supplier, then it must have a single formal name (property p2p-o-org:formalName) with a string value of no more than 35 characters; otherwise, the validation will fail with the message "The data element 3036 is missing for the Segment NAD+SU, i.e. specification of the formal name of the supplier."
+----
+
+Translation #29
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNLieferant a sh:NodeShape ;
+    sh:message "The data element 3039 is missing for the Segemnet NAD+SU, i.e. specification of the GLN of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :GLNLieferant applies to all instances of the class org:FormalOrganization, requiring that either the organization does not have the RDF type "http://example.com/SupplierRole" or, if it does, the property p2p-o-org:globalLocationNumber must be present exactly once with an integer value of exactly 13 characters in length; otherwise, the validation will fail with the message "The data element 3039 is missing for the Segment NAD+SU, i.e. specification of the GLN of the supplier."
+----
+
+Translation #30
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtLieferant a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+SU, i.e. specification of the city of the supplier" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StadtLieferant applies to all instances of the class org:FormalOrganization and specifies a validation rule with an sh:or condition: either the organization must not have the RDF type "http://example.com/SupplierRole", or, if it does, the property edifact-o:hasCity must be present exactly once with a string value no longer than 35 characters; otherwise, the validation will fail with the message "The data element 3164 is missing for the Segment NAD+SU, i.e. specification of the city of the supplier".
+----
+
+Translation #31
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandLieferant a sh:NodeShape ;
+    sh:message "Data element 3207 is missing for the Segemnet NAD+SU, i.e. specification of the supplier's country" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :LandLieferant applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/SupplierRole", then it must have exactly one value for the property frapo:hasCountryCode, which must be a string with a maximum length of 3 characters; otherwise, the validation will fail with the message "Data element 3207 is missing for the Segment NAD+SU, i.e. specification of the supplier's country".
+----
+
+Translation #32
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseLieferant a sh:NodeShape ;
+    sh:message "The data element 3042 is missing for the Segemnet NAD+SU, i.e. specification of the supplier's street" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StrasseLieferant applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/SupplierRole", then it must have exactly one vcard:hasStreetAddress property with a string value no longer than 35 characters; otherwise, the validation will fail with the message "The data element 3042 is missing for the Segment NAD+SU, i.e. specification of the supplier's street".
+----
+
+Translation #33
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZLieferant a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+SU, i.e. specification of the supplier's postal code" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/SupplierRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :PLZLieferant applies to all instances of the class org:FormalOrganization, specifying that if an organization has the RDF type "http://example.com/SupplierRole", then it must have a vcard:postalCode property with exactly one string value (maximum length of 9 characters), otherwise, validation will fail with the message: "The data element 3251 is missing for the Segment NAD+SU, i.e. specification of the supplier's postal code".
+----
+
+Translation #34
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzRechnungsempfaenger a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+IV segment is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasInvoicee ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+The SHACL shape :ExistenzRechnungsempfaenger applies to all instances of the class edifact-o:E-Invoice, specifying a property constraint on edifact-o:hasInvoicee that requires exactly one value, with a minimum and maximum count of 1, and will trigger a validation error with the message "The NAD+IV segment is missing" if this property is missing or appears more than once.
+----
+
+Translation #35
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The segemnt RFF+VA is missing for the segemnet NAD+IV, i.e. the VAT number of the invoice recipient is missing." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :UmsatzsteuernummerRechnungsempfaenger applies to all instances of the class org:FormalOrganization, specifying that an organization is either not an invoice recipient (lacking rdf:type "http://example.com/InvoiceeRole") or, if it is, must have exactly one p2p-o-org:VATIdentifier property with a string value no longer than 14 characters; failing this validation will result in the error message "The segment RFF+VA is missing for the segment NAD+IV, i.e. the VAT number of the invoice recipient is missing."
+----
+
+Translation #36
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameRechnungsempfaenger a sh:NodeShape ;
+    sh:message "Data element 3036 is missing for Segemnet NAD+IV, i.e. specification of the formal name of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :FormalNameRechnungsempfaenger applies to all instances of the class org:FormalOrganization, specifying that either the organization is not of type "http://example.com/InvoiceeRole" or, if it is, the property p2p-o-org:formalName must be exactly one string value with a maximum length of 35 characters; failure to meet this condition will result in the validation error "Data element 3036 is missing for Segment NAD+IV, i.e. specification of the formal name of the invoice recipient".
+----
+
+Translation #37
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The data element 3039 is missing for the Segemnet NAD+IV, i.e. specification of the GLN of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :GLNRechnungsempfaenger applies to all instances of the class org:FormalOrganization, requiring that either the organization is not of type "http://example.com/InvoiceeRole" or, if it is, it must have exactly one p2p-o-org:globalLocationNumber property with an integer value of exactly 13 characters in length, otherwise, validation will fail with the message "The data element 3039 is missing for the Segment NAD+IV, i.e. specification of the GLN of the invoice recipient".
+----
+
+Translation #38
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+IV, i.e. specification of the city of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StadtRechnungsempfaenger applies to all instances of the class org:FormalOrganization, requiring that either the organization is not of RDF type "http://example.com/InvoiceeRole" or, if it is, then it must have exactly one edifact-o:hasCity property with a string value no longer than 35 characters; otherwise, validation fails with the message "The data element 3164 is missing for the Segment NAD+IV, i.e. specification of the city of the invoice recipient."
+----
+
+Translation #39
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandRechnungsempfaenger a sh:NodeShape ;
+    sh:message "Data element 3207 is missing for Segemnet NAD+IV, i.e. specification of the country of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :LandRechnungsempfaenger applies to all instances of the class org:FormalOrganization, requiring that if they have the RDF type "http://example.com/InvoiceeRole", then they must have a single string value (minimum count 1 and maximum count 1) for the property frapo:hasCountryCode with a maximum length of 3 characters; otherwise, the organization must not have the "http://example.com/InvoiceeRole" type; if neither condition is met, the validation will fail with the message "Data element 3207 is missing for Segment NAD+IV, i.e. specification of the country of the invoice recipient".
+----
+
+Translation #40
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseRechnungsempfaenger a sh:NodeShape ;
+    sh:message "Data element 3042 is missing for Segemnet NAD+IV, i.e. specification of the invoice recipient's street address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StrasseRechnungsempfaenger applies to all instances of the class org:FormalOrganization, specifying that either the organization does not have the RDF type "http://example.com/InvoiceeRole" or, if it does, then it must have exactly one vcard:hasStreetAddress property with a string value of maximum 35 characters; if neither condition is met, validation will fail with the message "Data element 3042 is missing for Segment NAD+IV, i.e. specification of the invoice recipient's street address".
+----
+
+Translation #41
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZRechnungsempfaenger a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+IV, i.e. specification of the postal code of the invoice recipient" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/InvoiceeRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :PLZRechnungsempfaenger applies to all instances of the class org:FormalOrganization, requiring that either the organization is not an invoice recipient (i.e., it does not have the RDF type "http://example.com/InvoiceeRole") or, if it is, the property vcard:postalCode must be present exactly once with a string value of up to 9 characters; otherwise, validation will fail with the message "The data element 3251 is missing for the Segment NAD+IV, i.e. specification of the postal code of the invoice recipient."
+----
+
+Translation #42
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzLieferanschrift a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The NAD+PR segment is missing" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDeliveryParty ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+The SHACL shape :ExistenzLieferanschrift targets all instances of the class edifact-o:E-Invoice, specifying that they must have exactly one value for the property edifact-o:hasDeliveryParty, with a validation error message "The NAD+PR segment is missing" if this property is absent or appears more than once.
+----
+
+Translation #43
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UmsatzsteuernummerLieferanschrift a sh:NodeShape ;
+    sh:message "The Segemnt RFF+VA is missing for the Segemnet NAD+DP, i.e. the VAT number of the delivery address is missing." ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:maxCount 1 ;
+                sh:maxLength 14 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:VATIdentifier ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :UmsatzsteuernummerLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that either the organization must not have the RDF type "http://example.com/DeliveryPartyRole" or, if it does, it must have exactly one p2p-o-org:VATIdentifier property with a string value of maximum 14 characters in length; if neither condition is met, validation will fail with the message "The Segment RFF+VA is missing for the Segment NAD+DP, i.e. the VAT number of the delivery address is missing."
+----
+
+Translation #44
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FormalNameLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3036 is missing for the Segemnet NAD+DP, i.e. specification of the formal name of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path p2p-o-org:formalName ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :FormalNameLieferanschrift targets instances of the class org:FormalOrganization, specifying that an organization must either not have the RDF type "http://example.com/DeliveryPartyRole" or, if it does, have exactly one occurrence of the property p2p-o-org:formalName with a string value not exceeding 35 characters in length; otherwise, validation will fail with the message "The data element 3036 is missing for the Segment NAD+DP, i.e. specification of the formal name of the delivery address."
+----
+
+Translation #45
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GLNLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3039 is missing for the Segemnet NAD+DP, i.e. specification of the GLN of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:integer ;
+                sh:maxCount 1 ;
+                sh:maxLength 13 ;
+                sh:minCount 1 ;
+                sh:minLength 13 ;
+                sh:path p2p-o-org:globalLocationNumber ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :GLNLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that an organization must either not have the RDF type "http://example.com/DeliveryPartyRole" or, if it does, must have exactly one property p2p-o-org:globalLocationNumber with an integer value of exactly 13 characters, otherwise, the validation will fail with the message "The data element 3039 is missing for the Segment NAD+DP, i.e. specification of the GLN of the delivery address".
+----
+
+Translation #46
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StadtLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3164 is missing for the Segemnet NAD+DP, i.e. specification of the city of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasCity ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StadtLieferanschrift applies to all instances of the class org:FormalOrganization, requiring that either they do not have the RDF type "http://example.com/DeliveryPartyRole" or, if they do, they must have exactly one string value for the property edifact-o:hasCity with a maximum length of 35 characters; if these conditions are not met, the validation will fail with the message "The data element 3164 is missing for the Segment NAD+DP, i.e. specification of the city of the delivery address".
+----
+
+Translation #47
+@prefix : <http://mapping.example.com/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LandLieferanschrift a sh:NodeShape ;
+    sh:message "Data element 3207 is missing for the Segemnet NAD+DP, i.e. specification of the country of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 3 ;
+                sh:minCount 1 ;
+                sh:path frapo:hasCountryCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :LandLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that either the organization must not have the RDF type "http://example.com/DeliveryPartyRole", or it must have exactly one value for the property frapo:hasCountryCode, which must be a string with a maximum length of 3 characters; if neither condition is met, the validation will fail with the message "Data element 3207 is missing for the Segment NAD+DP, i.e. specification of the country of the delivery address".
+----
+
+Translation #48
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StrasseLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3042 is missing for the Segemnet NAD+DP, i.e. specification of the street of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 35 ;
+                sh:minCount 1 ;
+                sh:path vcard:hasStreetAddress ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :StrasseLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that an organization either does not have the RDF type "http://example.com/DeliveryPartyRole" or must have exactly one vcard:hasStreetAddress property with a string value of up to 35 characters; if these conditions are not met, validation will fail with the message "The data element 3042 is missing for the Segment NAD+DP, i.e. specification of the street of the delivery address".
+----
+
+Translation #49
+@prefix : <http://mapping.example.com/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PLZLieferanschrift a sh:NodeShape ;
+    sh:message "The data element 3251 is missing for the Segemnet NAD+DP, i.e. specification of the postal code of the delivery address" ;
+    sh:or ( [ sh:not [ a sh:PropertyShape ;
+                        sh:hasValue "http://example.com/DeliveryPartyRole" ;
+                        sh:path rdf:type ] ] [ sh:datatype xsd:string ;
+                sh:maxCount 1 ;
+                sh:maxLength 9 ;
+                sh:minCount 1 ;
+                sh:path vcard:postalCode ] ) ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :PLZLieferanschrift applies to all instances of the class org:FormalOrganization, specifying that either the organization is not of type "http://example.com/DeliveryPartyRole" or, if it is, it must have a single string-valued property vcard:postalCode with a maximum length of 9 characters; otherwise, the validation will fail with the message "The data element 3251 is missing for the Segment NAD+DP, i.e. specification of the postal code of the delivery address".
+----
+
+Translation #50
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Waehrung a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The CUX segment in the invoice header is missing" ;
+            sh:minCount 1 ;
+            sh:path schema1:currency ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Waehrung targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the schema1:currency property, which must have exactly one string value, with a validation error message "The CUX segment in the invoice header is missing" if it's missing or appears more than once.
+----
+
+Translation #51
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:EANAtrikelnummer a sh:NodeShape ;
+    sh:message "The LIN segment with the value EN in data element 7143 is missing, i.e. the specification of the EAN article number or the PIA segment with the value SA in data element 7143 is missing, i.e. the specification of the supplier's article number." ;
+    sh:or ( [ sh:datatype xsd:string ;
+                sh:hasValue "International Article Number" ;
+                sh:minCount 1 ;
+                sh:path edifact-o:hasProductIdentification ] [ sh:datatype xsd:string ;
+                sh:minCount 1 ;
+                sh:path edifact-o:itemNumberSupplier ] ) ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :EANAtrikelnummer applies to all instances of the class edifact-o:item, specifying that either the property edifact-o:hasProductIdentification must have exactly one string value "International Article Number", or the property edifact-o:itemNumberSupplier must have exactly one string value, otherwise the validation will fail with the message "The LIN segment with the value EN in data element 7143 is missing, i.e. the specification of the EAN article number or the PIA segment with the value SA in data element 7143 is missing, i.e. the specification of the supplier's article number."
+----
+
+Translation #52
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BerechneteMenge a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 15 ;
+            sh:message "The segment QTY+12 is missing, i.e. the specification of the calculated quantity." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:deliveredQuantity ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :BerechneteMenge targets all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:deliveredQuantity, which must have exactly one value (xsd:float) with a maximum length of 15 characters, otherwise validation will fail with the message "The segment QTY+12 is missing, i.e. the specification of the calculated quantity."
+----
+
+Translation #53
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-doc-line: <https://purl.org/p2p-o/documentline#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BerechneteMenge a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 15 ;
+            sh:message "The segment QTY+47 is missing, i.e. the specification of the calculated quantity." ;
+            sh:minCount 1 ;
+            sh:path p2p-o-doc-line:invoicedQuantity ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :BerechneteMenge applies to all instances of the class edifact-o:item, mandating the presence of exactly one p2p-o-doc-line:invoicedQuantity property with a value that is a float (xsd:float) and has a maximum length of 15 characters; if this property is missing or appears more than once, validation will fail with the message "The segment QTY+47 is missing, i.e. the specification of the calculated quantity."
+----
+
+Translation #54
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BerechneteMenge a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 14 ;
+            sh:message "The segment MOA+203 is missing, i.e. the indication of the net position price." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasLineItemAmount ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :BerechneteMenge applies to all instances of the class edifact-o:item, enforcing a mandatory and singular occurrence of the property edifact-o:hasLineItemAmount with a value of type float (xsd:float) and a maximum length of 14 characters; if this property is missing or appears more than once, validation will fail with the message "The segment MOA+203 is missing, i.e. the indication of the net position price."
+----
+
+Translation #55
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ArtikelNettopreis a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasNetpriceOfItem ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ArtikelNettopreis applies to all instances of the class edifact-o:item, requiring exactly one property value for edifact-o:hasNetpriceOfItem, which must be a float with a maximum length of 13 characters, and validation will fail with the message "The PRI+AAA segment is missing, i.e. the indication of the net price of an individual article" if this property is missing or appears more than once.
+----
+
+Translation #56
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ArtikelBruttopreis a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The PRI+AAB segment is missing, i.e. the indication of the net price of an individual article." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasGrosspriceOfItem ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ArtikelBruttopreis targets all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:hasGrosspriceOfItem, which must have exactly one value (minCount and maxCount set to 1) that is a float (xsd:float) with a maximum length of 13 characters; if this constraint is violated, the validation will produce the error message: "The PRI+AAB segment is missing, i.e. the indication of the net price of an individual article."
+----
+
+Translation #57
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerLieferant a sh:Shape ;
+    sh:constraint [ sh:message "The order number of the supplier, RFF+VN, is missing." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberSupplier ] .
+
+
+The SHACL shape :ExistenzAuftragsnummerLieferant specifies a constraint on the property edifact-o:orderNumberSupplier, requiring it to appear at least once (minimum count 1) in a given data instance, with a validation failure message "The order number of the supplier, RFF+VN, is missing" if this property is missing.
+----
+
+Translation #58
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The order number of the supplier, RFF+VN, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ExistenzAuftragsnummerLieferantArtikel applies to all instances of the class edifact-o:item, requiring exactly one value (xsd:string) for the edifact-o:orderNumberSupplier property, with a validation error message "The order number of the supplier, RFF+VN, is missing in the item part." if this constraint is not met.
+----
+
+Translation #59
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+VN, in the item part is too long." ;
+            sh:path edifact-o:orderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :LaengeAuftragsnummerLieferantArtikel targets all instances of the class edifact-o:item and enforces a constraint on the property edifact-o:orderNumberSupplier, requiring its value to be a single string (xsd:string) with a maximum length of 35 characters; if this constraint is violated, the validation will produce the message: "The order number of the supplier, RFF+VN, in the item part is too long."
+----
+
+Translation #60
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+VN, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ExistenzDatumAuftragsnummerLieferantArtikel applies to all instances of the class edifact-o:item, requiring exactly one edifact-o:dateOrderNumberSupplier property with a string value, and failing validation with the message "The date of the supplier's order number, RFF+VN, is missing in the item part." if this property is missing or appears more than once.
+----
+
+Translation #61
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerLieferantArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+VN, in the item section must be long enough." ;
+            sh:path edifact-o:dateOrderNumberSupplier ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :LaengeDatumAuftragsnummerLieferantArtikel targets all instances of the class edifact-o:item and enforces a constraint on the property edifact-o:dateOrderNumberSupplier, requiring its value to be a single string (xsd:string) with a maximum length of 8 characters; if this constraint is violated, the validation will produce the message: "The date of the supplier's order number, RFF+VN, in the item section must be long enough."
+----
+
+Translation #62
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The order number of the supplier, RFF+ON, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ExistenzAuftragsnummerKaeuferArtikel applies to all instances of the class edifact-o:item, requiring exactly one string value (xsd:string) for the property edifact-o:orderNumberBuyer, with a failure message "The order number of the supplier, RFF+ON, is missing in the item part." if this constraint is not met.
+----
+
+Translation #63
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 35 ;
+            sh:message "The order number of the supplier, RFF+ON, in the item part is too long." ;
+            sh:path edifact-o:orderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :LaengeAuftragsnummerKaeuferArtikel applies to all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:orderNumberBuyer, which must have exactly one string value (xsd:string) with a maximum length of 35 characters, and producing the message "The order number of the supplier, RFF+ON, in the item part is too long" if this constraint is violated.
+----
+
+Translation #64
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzDatumAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "The date of the supplier's order number, RFF+ON, is missing in the item part." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ExistenzDatumAuftragsnummerKaeuferArtikel targets all instances of the class edifact-o:item, enforcing a mandatory string property edifact-o:dateOrderNumberBuyer with exactly one value, and returns the validation error "The date of the supplier's order number, RFF+ON, is missing in the item part." if this property is absent or appears more than once.
+----
+
+Translation #65
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeDatumAuftragsnummerKaeuferArtikel a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 8 ;
+            sh:message "The date of the supplier's order number, RFF+ON, in the item part is too long." ;
+            sh:path edifact-o:dateOrderNumberBuyer ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :LaengeDatumAuftragsnummerKaeuferArtikel targets all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:dateOrderNumberBuyer, which must be a single string value (xsd:string) with a maximum length of 8 characters; if this constraint is violated, the validation will produce the message: "The date of the supplier's order number, RFF+ON, in the item part is too long."
+----
+
+Translation #66
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Rechnungsbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 14 ;
+            sh:message "The segment MOA+77 is missing, i.e. the invoice amount is missing." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasInvoiceAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Rechnungsbetrag targets all instances of the class edifact-o:InvoiceDetails, requiring them to have exactly one value (between 1 and 1) for the property edifact-o:hasInvoiceAmount, which must be a string with a maximum length of 14 characters, and failure to meet this constraint will result in the error message "The segment MOA+77 is missing, i.e. the invoice amount is missing."
+----
+
+Translation #67
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Gesamtpositionsbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The segment MOA+79 is missing, i.e. the indication of the total position amount." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasTotalLineItemAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Gesamtpositionsbetrag applies to all instances of the class edifact-o:InvoiceDetails, requiring exactly one value for the property edifact-o:hasTotalLineItemAmount, and will return a validation error with the message "The segment MOA+79 is missing, i.e. the indication of the total position amount" if this property is missing or appears more than once.
+----
+
+Translation #68
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SummeZuAbschlaege a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasTotalAdditionsAndDeductions ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :SummeZuAbschlaege targets all instances of the class edifact-o:InvoiceDetails, mandating exactly one occurrence of the edifact-o:hasTotalAdditionsAndDeductions property, and will trigger a validation error with the message "The segment MOA+131 is missing, i.e. the indication of the sums of the additions/deductions" if this property is either absent or appears more than once.
+----
+
+Translation #69
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SteuerpflichtigerBetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:message "The segment MOA+125 is missing, i.e. the indication of the taxable amount." ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasTaxableAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :SteuerpflichtigerBetrag targets all instances of the class edifact-o:InvoiceDetails, requiring exactly one value for the property edifact-o:hasTaxableAmount, with a validation failure message "The segment MOA+125 is missing, i.e. the indication of the taxable amount" if this property is missing or appears more than once.
+----
+
+Translation #70
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:zusaetzlichePartneridentifikation a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 35 ;
+            sh:message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification." ;
+            sh:path edifact-o:additionalPartnerIdentificationEANCode ] ;
+    sh:targetClass org:FormalOrganization .
+
+
+The SHACL shape :zusaetzlichePartneridentifikation applies to all instances of the class org:FormalOrganization, requiring a single value (maximum count of 1) for the property edifact-o:additionalPartnerIdentificationEANCode, which must be a string with a maximum length of 35 characters; validation will fail with the message "The RFF+API segment is incorrect, i.e. the specification of the additional partner identification" if this property constraint is not met.
+----
+
+Translation #71
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Zahlungsbedingung a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "As usual" "Extended" "Wie ueblich" "Verlaengert" ) ;
+            sh:maxCount 5 ;
+            sh:message "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7." ;
+            sh:path edifact-o:paymentCondition ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Zahlungsbedingung targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:paymentCondition, which must have a maximum of 5 string values, each limited to the allowed values "As usual", "Extended", "Wie ueblich", or "Verlaengert", with a validation error message "The specified payment term is not one of the expected values, i.e. data element 4279 in the PAT segment is not equal to 1 or 7" if the constraint is violated.
+----
+
+Translation #72
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ValutaDatum a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:maxLength 8 ;
+            sh:message "The specified value date is too long, i.e. the DTM+209." ;
+            sh:path edifact-o:valutaDate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ValutaDatum targets all instances of the class edifact-o:InvoiceDetails, requiring the property edifact-o:valutaDate to have a single string value (xsd:string) with a maximum length of 8 characters, and producing the error message "The specified value date is too long, i.e. the DTM+209" if this constraint is violated.
+----
+
+Translation #73
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Abschlag a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 15 ;
+            sh:message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasAllowanceReason ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :Abschlag applies to all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:hasAllowanceReason, which must have a string value (xsd:string) with a minimum length of 1 character and a maximum of 15 occurrences, with a validation error message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification."
+----
+
+Translation #74
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Rabatt a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 15 ;
+            sh:message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasDiscountReason ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :Rabatt applies to all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:hasDiscountReason, which must be a string (xsd:string) with a minimum length of 1 character, allowing up to 15 occurrences, and producing the validation message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the tee type specification" if this constraint is violated.
+----
+
+Translation #75
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Zuschlag a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 15 ;
+            sh:message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasChargeReason ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :Zuschlag applies to all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:hasChargeReason, which must have a string value (xsd:string) with a minimum length of 1 character and a maximum of 15 occurrences; if this property is missing, appears more than 15 times, or its value is an empty string, validation will fail with the message "The data element 7160 or 7161 is missing in the ALC segment, i.e. the specification surcharge type."
+----
+
+Translation #76
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AbschlagProzentsatz a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 15 ;
+            sh:maxLength 5 ;
+            sh:message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasAllowancePercentage ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :AbschlagProzentsatz applies to all instances of the class edifact-o:item, specifying a property constraint on edifact-o:hasAllowancePercentage that requires a minimum of 1 and a maximum of 15 values, each being a float (xsd:float) with a minimum length of 1 character and a maximum length of 5 characters; if this property is missing or its value does not meet these conditions, validation will fail with the message: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
+----
+
+Translation #77
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:RabattProzentsatz a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 15 ;
+            sh:maxLength 5 ;
+            sh:message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasDiscountPercentage ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :RabattProzentsatz targets all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:hasDiscountPercentage, which must have a value that is a float (xsd:float) with a minimum length of 1 and a maximum length of 5 characters, appear at most 15 times, and failing to meet this constraint will produce the validation message: "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the discount."
+----
+
+Translation #78
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ZuschlagProzentsatz a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:maxCount 15 ;
+            sh:maxLength 5 ;
+            sh:message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge." ;
+            sh:minLength 1 ;
+            sh:path edifact-o:hasChargePercentage ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ZuschlagProzentsatz applies to all instances of the class edifact-o:item, requiring the property edifact-o:hasChargePercentage to have a value that is a float (xsd:float) between 1 and 5 characters in length, appearing at most 15 times, and providing the error message "The data element 5245 or 5482 is missing in the PCD segment, i.e. the percentage type and amount of the surcharge" if the constraint is violated.
+----
+
+Translation #79
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BruttoendbetragRechnunng a sh:NodeShape ;
+    sh:message "The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice." ;
+    sh:or ( [ sh:maxCount 2 ;
+                sh:maxLength 13 ;
+                sh:path p2p-o-inv:hasAllowanceAmount ] [ sh:maxCount 2 ;
+                sh:maxLength 13 ;
+                sh:path edifact-o:hasDiscountAmount ] ) ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :BruttoendbetragRechnunng applies to all instances of the class edifact-o:item, requiring either the property p2p-o-inv:hasAllowanceAmount or edifact-o:hasDiscountAmount to be present with a maximum of 2 values, each having a maximum length of 13 characters; if not, validation will fail with the message "The segment MOA+8, MOA+23 or MOA+204 is incorrect, i.e. the indication of the gross final amount of the invoice."
+----
+
+Translation #80
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SteuerangabenItem a sh:NodeShape ;
+    sh:property [ sh:maxCount 5 ;
+            sh:maxLength 5 ;
+            sh:message "The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect." ;
+            sh:path edifact-o:hasVATrate ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :SteuerangabenItem applies to all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:hasVATrate, which must appear at most 5 times (maxCount set to 5), with each value being a string (xsd:string) no longer than 5 characters (maxLength set to 5), and producing the validation message "The TAX segment at item level is incorrect, i.e. the specification of the tax rate; TAX; SG 21; header part; is incorrect" if this constraint is violated.
+----
+
+Translation #81
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-item: <https://purl.org/p2p-o/item#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Produktidentifikation a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name." ;
+            sh:minCount 1 ;
+            sh:path p2p-o-item:itemName ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :Produktidentifikation targets all instances of the class edifact-o:item, enforcing a single string-valued property p2p-o-item:itemName that must appear exactly once, with a validation error message "The data element 7008 in the IMD segment is incorrect, i.e. the specification of the article name" if this constraint is not met.
+----
+
+Translation #82
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Steuerbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." ;
+            sh:path edifact-o:hasTaxAmount ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :Steuerbetrag targets all instances of the class edifact-o:item, specifying that each item must have exactly one edifact-o:hasTaxAmount property with a maximum length of 13 characters, and validation will fail with the message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified" if this constraint is not met.
+----
+
+Translation #83
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ZuAbschlagbetrag a sh:NodeShape ;
+    sh:message "The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect." ;
+    sh:or ( [ sh:maxCount 2 ;
+                sh:maxLength 18 ;
+                sh:message "Das Segment MOA+23 fehlt" ;
+                sh:path p2p-o-inv:hasAllowanceAmount ] [ sh:maxCount 2 ;
+                sh:maxLength 18 ;
+                sh:message "Das Segment MOA+204 fehlt" ;
+                sh:path edifact-o:hasDiscountAmount ] ) ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :ZuAbschlagbetrag applies to all instances of the class edifact-o:item, requiring that either the property p2p-o-inv:hasAllowanceAmount or edifact-o:hasDiscountAmount is present at most twice, with a maximum length of 18 characters, and if neither condition is met, the validation will fail with the message "The segment MOA+23 or MOA+204 is incorrect, i.e. the specification of the surcharge or discount amount is incorrect."
+----
+
+Translation #84
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BasisZuAbschlagbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect." ;
+            sh:path edifact-o:hasAdditionDeductionBasis ] ;
+    sh:targetClass edifact-o:item .
+
+
+The SHACL shape :BasisZuAbschlagbetrag targets all instances of the class edifact-o:item, enforcing a constraint on the property edifact-o:hasAdditionDeductionBasis, which must be a string with a maximum length of 13 characters, appearing exactly once (maxCount 1), and violating this rule will produce the message: "The MOA+25 segment is incorrect, i.e. the base amount of the surcharge or discount is incorrect."
+----
+
+Translation #85
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SteuerangabenItem a sh:NodeShape ;
+    sh:property [ sh:maxCount 5 ;
+            sh:maxLength 5 ;
+            sh:message "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate." ;
+            sh:path edifact-o:hasVATrate ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :SteuerangabenItem targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasVATrate, which must have a maximum of 5 values (maxCount 5), with each value being a string of up to 5 characters (maxLength 5), and violating this constraint will produce the message: "The TAX segment at totals level is incorrect, i.e. the specification of the tax rate."
+----
+
+Translation #86
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Steuerbetrag a sh:NodeShape ;
+    sh:property [ sh:maxCount 1 ;
+            sh:maxLength 13 ;
+            sh:message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." ;
+            sh:path edifact-o:hasTaxAmount ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Steuerbetrag targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasTaxAmount, which must appear exactly once (maxCount 1) and be a string with a maximum length of 13 characters, with a validation error message "The segment MOA+124 is incorrect, i.e. the tax amount is not specified." if the constraint is violated.
+----
+
+Translation #87
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Prozesszugehoerigkeit a sh:NodeShape ;
+    sh:property [ sh:hasValue "ProcessExample" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path edifact-o:belongsToProcess ] ;
+    sh:targetClass edifact-o:E-Invoice .
+
+
+The SHACL shape :Prozesszugehoerigkeit targets all instances of the class edifact-o:E-Invoice, requiring them to have exactly one value for the property edifact-o:belongsToProcess, which must be "ProcessExample", and will fail validation if this property is missing, appears more than once, or has a different value.
+----
+
+Translation #88
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SumNetPrice a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount" ;
+            sh:prefixes [ sh:declare [ sh:namespace "https://purl.org/edifact/ontology#"^^xsd:anyURI ;
+                            sh:prefix "edifact-o" ] ] ;
+            sh:select """SELECT $this (edifact-o:hasTotalLineItemAmount AS ?path) (?totalAmount AS ?value)
+            WHERE { 
+                $this a edifact-o:InvoiceDetails ;
+                    edifact-o:hasTotalLineItemAmount ?totalAmount .
+                    {select $this (sum(?itemAmount) as ?sum) {
+                        ?item edifact-o:isItemOf ?invoice ; edifact-o:hasLineItemAmount ?itemAmount.
+                        ?invoice edifact-o:hasInvoiceDetails $this.
+                        } 
+                        group by $this }
+                FILTER (?sum != ?totalAmount) 
+                }""" ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :SumNetPrice targets all instances of the class edifact-o:InvoiceDetails, requiring each instance to have exactly one edifact-o:hasTotalLineItemAmount property value that equals the sum of all edifact-o:hasLineItemAmount property values associated with its line items; if this constraint is violated, validation will fail with the message "edifact-o:hasTotalLineItemAmount must equal the sum of all values of edifact-o:hasLineItemAmount".
+----
+
+Translation #89
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StudentProfileShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 6 ;
+                        sh:path edu:studentNumber ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:minCount 1 ;
+                        sh:path edu:registrationDate ] ] ) ;
+    sh:message "Student profile must include a student number and a registration date." ;
+    sh:targetClass edu:StudentProfile .
+
+
+The SHACL shape :StudentProfileShape applies to all instances of the class edu:StudentProfile, requiring them to have a string property edu:studentNumber with a minimum length of 6 characters and a single property edu:registrationDate with a date value, failing validation with the message "Student profile must include a student number and a registration date" if either property is missing or invalid.
+----
+
+Translation #90
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CourseCatalogShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 5 ;
+                        sh:path edu:courseTitle ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:maxInclusive 20 ;
+                        sh:minInclusive 1 ;
+                        sh:path edu:creditValue ] ] ) ;
+    sh:message "Each course must have a valid title and credit value between 1 and 20." ;
+    sh:targetClass edu:CourseCatalog .
+
+
+The SHACL shape :CourseCatalogShape applies to all instances of the class edu:CourseCatalog, requiring each instance to have exactly one string value for edu:courseTitle with a minimum length of 5 characters, and exactly one integer value for edu:creditValue between 1 (inclusive) and 20 (inclusive); if these constraints are not met, validation will fail with the message "Each course must have a valid title and credit value between 1 and 20."
+----
+
+Translation #91
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FacultyMemberShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 5 ;
+                        sh:path edu:employeeID ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path edu:fullName ] ] ) ;
+    sh:message "Faculty member must have an employee ID and full name." ;
+    sh:targetClass edu:FacultyMember .
+
+
+The SHACL shape :FacultyMemberShape applies to all instances of the class edu:FacultyMember, requiring that they have exactly one each of the properties edu:employeeID and edu:fullName, with edu:employeeID being a string with a minimum length of 5 characters and edu:fullName being a string with a minimum length of 3 characters; if these constraints are not met, validation will fail with the message: "Faculty member must have an employee ID and full name."
+----
+
+Translation #92
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ResearchProjectShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minCount 1 ;
+                        sh:path edu:projectID ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path edu:fundingAmount ] ] ) ;
+    sh:message "Research projects must have a project ID and funding amount." ;
+    sh:targetClass edu:ResearchProject .
+
+
+Here is the improved translation:
+
+The SHACL shape :ResearchProjectShape applies to all instances of the class edu:ResearchProject, requiring them to have a string value for the property edu:projectID and a floating-point number value for the property edu:fundingAmount with a minimum inclusive value of 0.0; both properties must have at least one value, and failure to meet these constraints will result in the validation error "Research projects must have a project ID and funding amount."
+----
+
+Translation #93
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ThesisSubmissionShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:date ;
+                        sh:minCount 1 ;
+                        sh:path edu:submissionDate ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:node edu:Professor ;
+                        sh:path edu:evaluator ] ] ) ;
+    sh:message "Thesis submissions must include submission date and at least one evaluator." ;
+    sh:targetClass edu:ThesisSubmission .
+
+
+The SHACL shape :ThesisSubmissionShape applies to all instances of the class edu:ThesisSubmission, requiring them to have exactly one edu:submissionDate with a value of type xsd:date, and at least one edu:evaluator with a value that is an instance of edu:Professor; if these conditions are not met, validation will fail with the message "Thesis submissions must include submission date and at least one evaluator."
+----
+
+Translation #94
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LibraryMemberShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 4 ;
+                        sh:path edu:membershipID ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:minCount 1 ;
+                        sh:path edu:expiryDate ] ] ) ;
+    sh:message "Library membership must include a valid ID and expiry date." ;
+    sh:targetClass edu:LibraryMember .
+
+
+The SHACL shape :LibraryMemberShape applies to all instances of the class edu:LibraryMember, requiring them to have a edu:membershipID property with a string value of at least 4 characters and an edu:expiryDate property with exactly one date value. If these constraints are not met, validation will fail with the message: "Library membership must include a valid ID and expiry date."
+----
+
+Translation #95
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ClassScheduleShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path edu:timeSlot ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path edu:location ] ] ) ;
+    sh:message "Class schedule must include time slot and location." ;
+    sh:targetClass edu:ClassSchedule .
+
+
+The SHACL shape :ClassScheduleShape targets all instances of the class edu:ClassSchedule and specifies a constraint that requires the presence of exactly one value for each of the properties edu:timeSlot and edu:location, each with a value that is a string (xsd:string) and has a minimum length of 3 characters; if either property is missing or does not meet the length requirement, validation will fail with the message "Class schedule must include time slot and location."
+----
+
+Translation #96
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GradingPolicyShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "A" "B" "C" "D" "F" ) ;
+                        sh:path edu:gradeScale ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 100.0 ;
+                        sh:minInclusive 0.0 ;
+                        sh:path edu:passThreshold ] ] ) ;
+    sh:message "Grading policy must include a valid scale and threshold score." ;
+    sh:targetClass edu:GradingPolicy .
+
+
+The SHACL shape :GradingPolicyShape targets all instances of the class edu:GradingPolicy, requiring each instance to have exactly one edu:gradeScale property with a value of either "A", "B", "C", "D", or "F", and exactly one edu:passThreshold property with a float value between 0.0 and 100.0 (inclusive); if these conditions are not met, validation will fail with the message "Grading policy must include a valid scale and threshold score."
+----
+
+Translation #97
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:InternshipShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path edu:companyName ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:minCount 1 ;
+                        sh:path edu:startDate ] ] ) ;
+    sh:message "Internship must include company name and start date." ;
+    sh:targetClass edu:Internship .
+
+
+Here is the improved translation:
+
+The SHACL shape :InternshipShape applies to all instances of the class edu:Internship and enforces two constraints: the property edu:companyName must have a string value with a minimum length of 2 characters, and the property edu:startDate must have at least one date value. If either of these properties is missing or does not meet these conditions, validation will fail with the message: "Internship must include company name and start date."
+----
+
+Translation #98
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:EnrollmentStatusShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path edu:isActive ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path edu:semesterName ] ] ) ;
+    sh:message "Enrollment status must indicate if active and specify the semester." ;
+    sh:targetClass edu:EnrollmentStatus .
+
+
+The SHACL shape :EnrollmentStatusShape targets all instances of the class edu:EnrollmentStatus, and specifies two simultaneous property constraints: the property edu:isActive must have a single Boolean value, and the property edu:semesterName must have a single string value with a minimum length of 3 characters; if these conditions are not met, validation will fail with the message: "Enrollment status must indicate if active and specify the semester."
+----
+
+Translation #99
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DigitalBadgeShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 4 ;
+                        sh:path edu:badgeTitle ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:path edu:issuedOn ] ] ) ;
+    sh:message "Each digital badge must have a title and issue date." ;
+    sh:targetClass edu:DigitalBadge .
+
+
+The SHACL shape :DigitalBadgeShape targets all instances of the class edu:DigitalBadge, requiring each instance to have exactly one value for edu:badgeTitle, which must be a string with a minimum length of 4 characters, and exactly one value for edu:issuedOn, which must be a date. If these conditions are not met, validation will fail with the message: "Each digital badge must have a title and issue date."
+----
+
+Translation #100
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlumniRecordShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:gYear ;
+                        sh:path edu:graduationYear ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path edu:degreeAwarded ] ] ) ;
+    sh:message "Alumni record must contain graduation year and awarded degree." ;
+    sh:targetClass edu:AlumniRecord .
+
+
+The SHACL shape :AlumniRecordShape applies to all instances of the class edu:AlumniRecord, requiring the simultaneous presence of two properties: edu:graduationYear with a value of type xsd:gYear, and edu:degreeAwarded with a string value (xsd:string) of at least 3 characters in length. If either property is missing or invalid, validation will fail with the error message "Alumni record must contain graduation year and awarded degree."
+----
+
+Translation #101
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LearningOutcomeShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 10 ;
+                        sh:path edu:outcomeText ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:node edu:Course ;
+                        sh:path edu:linkedCourse ] ] ) ;
+    sh:message "Learning outcome must describe the result and be linked to a course." ;
+    sh:targetClass edu:LearningOutcome .
+
+
+The SHACL shape :LearningOutcomeShape applies to all instances of the class edu:LearningOutcome, specifying that each instance must have a property edu:outcomeText with a string value of at least 10 characters in length, and a property edu:linkedCourse that references at least one instance of the class edu:Course; if these constraints are not met, validation will fail with the message "Learning outcome must describe the result and be linked to a course."
+----
+
+Translation #102
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AcademicAlertShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "Low GPA" "Attendance" "Plagiarism" ) ;
+                        sh:path edu:alertType ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:path edu:triggeredOn ] ] ) ;
+    sh:message "Academic alert must include type and trigger date." ;
+    sh:targetClass edu:AcademicAlert .
+
+
+The SHACL shape :AcademicAlertShape targets all instances of the class edu:AcademicAlert, requiring exactly one value for each of the two properties: edu:alertType, which must be one of the strings "Low GPA", "Attendance", or "Plagiarism", and edu:triggeredOn, which must be a date (xsd:date); if either property is missing or invalid, validation will fail with the message "Academic alert must include type and trigger date."
+----
+
+Translation #103
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StudyAbroadShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:hostUniversity ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:exchangePeriod ] ] ) ;
+    sh:message "Study abroad info must include host university and exchange period." ;
+    sh:targetClass edu:StudyAbroad .
+
+
+The SHACL shape :StudyAbroadShape applies to all instances of the class edu:StudyAbroad, requiring each instance to have exactly one string value for the properties edu:hostUniversity and edu:exchangePeriod; if either property is missing or has a non-string value, validation will fail with the message "Study abroad info must include host university and exchange period."
+----
+
+Translation #104
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AttendanceLogShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "Present" "Absent" "Excused" ) ;
+                        sh:path edu:presentStatus ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:path edu:dateRecorded ] ] ) ;
+    sh:message "Attendance log must include present status and date." ;
+    sh:targetClass edu:AttendanceLog .
+
+
+The SHACL shape :AttendanceLogShape applies to all instances of the class edu:AttendanceLog, requiring them to have exactly one value for the property edu:presentStatus, which must be one of the strings "Present", "Absent", or "Excused", and exactly one value for the property edu:dateRecorded, which must be a date (xsd:date), with a validation failure message of "Attendance log must include present status and date" if these constraints are not met.
+----
+
+Translation #105
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CapstoneProjectShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 5 ;
+                        sh:path edu:projectTitle ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 100.0 ;
+                        sh:minInclusive 0.0 ;
+                        sh:path edu:finalScore ] ] ) ;
+    sh:message "Capstone project must have a title and a score between 0 and 100." ;
+    sh:targetClass edu:CapstoneProject .
+
+
+The SHACL shape :CapstoneProjectShape applies to all instances of the class edu:CapstoneProject, requiring exactly one value for each of two properties: edu:projectTitle, which must be a string with a minimum length of 5 characters, and edu:finalScore, which must be a float between 0.0 and 100.0; if these constraints are not met, validation will fail with the message "Capstone project must have a title and a score between 0 and 100."
+----
+
+Translation #106
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CertificationRecordShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path edu:certificateName ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:path edu:validUntil ] ] ) ;
+    sh:message "Certification record must include a name and a valid until date." ;
+    sh:targetClass edu:CertificationRecord .
+
+
+The SHACL shape :CertificationRecordShape applies to all instances of the class edu:CertificationRecord, mandating the presence of two properties: edu:certificateName with a string value of at least 3 characters, and edu:validUntil with a date value, with validation failure yielding the message "Certification record must include a name and a valid until date."
+----
+
+Translation #107
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DisciplinaryActionShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "Cheating" "Harassment" "Forgery" ) ;
+                        sh:path edu:violationType ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path edu:resolved ] ] ) ;
+    sh:message "Disciplinary actions must specify type and resolution status." ;
+    sh:targetClass edu:DisciplinaryAction .
+
+
+The SHACL shape :DisciplinaryActionShape applies to all instances of the class edu:DisciplinaryAction, requiring each instance to have exactly one edu:violationType property with a value of either "Cheating", "Harassment", or "Forgery", and exactly one edu:resolved property with a boolean value; if these conditions are not met, validation will fail with the message: "Disciplinary actions must specify type and resolution status."
+----
+
+Translation #108
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExchangeProgramShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:partnerInstitution ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:languageOfInstruction ] ] ) ;
+    sh:message "Exchange programs must specify partner institution and instruction language." ;
+    sh:targetClass edu:ExchangeProgram .
+
+
+The SHACL shape :ExchangeProgramShape targets all instances of the class edu:ExchangeProgram, requiring each instance to have exactly one edu:partnerInstitution property and one edu:languageOfInstruction property, both with string values (xsd:string), and validation will fail with the message "Exchange programs must specify partner institution and instruction language" if either property is missing or has a non-string value.
+----
+
+Translation #109
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MentorshipProgramShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:path edu:mentor ;
+                        sh:qualifiedMinCount 1 ;
+                        sh:qualifiedValueShape [ sh:class edu:FacultyMember ] ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path edu:menteeCount ] ] ) ;
+    sh:message "Mentorship program must have at least one faculty mentor and a mentee count." ;
+    sh:targetClass edu:MentorshipProgram .
+
+
+The SHACL shape :MentorshipProgramShape applies to all instances of the class edu:MentorshipProgram, mandating that each instance must have at least one edu:mentor property with a value that is an instance of the class edu:FacultyMember, and a single edu:menteeCount property with a value that is an integer greater than or equal to 1; if these conditions are not met, validation will fail with the message: "Mentorship program must have at least one faculty mentor and a mentee count."
+----
+
+Translation #110
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LanguageTestShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:testName ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 100.0 ;
+                        sh:minInclusive 0.0 ;
+                        sh:path edu:resultScore ] ] ) ;
+    sh:message "Language test must have a name and a score between 0 and 100." ;
+    sh:targetClass edu:LanguageTest .
+
+
+The SHACL shape :LanguageTestShape applies to all instances of the class edu:LanguageTest, mandating that each instance has exactly one string value for the property edu:testName and exactly one float value for the property edu:resultScore, which must be between 0.0 (inclusive) and 100.0 (inclusive), otherwise validation will fail with the message: "Language test must have a name and a score between 0 and 100."
+----
+
+Translation #111
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StudentLoanShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path edu:loanAmount ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:repaymentTerm ] ] ) ;
+    sh:message "Student loan must include loan amount and repayment term." ;
+    sh:targetClass edu:StudentLoan .
+
+
+The SHACL shape :StudentLoanShape applies to all instances of the class edu:StudentLoan, requiring both a edu:loanAmount property with a float value of 0.0 or higher and a edu:repaymentTerm property with a string value; if either property is missing or invalid, validation will fail with the message "Student loan must include loan amount and repayment term."
+----
+
+Translation #112
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:TeachingAssignmentShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:minCount 1 ;
+                        sh:node edu:FacultyMember ;
+                        sh:path edu:assignedFaculty ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path edu:teachingHours ] ] ) ;
+    sh:message "Teaching assignment must include a faculty member and the number of hours." ;
+    sh:targetClass edu:TeachingAssignment .
+
+
+Here is the improved translation:
+
+The SHACL shape :TeachingAssignmentShape applies to all instances of the class edu:TeachingAssignment, requiring each instance to have at least one value for the property edu:assignedFaculty, which must be an instance of edu:FacultyMember, and at least one value for the property edu:teachingHours, which must be an integer with a minimum value of 1; if these conditions are not met, validation will fail with the message "Teaching assignment must include a faculty member and the number of hours."
+----
+
+Translation #113
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:HonorRollShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path edu:studentName ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 4.0 ;
+                        sh:minInclusive 3.5 ;
+                        sh:path edu:GPA ] ] ) ;
+    sh:message "Honor roll entry must include student name and GPA ≥ 3.5." ;
+    sh:targetClass edu:HonorRoll .
+
+
+The SHACL shape :HonorRollShape applies to all instances of the class edu:HonorRoll, mandating the presence of two properties: edu:studentName with a string value of at least 3 characters, and edu:GPA with a float value between 3.5 and 4.0 (inclusive), and validation will fail if either condition is not met, with the error message "Honor roll entry must include student name and GPA ≥ 3.5."
+----
+
+Translation #114
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:EventParticipationShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "Conference" "Workshop" "Competition" ) ;
+                        sh:path edu:eventType ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 4 ;
+                        sh:path edu:participantID ] ] ) ;
+    sh:message "Event participation must include the event type and participant ID." ;
+    sh:targetClass edu:EventParticipation .
+
+
+The SHACL shape :EventParticipationShape applies to all instances of the class edu:EventParticipation, requiring them to have a value for edu:eventType that is one of "Conference", "Workshop", or "Competition", and a value for edu:participantID that is a string with a minimum length of 4 characters; if either condition is not met, validation will fail with the message "Event participation must include the event type and participant ID."
+----
+
+Translation #115
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FinalExamShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 5 ;
+                        sh:path edu:examCode ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 30 ;
+                        sh:path edu:durationMinutes ] ] ) ;
+    sh:message "Final exam must include an exam code and a duration in minutes." ;
+    sh:targetClass edu:FinalExam .
+
+
+The SHACL shape :FinalExamShape targets all instances of the class edu:FinalExam and enforces a constraint with two conditions: the property edu:examCode must be present with a single value that is a string (xsd:string) having a minimum length of 5 characters, and the property edu:durationMinutes must be present with a single value that is an integer (xsd:integer) having a minimum value of 30; if either condition is not met, validation will fail with the message: "Final exam must include an exam code and a duration in minutes."
+----
+
+Translation #116
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OnlineCourseShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:platform ] ] [ sh:property [ sh:datatype xsd:anyURI ;
+                        sh:path edu:url ] ] ) ;
+    sh:message "Online course must specify platform and course URL." ;
+    sh:targetClass edu:OnlineCourse .
+
+
+The SHACL shape :OnlineCourseShape targets all instances of the class edu:OnlineCourse, requiring each to have exactly one value for edu:platform as a string and exactly one value for edu:url as a URI; if either property is missing or has an invalid data type, the validation will fail with the message "Online course must specify platform and course URL."
+----
+
+Translation #117
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExtracurricularShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path edu:activityName ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path edu:weeklyHours ] ] ) ;
+    sh:message "Extracurricular record must include activity name and hours per week." ;
+    sh:targetClass edu:Extracurricular .
+
+
+The SHACL shape :ExtracurricularShape applies to all instances of the class edu:Extracurricular, mandating the presence of two properties: edu:activityName with a string value, and edu:weeklyHours with an integer value of at least 1, with a validation failure message of "Extracurricular record must include activity name and hours per week" if either property is missing or invalid.
+----
+
+Translation #118
+@prefix : <http://mapping.example.com/> .
+@prefix edu: <http://example.org/edu#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ScholarshipApplicationShape a sh:NodeShape ;
+    sh:message "Applicant must either have a GPA ≥ 3.0 or have submitted an essay." ;
+    sh:or ( [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 3.0 ;
+                        sh:path edu:GPA ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:hasValue true ;
+                        sh:path edu:essaySubmitted ] ] ) ;
+    sh:targetClass edu:ScholarshipApplication .
+
+
+The SHACL shape :ScholarshipApplicationShape applies to all instances of the class edu:ScholarshipApplication, requiring each instance to have either a GPA (edu:GPA) with a value of 3.0 or higher (xsd:float) or a submitted essay (edu:essaySubmitted) with a value of true (xsd:boolean), with a failure message "Applicant must either have a GPA ≥ 3.0 or have submitted an essay" if neither condition is met.
+----
+
+Translation #119
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ServerSpecShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 2 ;
+                        sh:path it:cpuCores ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 4 ;
+                        sh:path it:ramGB ] ] ) ;
+    sh:message "Each server must specify at least 2 CPU cores and 4GB RAM." ;
+    sh:targetClass it:ServerSpec .
+
+
+Here is the rewritten translation:
+
+The SHACL shape :ServerSpecShape targets all instances of the class it:ServerSpec, requiring each instance to have exactly two properties: it:cpuCores with a minimum value of 2 and it:ramGB with a minimum value of 4, both with integer values (xsd:integer), and validation will fail with the message "Each server must specify at least 2 CPU cores and 4GB RAM" if these conditions are not met.
+----
+
+Translation #120
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OperatingSystemShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "Operating system name must be a valid string." ;
+            sh:minLength 3 ;
+            sh:path it:osName ],
+        [ sh:datatype xsd:string ;
+            sh:message "Each OS must include a version string." ;
+            sh:path it:version ] ;
+    sh:targetClass it:OperatingSystem .
+
+
+The SHACL shape :OperatingSystemShape applies to all instances of the class it:OperatingSystem, requiring exactly two properties: it:osName with a string value (xsd:string) of at least 3 characters, or validation will fail with the message "Operating system name must be a valid string", and it:version with a string value (xsd:string), with validation failing if it's missing or invalid, accompanied by the message "Each OS must include a version string".
+----
+
+Translation #121
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProtocolSupportShape a sh:NodeShape ;
+    sh:property [ sh:in ( "HTTP" "HTTPS" "FTP" "SSH" "SFTP" ) ;
+            sh:message "Protocol must be one of the supported types." ;
+            sh:path it:protocolType ],
+        [ sh:datatype xsd:boolean ;
+            sh:message "You must specify whether the protocol is encrypted." ;
+            sh:path it:isEncrypted ] ;
+    sh:targetClass it:ProtocolSupport .
+
+
+The SHACL shape :ProtocolSupportShape targets all instances of the class it:ProtocolSupport and specifies two property constraints: the property it:protocolType must have a value of either "HTTP", "HTTPS", "FTP", "SSH", or "SFTP", with a validation failure message "Protocol must be one of the supported types.", and the property it:isEncrypted must have a boolean value (xsd:boolean), with a validation failure message "You must specify whether the protocol is encrypted."
+----
+
+Translation #122
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:FirewallRuleShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:maxInclusive 65535 ;
+                        sh:minInclusive 1 ;
+                        sh:path it:portNumber ] ] [ sh:property [ sh:in ( "Allow" "Deny" ) ;
+                        sh:path it:ruleAction ] ] ) ;
+    sh:message "Firewall rule must define a valid port and an allow/deny action." ;
+    sh:targetClass it:FirewallRule .
+
+
+The SHACL shape :FirewallRuleShape applies to all instances of the class it:FirewallRule, requiring the presence of two properties: it:portNumber, which must be an integer between 1 and 65535 (inclusive), and it:ruleAction, which must be either "Allow" or "Deny". If these conditions are not met, validation will fail with the message "Firewall rule must define a valid port and an allow/deny action."
+----
+
+Translation #123
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AccessCredentialShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path it:username ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:passwordHash ] ] ) ;
+    sh:message "Each access credential must include a username and password hash." ;
+    sh:targetClass it:AccessCredential .
+
+
+The SHACL shape :AccessCredentialShape applies to all instances of the class it:AccessCredential, mandating the presence of two properties: it:username with a string value (xsd:string) of at least 3 characters, and it:passwordHash with a string value (xsd:string), with a validation failure message stating "Each access credential must include a username and password hash" if either property is missing or invalid.
+----
+
+Translation #124
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SystemLogPolicyShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 7 ;
+                        sh:path it:logRetentionDays ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path it:isRotationEnabled ] ] ) ;
+    sh:message "Log policies must specify retention days and whether rotation is enabled." ;
+    sh:targetClass it:SystemLogPolicy .
+
+
+The SHACL shape :SystemLogPolicyShape applies to all instances of the class it:SystemLogPolicy, requiring that each instance has exactly one value for the property it:logRetentionDays, which must be an integer with a minimum value of 7, and exactly one value for the property it:isRotationEnabled, which must be a boolean; if these constraints are not met, validation will fail with the message "Log policies must specify retention days and whether rotation is enabled."
+----
+
+Translation #125
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BackupScheduleShape a sh:NodeShape ;
+    sh:property [ sh:in ( "Daily" "Weekly" "Monthly" ) ;
+            sh:message "Backup frequency must be one of: Daily, Weekly, or Monthly." ;
+            sh:path it:frequency ],
+        [ sh:datatype xsd:boolean ;
+            sh:message "You must declare whether the backup is encrypted." ;
+            sh:path it:isEncrypted ] ;
+    sh:targetClass it:BackupSchedule .
+
+
+The SHACL shape :BackupScheduleShape targets all instances of the class it:BackupSchedule, specifying two mandatory property constraints: one on it:frequency, requiring a string value to be one of "Daily", "Weekly", or "Monthly", and another on it:isEncrypted, requiring a boolean value, with respective validation error messages if these constraints are violated.
+----
+
+Translation #126
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SSHConfigShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:hasValue 22 ;
+            sh:message "SSH must use port 22 unless configured otherwise." ;
+            sh:path it:port ],
+        [ sh:datatype xsd:boolean ;
+            sh:hasValue true ;
+            sh:message "SSH configuration must enforce key-based authentication." ;
+            sh:path it:keyBasedAuth ] ;
+    sh:targetClass it:SSHConfig .
+
+
+The SHACL shape :SSHConfigShape applies to all instances of the class it:SSHConfig, ensuring that each instance has exactly one value for it:port, which must be the integer 22, and exactly one value for it:keyBasedAuth, which must be true, with validation failure messages "SSH must use port 22 unless configured otherwise" and "SSH configuration must enforce key-based authentication", respectively, if these constraints are not met.
+----
+
+Translation #127
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DiskQuotaShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path it:allocatedGB ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path it:mountPoint ] ] ) ;
+    sh:message "Disk quota must define allocated space and a valid mount point." ;
+    sh:targetClass it:DiskQuota .
+
+
+The SHACL shape :DiskQuotaShape targets all instances of the class it:DiskQuota, enforcing two simultaneous constraints: the property it:allocatedGB must be an integer with a minimum value of 1, and the property it:mountPoint must be a string with a minimum length of 2 characters; failure to meet these conditions will result in validation failure with the message "Disk quota must define allocated space and a valid mount point."
+----
+
+Translation #128
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AdminRoleShape a sh:NodeShape ;
+    sh:message "Admin role must either have privilege level ≥ 5 or full access enabled." ;
+    sh:or ( [ sh:datatype xsd:integer ;
+                sh:minInclusive 5 ;
+                sh:path it:privilegeLevel ] [ sh:datatype xsd:boolean ;
+                sh:hasValue true ;
+                sh:path it:hasFullAccess ] ) ;
+    sh:targetClass it:AdminRole .
+
+
+The SHACL shape :AdminRoleShape applies to all instances of the class it:AdminRole, requiring that either the property it:privilegeLevel has a value of at least 5 (inclusive) as an integer, or the property it:hasFullAccess has a value of true as a boolean; if neither condition is met, validation will fail with the message "Admin role must either have privilege level ≥ 5 or full access enabled."
+----
+
+Translation #129
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:UserAccountShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 4 ;
+                        sh:path it:username ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path it:isActive ] ] ) ;
+    sh:message "User accounts must specify a username and indicate whether the account is active." ;
+    sh:targetClass it:UserAccount .
+
+
+The SHACL shape :UserAccountShape targets all instances of the class it:UserAccount, mandating the presence of two properties: it:username with a string value at least 4 characters long, and it:isActive with a boolean value. If either property is missing or does not meet these conditions, validation will fail with the message "User accounts must specify a username and indicate whether the account is active."
+----
+
+Translation #130
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:TLSCertificateShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path it:issuer ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:path it:validUntil ] ] ) ;
+    sh:message "TLS certificates must specify an issuer and an expiration date." ;
+    sh:targetClass it:TLSCertificate .
+
+
+The SHACL shape :TLSCertificateShape applies to all instances of the class it:TLSCertificate, mandating that each instance must have exactly one it:issuer property with a string value of at least 3 characters and exactly one it:validUntil property with a date value; failure to comply will trigger the validation error message "TLS certificates must specify an issuer and an expiration date."
+----
+
+Translation #131
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PortBindingShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:maxInclusive 65535 ;
+                        sh:minInclusive 1 ;
+                        sh:path it:boundPort ] ] [ sh:property [ sh:in ( "TCP" "UDP" ) ;
+                        sh:path it:protocol ] ] ) ;
+    sh:message "Port bindings must define a valid port number and either TCP or UDP protocol." ;
+    sh:targetClass it:PortBinding .
+
+
+The SHACL shape :PortBindingShape applies to all instances of the class it:PortBinding, requiring each instance to have exactly one value for the property it:boundPort, which must be an integer between 1 and 65535 (inclusive), and exactly one value for the property it:protocol, which must be either "TCP" or "UDP", with a validation error message "Port bindings must define a valid port number and either TCP or UDP protocol" if these constraints are not met.
+----
+
+Translation #132
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DatabaseConnectionShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:anyURI ;
+                        sh:path it:connectionURL ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path it:timeoutSeconds ] ] ) ;
+    sh:message "Database connection must include a URL and a timeout value in seconds." ;
+    sh:targetClass it:DatabaseConnection .
+
+
+The SHACL shape :DatabaseConnectionShape targets all instances of the class it:DatabaseConnection, requiring each instance to have exactly one it:connectionURL property with a value of type xsd:anyURI and exactly one it:timeoutSeconds property with a value of type xsd:integer that is greater than or equal to 1; if these constraints are not met, validation will fail with the message "Database connection must include a URL and a timeout value in seconds."
+----
+
+Translation #133
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AccessTokenShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 10 ;
+                        sh:path it:tokenValue ] ] [ sh:property [ sh:datatype xsd:dateTime ;
+                        sh:path it:expiresAt ] ] ) ;
+    sh:message "Access token must include a token value and an expiration timestamp." ;
+    sh:targetClass it:AccessToken .
+
+
+The SHACL shape :AccessTokenShape applies to all instances of the class it:AccessToken, enforcing the presence of two mandatory properties: it:tokenValue, a string of at least 10 characters, and it:expiresAt, a date and time, with a validation failure message "Access token must include a token value and an expiration timestamp" if either property is missing or invalid.
+----
+
+Translation #134
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LoadBalancerConfigShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "RoundRobin" "LeastConnections" "IPHash" ) ;
+                        sh:path it:algorithm ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path it:healthCheckEnabled ] ] ) ;
+    sh:message "Load balancer config must specify an algorithm and whether health checks are enabled." ;
+    sh:targetClass it:LoadBalancerConfig .
+
+
+The SHACL shape :LoadBalancerConfigShape applies to all instances of the class it:LoadBalancerConfig, requiring them to have exactly one value for the property it:algorithm, which must be one of "RoundRobin", "LeastConnections", or "IPHash", and exactly one boolean value for the property it:healthCheckEnabled, with a validation failure message "Load balancer config must specify an algorithm and whether health checks are enabled." if these constraints are not met.
+----
+
+Translation #135
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:EnvironmentVariableShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path it:variableName ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:value ] ] ) ;
+    sh:message "Environment variables must include a name and a value." ;
+    sh:targetClass it:EnvironmentVariable .
+
+
+The SHACL shape :EnvironmentVariableShape applies to all instances of the class it:EnvironmentVariable, requiring each instance to have exactly two properties: it:variableName with a string value of at least 2 characters in length, and it:value with a string value, otherwise validation will fail with the message "Environment variables must include a name and a value."
+----
+
+Translation #136
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StorageMountShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 1 ;
+                        sh:path it:mountPath ] ] [ sh:property [ sh:in ( "ext4" "xfs" "ntfs" ) ;
+                        sh:path it:filesystemType ] ] ) ;
+    sh:message "Storage mount must define a path and a supported filesystem type." ;
+    sh:targetClass it:StorageMount .
+
+
+The SHACL shape :StorageMountShape applies to all instances of the class it:StorageMount, mandating the presence of two properties: it:mountPath with a string value of at least one character, and it:filesystemType with a value of either "ext4", "xfs", or "ntfs". If these constraints are not met, validation will fail with the message "Storage mount must define a path and a supported filesystem type."
+----
+
+Translation #137
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ScheduledJobShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path it:jobName ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 9 ;
+                        sh:path it:cronExpression ] ] ) ;
+    sh:message "Scheduled jobs must have a name and a valid cron expression." ;
+    sh:targetClass it:ScheduledJob .
+
+
+The SHACL shape :ScheduledJobShape applies to all instances of the class it:ScheduledJob, requiring them to have both a string value for it:jobName with a minimum length of 3 characters and a string value for it:cronExpression with a minimum length of 9 characters; if either property is missing or does not meet the specified length requirements, validation will fail with the message "Scheduled jobs must have a name and a valid cron expression."
+----
+
+Translation #138
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ContainerDeploymentShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:imageName ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path it:replicaCount ] ] ) ;
+    sh:message "Container deployments must specify an image name and at least one replica." ;
+    sh:targetClass it:ContainerDeployment .
+
+
+The SHACL shape :ContainerDeploymentShape applies to all instances of the class it:ContainerDeployment, requiring each instance to have exactly one string value for the property it:imageName and exactly one integer value for the property it:replicaCount with a minimum value of 1, and failure to meet these constraints will result in a validation error with the message "Container deployments must specify an image name and at least one replica."
+----
+
+Translation #139
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DNSConfigShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:primaryDNS ;
+                        sh:pattern "^\\d{1,3}(\\.\\d{1,3}){3}$" ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:secondaryDNS ] ] ) ;
+    sh:message "DNS configuration must include a valid primary IP address and optionally a secondary one." ;
+    sh:targetClass it:DNSConfig .
+
+
+The SHACL shape :DNSConfigShape applies to all instances of the class it:DNSConfig, mandating that each instance has a string-valued property it:primaryDNS with a valid IPv4 address (matching the pattern "^\\d{1,3}(\\.\\d{1,3}){3}$") and optionally a string-valued property it:secondaryDNS; validation will fail with the message "DNS configuration must include a valid primary IP address and optionally a secondary one" if either the primary DNS address is invalid or missing, or if the secondary DNS address is present but invalid.
+----
+
+Translation #140
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ApiRateLimitShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path it:limitPerMinute ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path it:burstLimit ] ] ) ;
+    sh:message "API rate limits must specify per-minute and burst limits." ;
+    sh:targetClass it:ApiRateLimit .
+
+
+The SHACL shape :ApiRateLimitShape targets all instances of the class it:ApiRateLimit, requiring each to have exactly one it:limitPerMinute and one it:burstLimit property, both with integer values (xsd:integer) of at least 1, otherwise validation will fail with the message "API rate limits must specify per-minute and burst limits."
+----
+
+Translation #141
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProxyServerShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:proxyAddress ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path it:requiresAuthentication ] ] ) ;
+    sh:message "Proxy servers must define an address and whether authentication is required." ;
+    sh:targetClass it:ProxyServer .
+
+
+The SHACL shape :ProxyServerShape applies to all instances of the class it:ProxyServer, mandating the presence of exactly one it:proxyAddress property with a string value and one it:requiresAuthentication property with a boolean value; if either property is missing or has an invalid value, validation will fail with the message: "Proxy servers must define an address and whether authentication is required."
+----
+
+Translation #142
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MonitoringAgentShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:agentID ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path it:isActive ] ] ) ;
+    sh:message "Monitoring agent must have an ID and indicate if it is active." ;
+    sh:targetClass it:MonitoringAgent .
+
+
+The SHACL shape :MonitoringAgentShape applies to all instances of the class it:MonitoringAgent, requiring exactly one string value for the property it:agentID and exactly one boolean value for the property it:isActive, with a validation failure message "Monitoring agent must have an ID and indicate if it is active." if these constraints are not met.
+----
+
+Translation #143
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertRuleShape a sh:NodeShape ;
+    sh:message "Alert rules must define either a numeric threshold or a condition expression." ;
+    sh:or ( [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path it:thresholdValue ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 5 ;
+                        sh:path it:expression ] ] ) ;
+    sh:targetClass it:AlertRule .
+
+
+The SHACL shape :AlertRuleShape targets all instances of the class it:AlertRule and specifies a validation rule with an sh:or condition that requires exactly one of two properties to be present: either it:thresholdValue with a value that is a floating-point number (xsd:float) greater than or equal to 0.0, or it:expression with a value that is a string (xsd:string) with a minimum length of 5 characters, otherwise the validation will fail with the message "Alert rules must define either a numeric threshold or a condition expression."
+----
+
+Translation #144
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:NetworkInterfaceShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path it:interfaceName ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:macAddress ;
+                        sh:pattern "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$" ] ] ) ;
+    sh:message "Network interface must have a name and a valid MAC address." ;
+    sh:targetClass it:NetworkInterface .
+
+
+The SHACL shape :NetworkInterfaceShape targets all instances of the class it:NetworkInterface, requiring each instance to have two specific properties: it:interfaceName with a string value of at least 2 characters, and it:macAddress with a string value conforming to the pattern "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$". Failure to meet these constraints will result in a validation error with the message "Network interface must have a name and a valid MAC address."
+----
+
+Translation #145
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AccessPolicyShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "Admin" "Editor" "Viewer" ) ;
+                        sh:path it:role ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:path it:resource ] ] ) ;
+    sh:message "Access policies must define a role and the associated resource." ;
+    sh:targetClass it:AccessPolicy .
+
+
+The SHACL shape :AccessPolicyShape applies to all instances of the class it:AccessPolicy, requiring exactly one occurrence of each of the following properties: it:role with a value that must be one of the strings "Admin", "Editor", or "Viewer", and it:resource with a value that must be a string (xsd:string), and if these conditions are not met, validation will fail with the message "Access policies must define a role and the associated resource."
+----
+
+Translation #146
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ErrorLogShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path it:errorCode ] ] [ sh:property [ sh:datatype xsd:dateTime ;
+                        sh:path it:timestamp ] ] ) ;
+    sh:message "Error logs must include an error code and timestamp." ;
+    sh:targetClass it:ErrorLog .
+
+
+The SHACL shape :ErrorLogShape applies to all instances of the class it:ErrorLog, mandating the presence of two properties: it:errorCode, which must be a string with a minimum length of 3 characters, and it:timestamp, which must be a dateTime. If either property is missing or does not conform to these constraints, validation will fail with the message: "Error logs must include an error code and timestamp."
+----
+
+Translation #147
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:WebServerConfigShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 1 ;
+                        sh:path it:documentRoot ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path it:sslEnabled ] ] ) ;
+    sh:message "Web server config must specify document root and whether SSL is enabled." ;
+    sh:targetClass it:WebServerConfig .
+
+
+The SHACL shape :WebServerConfigShape applies to all instances of the class it:WebServerConfig, requiring two mandatory properties: it:documentRoot with a minimum length of 1 character and a string value, and it:sslEnabled with a boolean value, with a validation failure message of "Web server config must specify document root and whether SSL is enabled."
+----
+
+Translation #148
+@prefix : <http://mapping.example.com/> .
+@prefix it: <http://example.org/it#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:TokenRevocationShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 8 ;
+                        sh:path it:tokenID ] ] [ sh:property [ sh:datatype xsd:dateTime ;
+                        sh:path it:revokedAt ] ] ) ;
+    sh:message "Revoked tokens must include token ID and the revocation timestamp." ;
+    sh:targetClass it:TokenRevocation .
+
+
+The SHACL shape :TokenRevocationShape applies to all instances of the class it:TokenRevocation and enforces a constraint that requires two properties to be present: it:tokenID with a string value (xsd:string) of at least 8 characters, and it:revokedAt with a dateTime value (xsd:dateTime).
+----
+
+Translation #149
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PriceShape a sh:NodeShape ;
+    sh:message "Price must be non-negative and include a valid currency code." ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:minInclusive 0.0 ;
+            sh:path catalog:priceValue ],
+        [ sh:in ( "USD" "EUR" "INR" "GBP" ) ;
+            sh:path catalog:currency ] ;
+    sh:targetClass catalog:PriceDetail .
+
+
+The SHACL shape :PriceShape targets all instances of the class catalog:PriceDetail, enforcing two property constraints: one on catalog:priceValue, requiring its value to be a non-negative floating-point number (xsd:float) with a minimum inclusive value of 0.0, and another on catalog:currency, requiring its value to be one of the allowed currency codes: "USD", "EUR", "INR", or "GBP", with each property appearing exactly once (implicitly implied by the absence of cardinality constraints). If these constraints are not met, validation will fail with the message: "Price must be non-negative and include a valid currency code."
+----
+
+Translation #150
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:InventoryShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 0 ;
+                        sh:path catalog:stockQuantity ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path catalog:warehouseLocation ] ] ) ;
+    sh:message "Inventory must specify stock quantity and warehouse location." ;
+    sh:targetClass catalog:InventoryRecord .
+
+
+The SHACL shape :InventoryShape targets all instances of the class catalog:InventoryRecord, requiring each instance to have exactly one catalog:stockQuantity value that is a non-negative integer and exactly one catalog:warehouseLocation value that is a string with a minimum length of 2 characters; if these constraints are not met, validation will fail with the message: "Inventory must specify stock quantity and warehouse location."
+----
+
+Translation #151
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DiscountPolicyShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 100.0 ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:discountRate ] ] [ sh:property [ sh:datatype xsd:date ;
+                        sh:path catalog:validUntil ] ] ) ;
+    sh:message "Discount policy must include a rate between 0 and 100, and a validity date." ;
+    sh:targetClass catalog:DiscountPolicy .
+
+
+The SHACL shape :DiscountPolicyShape targets all instances of the class catalog:DiscountPolicy, enforcing a compound constraint that requires exactly one catalog:discountRate property with a floating-point value between 0.0 and 100.0 (inclusive) and exactly one catalog:validUntil property with a date value, with validation failure resulting in the message "Discount policy must include a rate between 0 and 100, and a validity date."
+----
+
+Translation #152
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CategoryAssignmentShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:nodeKind sh:IRI ;
+                        sh:path catalog:assignedCategory ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path catalog:priority ] ] ) ;
+    sh:message "Category assignment must include a category and a priority value." ;
+    sh:targetClass catalog:CategoryAssignment .
+
+
+The SHACL shape :CategoryAssignmentShape applies to all instances of the class catalog:CategoryAssignment, requiring each instance to have exactly one catalog:assignedCategory property with an IRI value and exactly one catalog:priority property with an integer value greater than or equal to 1; if these constraints are not met, validation will fail with the message: "Category assignment must include a category and a priority value."
+----
+
+Translation #153
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SupplierInfoShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 3 ;
+                        sh:path catalog:supplierName ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 5.0 ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:supplierRating ] ] ) ;
+    sh:message "Supplier info must include name and a rating between 0 and 5." ;
+    sh:targetClass catalog:SupplierInfo .
+
+
+The SHACL shape :SupplierInfoShape applies to all instances of the class catalog:SupplierInfo, requiring each instance to have exactly one catalog:supplierName property with a string value of at least 3 characters, and exactly one catalog:supplierRating property with a float value inclusively between 0.0 and 5.0; if either property is missing or its value does not meet these requirements, validation will fail with the message "Supplier info must include name and a rating between 0 and 5."
+----
+
+Translation #154
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProductImageShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:anyURI ;
+                        sh:path catalog:imageURL ] ] [ sh:property [ sh:in ( "thumbnail" "main" "zoomed" ) ;
+                        sh:path catalog:imageType ] ] ) ;
+    sh:message "Product image must have a valid URL and type." ;
+    sh:targetClass catalog:ProductImage .
+
+
+The SHACL shape :ProductImageShape targets all instances of the class catalog:ProductImage and requires each instance to have exactly one catalog:imageURL property with a URI value and exactly one catalog:imageType property with a value of either "thumbnail", "main", or "zoomed", otherwise validation will fail with the message "Product image must have a valid URL and type."
+----
+
+Translation #155
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CustomerReviewShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path catalog:reviewerName ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 5.0 ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:rating ] ] ) ;
+    sh:message "Customer review must include a reviewer name and rating (0–5)." ;
+    sh:targetClass catalog:CustomerReview .
+
+
+The SHACL shape :CustomerReviewShape applies to all instances of the class catalog:CustomerReview, mandating that each instance must have a catalog:reviewerName property with a string value at least 2 characters long, and a catalog:rating property with a float value between 0.0 and 5.0 (inclusive); if these conditions are not met, validation will fail with the message "Customer review must include a reviewer name and rating (0–5)".
+----
+
+Translation #156
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ReturnPolicyShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path catalog:returnWindowDays ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:restockingFee ] ] ) ;
+    sh:message "Return policy must specify return window and optional restocking fee." ;
+    sh:targetClass catalog:ReturnPolicy .
+
+
+The SHACL shape :ReturnPolicyShape targets all instances of the class catalog:ReturnPolicy, requiring each to have a catalog:returnWindowDays property with a minimum value of 1 and an integer value, as well as an optional catalog:restockingFee property with a minimum value of 0.0 and a float value, with a failure message "Return policy must specify return window and optional restocking fee" if these constraints are not met.
+----
+
+Translation #157
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:BundleDealShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:minCount 2 ;
+                        sh:path catalog:bundleItems ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:bundlePrice ] ] ) ;
+    sh:message "Bundle deals must include at least 2 items and a bundle price." ;
+    sh:targetClass catalog:BundleDeal .
+
+:ProductDimensionShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:height ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:width ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:depth ] ] ) ;
+    sh:message "Product dimensions must include non-negative height, width, and depth." ;
+    sh:targetClass catalog:ProductDimension .
+
+
+Here are the improved translations:
+
+The SHACL shape :BundleDealShape targets all instances of the class catalog:BundleDeal, requiring a minimum of two values for the catalog:bundleItems property and a catalog:bundlePrice property with a non-negative float value, otherwise validation will fail with the message "Bundle deals must include at least 2 items and a bundle price."
+
+The SHACL shape :ProductDimensionShape applies to all instances of the class catalog:ProductDimension, mandating non-negative float values for the catalog:height, catalog:width, and catalog:depth properties, with validation failure resulting in the message "Product dimensions must include non-negative height, width, and depth."
+----
+
+Translation #158
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProductStatusShape a sh:NodeShape ;
+    sh:message "Product must either be available or marked as discontinued." ;
+    sh:or ( [ sh:property [ sh:in ( "InStock" "OutOfStock" "Backorder" ) ;
+                        sh:path catalog:availability ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:hasValue true ;
+                        sh:path catalog:discontinued ] ] ) ;
+    sh:targetClass catalog:ProductStatus .
+
+
+The SHACL shape :ProductStatusShape applies to all instances of the class catalog:ProductStatus, requiring that either the property catalog:availability has exactly one value among "InStock", "OutOfStock", or "Backorder", or the property catalog:discontinued has the boolean value true; if neither condition is met, the validation will fail with the message "Product must either be available or marked as discontinued."
+----
+
+Translation #159
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:WarehouseDetailShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path catalog:locationCode ] ] [ sh:property [ sh:datatype xsd:boolean ;
+                        sh:path catalog:temperatureControlled ] ] ) ;
+    sh:message "Warehouse details must include a location code and whether it is temperature controlled." ;
+    sh:targetClass catalog:WarehouseDetail .
+
+
+The SHACL shape :WarehouseDetailShape applies to all instances of the class catalog:WarehouseDetail, mandating that each instance must have exactly one catalog:locationCode property with a string value of at least 2 characters and exactly one catalog:temperatureControlled property with a boolean value, or validation will fail with the message: "Warehouse details must include a location code and whether it is temperature controlled."
+----
+
+Translation #160
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProductMetadataShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:dateTime ;
+                        sh:path catalog:createdAt ] ] [ sh:property [ sh:datatype xsd:dateTime ;
+                        sh:path catalog:lastUpdated ] ] ) ;
+    sh:message "Product metadata must include creation and last update timestamps." ;
+    sh:targetClass catalog:ProductMetadata .
+
+
+The SHACL shape :ProductMetadataShape applies to all instances of the class catalog:ProductMetadata, requiring each instance to have exactly one catalog:createdAt property and one catalog:lastUpdated property, both with values of type xsd:dateTime; if these conditions are not met, validation will fail with the message "Product metadata must include creation and last update timestamps."
+----
+
+Translation #161
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ProductVariantShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "Color" "Size" "Material" ) ;
+                        sh:path catalog:variantType ] ] [ sh:property [ sh:datatype xsd:string ;
+                        sh:minLength 2 ;
+                        sh:path catalog:variantValue ] ] ) ;
+    sh:message "Each product variant must specify type and value." ;
+    sh:targetClass catalog:ProductVariant .
+
+
+The SHACL shape :ProductVariantShape targets all instances of the class catalog:ProductVariant. It enforces a constraint that each product variant must specify exactly one type and exactly one value. The type must be one of the predefined values: "Color", "Size", or "Material", and must be represented by the property catalog:variantType. The value must be a string (xsd:string) with a minimum length of 2 characters, and must be represented by the property catalog:variantValue. If either the type or value is missing or invalid, validation will fail with the message: "Each product variant must specify type and value."
+----
+
+Translation #162
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:InventoryThresholdShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 0 ;
+                        sh:path catalog:reorderLevel ] ] [ sh:property [ sh:datatype xsd:integer ;
+                        sh:minInclusive 1 ;
+                        sh:path catalog:maximumStock ] ] ) ;
+    sh:message "Inventory threshold must include reorder level and maximum stock values." ;
+    sh:targetClass catalog:InventoryThreshold .
+
+
+The SHACL shape :InventoryThresholdShape applies to all instances of the class catalog:InventoryThreshold, requiring exactly two mandatory properties: catalog:reorderLevel and catalog:maximumStock, both with integer values (xsd:integer). The value of catalog:reorderLevel must be greater than or equal to 0, and the value of catalog:maximumStock must be greater than or equal to 1. If either property is missing or has an invalid value, validation will fail with the message: "Inventory threshold must include reorder level and maximum stock values."
+----
+
+Translation #163
+@prefix : <http://mapping.example.com/> .
+@prefix catalog: <http://example.com/catalog#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:TaxationShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ sh:in ( "Standard" "Reduced" "Exempt" ) ;
+                        sh:path catalog:taxCategory ] ] [ sh:property [ sh:datatype xsd:float ;
+                        sh:maxInclusive 100.0 ;
+                        sh:minInclusive 0.0 ;
+                        sh:path catalog:taxRate ] ] ) ;
+    sh:message "Taxation must include a valid category and a percentage tax rate." ;
+    sh:targetClass catalog:Taxation .
+
+
+The SHACL shape :TaxationShape applies to all instances of the class catalog:Taxation. It specifies two property constraints that must be satisfied simultaneously: the property catalog:taxCategory must have exactly one value that is one of the following: "Standard", "Reduced", or "Exempt", and the property catalog:taxRate must have exactly one value that is a float (xsd:float) within the range of 0.0 (inclusive) to 100.0 (inclusive). If either of these constraints is not met, validation will fail with the message: "Taxation must include a valid category and a percentage tax rate."
+----
+
+Translation #164
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Dokumentenname a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "Commercial invoice" "Credit advice" "Value credit" "Value debit" "Handelsrechnung" "Gutschriftsanzeige" "Wertgutschrift" "Wertbelastung" ) ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1001 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentType ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :Dokumentenname targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasDocumentType to have exactly one value, which must be a string from the allowed list: "Commercial invoice", "Credit advice", "Value credit", "Value debit", "Handelsrechnung", "Gutschriftsanzeige", "Wertgutschrift", "Wertbelastung", and validation will fail with the message "Data element 1001 is missing in the BGM segment" if this property is missing or appears more than once.
+----
+
+Translation #165
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExistenzBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:message "Data element 1004 is missing in the BGM segment" ;
+            sh:minCount 1 ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :ExistenzBelegnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a single occurrence (minCount 1, maxCount 1) of the property edifact-o:hasDocumentNumber with a string value (xsd:string), and will raise a validation error with the message "Data element 1004 is missing in the BGM segment" if this constraint is not met.
+----
+
+Translation #166
+@prefix : <http://mapping.example.com/> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LaengeBelegnummer a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 12 ;
+            sh:message "The data element 1004 in the BGM segment is too long" ;
+            sh:path edifact-o:hasDocumentNumber ] ;
+    sh:targetClass edifact-o:InvoiceDetails .
+
+
+The SHACL shape :LaengeBelegnummer targets all instances of the class edifact-o:InvoiceDetails, enforcing a constraint on the property edifact-o:hasDocumentNumber, which must be a string (xsd:string) with a maximum length of 12 characters, and returns the error message "The data element 1004 in the BGM segment is too long" if this constraint is violated.
+----
+

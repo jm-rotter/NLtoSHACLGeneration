@@ -56,10 +56,14 @@ MODEL = "llama3-70b-8192"
 client = Groq(api_key=GROQ_API_KEY)
 
 shapes = pullShapes()
-starting_idx = 0
+starting_idx = 166
+curr_idx = 0
 with open("training_translations.txt", "a") as txt_file, open("traing_translations.jsonl", "a") as jsonl_file:
 
     for shape in tqdm(shapes, desc="Translating shapes"):
+        if curr_idx < starting_idx: 
+           curr_idx += 1
+           continue
         serialized = shape.serialize(format='turtle')
         if isinstance(serialized,bytes):
             serialized = serialized.decode('utf-8')
