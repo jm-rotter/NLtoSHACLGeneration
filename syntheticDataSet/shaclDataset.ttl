@@ -1,41 +1,3 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix schema: <http://schema.org/> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix : <http://mapping.example.com/> .
-@prefix cmns-id: <https://www.omg.org/spec/Commons/Identifiers/> .
-@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
-@prefix dc: <http://purl.org/dc/elements/1.1#> .
-@prefix edifact-o: <https://purl.org/edifact/ontology#> .
-@prefix eli: <http://publications.europa.eu/resource/dataset/eli/> .
-@prefix fnml: <http://semweb.mmlab.be/ns/fnml#> .
-@prefix fno: <https://w3id.org/function/ontology#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix frapo: <http://purl.org/cerif/frapo/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix p2p-o: <https://purl.org/p2p-o#> .
-@prefix p2p-o-doc: <https://purl.org/p2p-o/document#> .
-@prefix p2p-o-doc-line: <https://purl.org/p2p-o/documentline#> .
-@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
-@prefix p2p-o-item: <https://purl.org/p2p-o/item#> .
-@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
-@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
-@prefix rr: <http://www.w3.org/ns/r2rml#> .
-@prefix schema: <http://schema.org/> .
-@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
-
-@prefix edu: <http://example.org/edu#> .
-@prefix it: <http://example.org/it#> .
-@prefix prod:     <http://example.org/product#> .
-@prefix food:     <http://example.org/food#> .
-@prefix civic:    <http://example.org/civic#> .
-@prefix pub:      <http://example.org/publication#> .
-
 :Dokumentenname 
     a sh:NodeShape;
     sh:targetClass edifact-o:InvoiceDetails;
@@ -1451,7 +1413,6 @@
                 }""" ; 
             ] .
 
-####EDUCATION
 :StudentProfileShape
     a sh:NodeShape ;
     sh:targetClass edu:StudentProfile ;
@@ -1949,8 +1910,6 @@
     sh:message "Applicant must either have a GPA ≥ 3.0 or have submitted an essay." .
 
 
-#### IT structure 
-
 :ServerSpecShape
     a sh:NodeShape ;
     sh:targetClass it:ServerSpec ;
@@ -2094,21 +2053,19 @@
     sh:message "Disk quota must define allocated space and a valid mount point." .
 
 :AdminRoleShape
-    a sh:NodeShape ;
-    sh:targetClass it:AdminRole ;
-    sh:or (
-        [ sh:property [
-            sh:path it:privilegeLevel ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 5 ;
-        ] ]
-        [ sh:property [
-            sh:path it:hasFullAccess ;
-            sh:datatype xsd:boolean ;
-            sh:hasValue true ;
-        ] ]
-    ) ;
-    sh:message "Admin role must either have privilege level ≥ 5 or full access enabled."
+  a sh:NodeShape ;
+  sh:targetClass it:AdminRole ;
+  sh:or (
+    [ sh:path it:privilegeLevel ;
+      sh:datatype xsd:integer ;
+      sh:minInclusive 5 ;
+    ]
+    [ sh:path it:hasFullAccess ;
+      sh:datatype xsd:boolean ;
+      sh:hasValue true ;
+    ]
+  ) ;
+  sh:message "Admin role must either have privilege level ≥ 5 or full access enabled." .
 
  
 :UserAccountShape
@@ -2191,7 +2148,6 @@
         ] ]
     ) ;
     sh:message "Access token must include a token value and an expiration timestamp." .
-Would you like me to continue with shapes 16 to 20?
 
 :LoadBalancerConfigShape
     a sh:NodeShape ;
@@ -2434,41 +2390,18 @@ Would you like me to continue with shapes 16 to 20?
     ) ;
     sh:message "Revoked tokens must include token ID and the revocation timestamp." .
 
-
-
-    #Product Catalogs Domain
-
-:ProductShape
-    a sh:NodeShape ;
-    sh:targetClass catalog:Product ;
-    sh:and (
-        [ sh:property [
-            sh:path catalog:productName ;
-            sh:datatype xsd:string ;
-            sh:minLength 3 ;
-        ] ]
-        [ sh:property [
-            sh:path catalog:productID ;
-            sh:datatype xsd:string ;
-            sh:minLength 5 ;
-        ] ]
-    ) ;
-    sh:message "Each product must have a name and a product ID." .
-
 :PriceShape
     a sh:NodeShape ;
     sh:targetClass catalog:PriceDetail ;
-    sh:and (
-        [ sh:property [
-            sh:path catalog:priceValue ;
-            sh:datatype xsd:float ;
-            sh:minInclusive 0.0 ;
-        ] ]
-        [ sh:property [
-            sh:path catalog:currency ;
-            sh:in ("USD" "EUR" "INR" "GBP") ;
-        ] ]
-    ) ;
+    sh:property [
+        sh:path catalog:priceValue ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+    ] ;
+    sh:property [
+        sh:path catalog:currency ;
+        sh:in ( "USD" "EUR" "INR" "GBP" ) ;
+    ] ;
     sh:message "Price must be non-negative and include a valid currency code." .
 
 :InventoryShape
@@ -2970,7 +2903,6 @@ Would you like me to continue with shapes 16 to 20?
     ) ;
     sh:message "Comparison must involve two distinct products." .
 
-##Food Delivery Domain
 :RestaurantProfileShape
     a sh:NodeShape ;
     sh:targetClass food:RestaurantProfile ;
@@ -3390,8 +3322,6 @@ Would you like me to continue with shapes 16 to 20?
         ] ]
     ) ;
     sh:message "Combo meal must include at least two items and a valid price." .
-
-#new 
 
 :CitizenIdentityShape
     a sh:NodeShape ;
@@ -4440,7 +4370,6 @@ Would you like me to continue with shapes 16 to 20?
     sh:message "Preparedness plan must be active and include name and last update." .
 
 
-## Research Publications Domain 
 
 :TitleShape
     a sh:NodeShape ;
@@ -4974,4 +4903,5 @@ Would you like me to continue with shapes 16 to 20?
         ] ]
     ) ;
     sh:message "Author must specify contribution role and lead author status." .
+
 

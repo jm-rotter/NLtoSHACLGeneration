@@ -32,6 +32,13 @@ shaclPrefixes = """
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
 @prefix schema: <http://schema.org/> .
 @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix edu: <http://example.org/edu#> .
+@prefix it: <http://example.org/it#> .
+@prefix prod:     <http://example.org/product#> .
+@prefix food:     <http://example.org/food#> .
+@prefix civic:    <http://example.org/civic#> .
+@prefix pub:      <http://example.org/publication#> .
+@prefix catalog: <http://example.com/catalog#> .
 """
 
 def pullShapes():
@@ -61,9 +68,6 @@ def pullShapes():
         serialized = g.serialize(format='turtle')
         if isinstance(serialized,bytes):
             serialized = serialized.decode('utf-8')
-    #    print(f"Shape {i} serialized:")
-    #    print(serialized)
-    #    print("------")
 
     return shapes
 
