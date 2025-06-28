@@ -4905,3 +4905,5892 @@
     sh:message "Author must specify contribution role and lead author status." .
 
 
+
+:InvoiceProductIDShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:productID ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 20 ;
+    ] ;
+    sh:message "Each invoice line must include a product ID between 5 and 20 characters." .
+
+:InvoicePriceRangeShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:netPrice ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.01 ;
+    ] ;
+    sh:property [
+        sh:path p2p-o-item:grossPrice ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.01 ;
+    ] ;
+    sh:message "Net and gross prices must be specified and greater than zero." .
+
+:InvoiceDiscountConditionShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:or (
+        [ sh:property [
+            sh:path p2p-o-item:discountApplied ;
+            sh:datatype xsd:boolean ;
+            sh:hasValue true ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:netPrice ;
+            sh:datatype xsd:float ;
+            sh:minInclusive 10.0 ;
+        ] ]
+    ) ;
+    sh:message "Either a discount must be applied or the net price must be at least 10." .
+
+:InvoiceProductIDPatternShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:productID ;
+        sh:datatype xsd:string ;
+        sh:pattern "^PRD-[A-Z0-9]{4,10}$" ;
+    ] ;
+    sh:message "Product ID must follow the pattern 'PRD-XXXX' with 4–10 alphanumeric characters." .
+
+:InvoiceQuantityConstraintShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:quantity ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 1000 ;
+    ] ;
+    sh:message "Quantity must be between 1 and 1000." .
+
+:InvoiceCurrencyShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:currency ;
+        sh:in ("EUR" "USD" "GBP") ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Currency must be one of EUR, USD, or GBP." .
+
+:InvoiceTotalAmountMatchShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:prefixes [
+            sh:declare [
+                sh:prefix "p2p-o-item" ;
+                sh:namespace "https://purl.org/p2p-o/item#"^^xsd:anyURI ;
+            ]
+        ] ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this p2p-o-item:netPrice ?net ;
+                      p2p-o-item:tax ?tax ;
+                      p2p-o-item:grossPrice ?gross .
+                FILTER (?net + ?tax != ?gross)
+            }
+        """ ;
+        sh:message "Gross price must equal net price plus tax." ;
+    ] .
+
+:InvoiceLineItemDateShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:lineItemDate ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:message "Each invoice item must include a valid date." .
+
+:InvoiceItemTypeShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:itemType ;
+        sh:in ("product" "service") ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Item type must be either 'product' or 'service'." .
+
+:InvoiceLineItemRequiredFieldsShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:and (
+        [ sh:property [
+            sh:path p2p-o-item:productID ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:quantity ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:netPrice ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Each invoice line must include a product ID, quantity, and net price." .
+
+:InvoiceLineItemTaxShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:tax ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+    ] ;
+    sh:message "Tax value must be provided and must not be negative." .
+
+:InvoiceMandatoryFieldsShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:and (
+        [ sh:property [
+            sh:path p2p-o-item:productID ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:currency ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:netPrice ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Product ID, currency, and net price are mandatory fields for invoice items." .
+
+:InvoiceLineItemCommentShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:comment ;
+        sh:datatype xsd:string ;
+        sh:maxLength 200 ;
+    ] ;
+    sh:message "Comment should not exceed 200 characters if provided." .
+
+:InvoiceConditionalDiscountShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:or (
+        [ sh:property [
+            sh:path p2p-o-item:discountApplied ;
+            sh:hasValue true ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:discountAmount ;
+            sh:datatype xsd:float ;
+            sh:minInclusive 0.01 ;
+        ] ]
+    ) ;
+    sh:message "If no discount is applied, discount amount must be greater than 0." .
+
+:InvoiceDescriptionOptionalShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:description ;
+        sh:datatype xsd:string ;
+        sh:maxLength 255 ;
+    ] ;
+    sh:message "Description is optional but must not exceed 255 characters." .
+
+:InvoiceUniqueProductConstraintShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:productID ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:message "Each product ID must be unique within the invoice." .
+
+:InvoiceProductPriceCheckShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:and (
+        [ sh:property [
+            sh:path p2p-o-item:netPrice ;
+            sh:datatype xsd:float ;
+            sh:minInclusive 1.0 ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:grossPrice ;
+            sh:datatype xsd:float ;
+            sh:minInclusive 1.1 ;
+        ] ]
+    ) ;
+    sh:message "Net price must be at least 1.0 and gross price at least 1.1." .
+
+:InvoiceItemCodePatternShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:itemCode ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z]{3}-\\d{3}$" ;
+    ] ;
+    sh:message "Item code must match pattern ABC-123 (3 uppercase letters and 3 digits)." .
+
+:InvoiceDateValidityShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:lineItemDate ;
+        sh:datatype xsd:date ;
+        sh:maxInclusive "2100-01-01"^^xsd:date ;
+    ] ;
+    sh:message "Invoice date must not be beyond the year 2100." .
+
+:InvoiceWeightLimitShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:weight ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.1 ;
+        sh:maxInclusive 200.0 ;
+    ] ;
+    sh:message "Weight must be between 0.1 and 200.0 kilograms." .
+
+:InvoiceUnitOfMeasureShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:unitOfMeasure ;
+        sh:in ("kg" "liter" "piece" "box") ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Unit of measure must be one of: kg, liter, piece, or box." .
+
+:InvoiceFreeTextLimitShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:freeTextNote ;
+        sh:datatype xsd:string ;
+        sh:maxLength 500 ;
+    ] ;
+    sh:message "Free-text note must not exceed 500 characters." .
+
+:InvoiceLineItemUUIDShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:uuid ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$" ;
+    ] ;
+    sh:message "UUID must be a valid version-4 UUID string." .
+
+:InvoiceTaxCategoryShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:taxCategory ;
+        sh:in ("standard" "reduced" "exempt") ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Tax category must be one of: standard, reduced, or exempt." .
+
+:InvoiceHazardousItemShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:or (
+        [ sh:property [
+            sh:path p2p-o-item:hazardClass ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path p2p-o-item:isHazardous ;
+            sh:hasValue false ;
+        ] ]
+    ) ;
+    sh:message "If item is hazardous, hazard class must be provided." .
+
+:InvoiceTemperatureRangeShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:storageTemperature ;
+        sh:datatype xsd:float ;
+        sh:minInclusive -40.0 ;
+        sh:maxInclusive 50.0 ;
+    ] ;
+    sh:message "Storage temperature must be between -40 and 50 degrees Celsius." .
+
+:InvoiceItemActiveStatusShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:isActive ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Each line item must include an active status flag (true or false)." .
+
+:InvoiceCountryOfOriginShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:countryOfOrigin ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z]{2}$" ;
+    ] ;
+    sh:message "Country of origin must be a valid 2-letter ISO code." .
+
+:InvoiceWarrantyPeriodShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o-item:InvoiceLineItem ;
+    sh:property [
+        sh:path p2p-o-item:warrantyPeriodMonths ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 36 ;
+    ] ;
+    sh:message "Warranty period must be between 0 and 36 months." .
+
+
+:ShippingManifestPackageIDShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:packageID ;
+        sh:datatype xsd:string ;
+        sh:pattern "^PKG-[0-9]{6}$" ;
+    ] ;
+    sh:message "Package ID must follow the pattern PKG-XXXXXX, where X is a digit." .
+
+:ShippingManifestWeightShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:weight ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.1 ;
+        sh:maxInclusive 500.0 ;
+    ] ;
+    sh:message "Weight must be between 0.1 and 500.0 kilograms." .
+
+:ShippingManifestCarrierShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:carrier ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:maxLength 50 ;
+    ] ;
+    sh:message "Carrier name must be between 2 and 50 characters long." .
+
+:ShippingManifestDateValidationShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:shippingDate ;
+        sh:datatype xsd:date ;
+        sh:maxInclusive "2100-01-01"^^xsd:date ;
+    ] ;
+    sh:message "Shipping date must not be beyond the year 2100." .
+
+:ShippingManifestDestinationShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:destinationCountry ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z]{2}$" ;
+    ] ;
+    sh:message "Destination country must be a valid 2-letter ISO code." .
+
+:ShippingManifestDimensionsShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:and (
+        [ sh:property [ sh:path p2p-o:height ; sh:datatype xsd:float ; sh:minInclusive 0.1 ; ] ]
+        [ sh:property [ sh:path p2p-o:width ; sh:datatype xsd:float ; sh:minInclusive 0.1 ; ] ]
+        [ sh:property [ sh:path p2p-o:length ; sh:datatype xsd:float ; sh:minInclusive 0.1 ; ] ]
+    ) ;
+    sh:message "Height, width, and length must all be present and positive." .
+
+:ShippingManifestHazardousShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:or (
+        [ sh:property [ sh:path p2p-o:hazardClass ; sh:minCount 1 ; ] ]
+        [ sh:property [ sh:path p2p-o:isHazardous ; sh:hasValue false ; ] ]
+    ) ;
+    sh:message "Hazard class must be provided if the item is hazardous." .
+
+:ShippingManifestTrackingCodeShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:trackingCode ;
+        sh:datatype xsd:string ;
+        sh:pattern "^TRK-[A-Z0-9]{8}$" ;
+    ] ;
+    sh:message "Tracking code must follow the pattern TRK-XXXXXXXX with uppercase letters or digits." .
+
+:ShippingManifestCurrencyShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:declaredCurrency ;
+        sh:in ("USD" "EUR" "GBP" "INR") ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Declared currency must be one of: USD, EUR, GBP, or INR." .
+
+:ShippingManifestDeclaredValueShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:declaredValue ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+    ] ;
+    sh:message "Declared value must be provided and not be negative." .
+
+:ShippingManifestCustomsStatusShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:customsStatus ;
+        sh:in ("cleared" "pending" "rejected") ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Customs status must be 'cleared', 'pending', or 'rejected'." .
+
+:ShippingManifestHandlingInstructionsShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:handlingInstructions ;
+        sh:datatype xsd:string ;
+        sh:maxLength 1000 ;
+    ] ;
+    sh:message "Handling instructions must not exceed 1000 characters." .
+
+:ShippingManifestIncotermsShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:incotermsCode ;
+        sh:in ("EXW" "FOB" "CIF" "DDP") ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Incoterms code must be one of: EXW, FOB, CIF, or DDP." .
+
+:ShippingManifestCarrierIDShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:carrierID ;
+        sh:datatype xsd:string ;
+        sh:pattern "^CARRIER-[A-Z0-9]{5}$" ;
+    ] ;
+    sh:message "Carrier ID must follow the format CARRIER-XXXXX with uppercase letters or digits." .
+
+:ShippingManifestInsuranceFlagShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:isInsured ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Insurance status must be specified as true or false." .
+
+:ShippingManifestInsuranceValueShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:or (
+        [ sh:property [ sh:path p2p-o:isInsured ; sh:hasValue false ; ] ]
+        [ sh:property [ sh:path p2p-o:insuranceAmount ; sh:datatype xsd:float ; sh:minInclusive 1.0 ; ] ]
+    ) ;
+    sh:message "If insured, the insurance amount must be specified and greater than 1." .
+
+:ShippingManifestTemperatureSensitiveShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:requiresTemperatureControl ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Indicate whether temperature control is required (true/false)." .
+
+:ShippingManifestTemperatureRangeShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:or (
+        [ sh:property [ sh:path p2p-o:requiresTemperatureControl ; sh:hasValue false ; ] ]
+        [ sh:and (
+            [ sh:property [ sh:path p2p-o:minTemperature ; sh:datatype xsd:float ; ] ]
+            [ sh:property [ sh:path p2p-o:maxTemperature ; sh:datatype xsd:float ; ] ]
+        ) ]
+    ) ;
+    sh:message "If temperature control is required, minimum and maximum temperature must be specified." .
+
+:ShippingManifestArrivalEstimateShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:estimatedArrivalDate ;
+        sh:datatype xsd:date ;
+        sh:minInclusive "2020-01-01"^^xsd:date ;
+    ] ;
+    sh:message "Estimated arrival date must be after 2020-01-01." .
+
+:ShippingManifestContactEmailShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:contactEmail ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$" ;
+    ] ;
+    sh:message "Contact email must be a valid email address format." .
+
+:ShippingManifestBarcodeShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:barcode ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z0-9]{12,20}$" ;
+    ] ;
+    sh:message "Barcode must be 12 to 20 characters long, using uppercase letters and digits only." .
+
+:ShippingManifestDeclaredUnitCountShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:unitCount ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+    ] ;
+    sh:message "Unit count must be an integer of at least 1." .
+
+:ShippingManifestDestinationCityShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:destinationCity ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:maxLength 100 ;
+    ] ;
+    sh:message "Destination city must be between 2 and 100 characters long." .
+
+:ShippingManifestLastMilePartnerShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:lastMilePartner ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:maxLength 50 ;
+    ] ;
+    sh:message "Last mile delivery partner name must be between 2 and 50 characters." .
+
+:ShippingManifestHazardousDeclarationShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:and (
+        [ sh:property [ sh:path p2p-o:isHazardous ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path p2p-o:hazardousDeclarationForm ; sh:minCount 1 ; ] ]
+    ) ;
+    sh:message "If the shipment is hazardous, a declaration form must be included." .
+
+:ShippingManifestCarrierRatingShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:carrierRating ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 1.0 ;
+        sh:maxInclusive 5.0 ;
+    ] ;
+    sh:message "Carrier rating must be between 1.0 and 5.0." .
+
+:ShippingManifestSignatureRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:property [
+        sh:path p2p-o:signatureRequired ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Signature requirement must be explicitly marked as true or false." .
+
+:ShippingManifestDeliveryWindowShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:and (
+        [ sh:property [ sh:path p2p-o:deliveryStartTime ; sh:datatype xsd:time ; ] ]
+        [ sh:property [ sh:path p2p-o:deliveryEndTime ; sh:datatype xsd:time ; ] ]
+    ) ;
+    sh:message "Both delivery start and end time must be specified for the delivery window." .
+
+:ShippingManifestRequiresSignatureOrIDShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:or (
+        [ sh:property [ sh:path p2p-o:signatureRequired ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path p2p-o:recipientIDCheckRequired ; sh:hasValue true ; ] ]
+    ) ;
+    sh:message "Either signature or recipient ID verification must be required." .
+
+:ShippingManifestInsuranceCurrencyShape
+    a sh:NodeShape ;
+    sh:targetClass p2p-o:ShippingManifest ;
+    sh:or (
+        [ sh:property [ sh:path p2p-o:isInsured ; sh:hasValue false ; ] ]
+        [ sh:property [ sh:path p2p-o:insuranceCurrency ; sh:in ("USD" "EUR" "GBP") ; ] ]
+    ) ;
+    sh:message "If insured, currency must be one of: USD, EUR, GBP." .
+
+
+
+
+
+:EmployeeOnboardingJoinDateShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:joinDate ;
+        sh:datatype xsd:date ;
+        sh:minInclusive "2020-01-01"^^xsd:date ;
+    ] ;
+    sh:message "Joining date must be after January 1, 2020." .
+
+:EmployeeOnboardingEmployeeIDShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:employeeID ;
+        sh:datatype xsd:string ;
+        sh:pattern "^EMP-[0-9]{5}$" ;
+    ] ;
+    sh:message "Employee ID must follow the format EMP-XXXXX (5 digits)." .
+
+:EmployeeOnboardingEmailShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path foaf:mbox ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$" ;
+    ] ;
+    sh:message "Email address must be valid and follow standard format." .
+
+:EmployeeOnboardingDepartmentShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:memberOf ;
+        sh:class org:OrganizationalUnit ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Employee must be assigned to at least one department." .
+
+:EmployeeOnboardingEmergencyContactShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path foaf:knows ;
+        sh:class foaf:Person ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "At least one emergency contact must be provided." .
+
+:EmployeeOnboardingContractStatusShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:hasContract ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Contract status must be specified (true or false)." .
+
+:EmployeeOnboardingEquipmentAssignmentShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:assignedEquipment ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Assigned equipment must be recorded for the employee." .
+
+:EmployeeOnboardingCompletedOrientationShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:hasCompletedOrientation ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Orientation completion status must be specified (true/false)." .
+
+:EmployeeOnboardingPhoneShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path vcard:hasTelephone ;
+        sh:datatype xsd:string ;
+        sh:pattern "^\\+?[0-9\\-\\s]{7,15}$" ;
+    ] ;
+    sh:message "Phone number must be valid and contain 7 to 15 digits." .
+
+:EmployeeOnboardingRoleShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:role ;
+        sh:in ("Manager" "Developer" "Analyst" "HR" "Support") ;
+    ] ;
+    sh:message "Role must be one of: Manager, Developer, Analyst, HR, or Support." .
+
+:EmployeeOnboardingNationalityShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path foaf:nationality ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+    ] ;
+    sh:message "Nationality must be a valid string of at least 2 characters." .
+
+:EmployeeOnboardingAddressShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path vcard:hasAddress ;
+        sh:class vcard:Address ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "A valid address must be provided for the employee." .
+
+:EmployeeOnboardingSupervisorShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:reportsTo ;
+        sh:class foaf:Person ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "A supervisor must be assigned to the employee." .
+
+:EmployeeOnboardingDocumentSubmissionShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:hasSubmittedDocuments ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Document submission status must be provided (true/false)." .
+
+:EmployeeOnboardingHasPhotoShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path foaf:img ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "An employee photo must be included." .
+
+:EmployeeOnboardingProbationPeriodShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:probationPeriodMonths ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 12 ;
+    ] ;
+    sh:message "Probation period must be between 1 and 12 months." .
+
+:EmployeeOnboardingHasSignedContractOrOfferShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:or (
+        [ sh:property [ sh:path org:hasSignedContract ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path org:hasSignedOfferLetter ; sh:hasValue true ; ] ]
+    ) ;
+    sh:message "Either a contract or an offer letter must be signed by the employee." .
+
+:EmployeeOnboardingGenderShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path foaf:gender ;
+        sh:in ("Male" "Female" "Other") ;
+    ] ;
+    sh:message "Gender must be 'Male', 'Female', or 'Other'." .
+
+:EmployeeOnboardingBirthdayShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path foaf:birthday ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:message "A valid birthday must be specified." .
+
+:EmployeeOnboardingInternalStatusShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:isInternal ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Employee must be marked as internal or external with a boolean value." .
+
+:EmployeeOnboardingWorkEmailShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:workEmail ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-zA-Z0-9._%+-]+@company\\.com$" ;
+    ] ;
+    sh:message "Work email must be a valid '@company.com' address." .
+
+:EmployeeOnboardingPositionTitleShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:positionTitle ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+    ] ;
+    sh:message "Position title must be provided and be at least 3 characters long." .
+
+:EmployeeOnboardingEmergencyEmailShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:emergencyEmail ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$" ;
+    ] ;
+    sh:message "Emergency email must be valid and properly formatted." .
+
+:EmployeeOnboardingManagerAssignmentShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:hasManager ;
+        sh:class foaf:Person ;
+    ] ;
+    sh:message "Employee should have a manager assigned." .
+
+:EmployeeOnboardingHasBadgeOrEquipmentShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:or (
+        [ sh:property [ sh:path org:hasIDBadge ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path org:assignedEquipment ; sh:minCount 1 ; ] ]
+    ) ;
+    sh:message "Employee must have either an ID badge or assigned equipment." .
+
+:EmployeeOnboardingLanguagePreferenceShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:preferredLanguage ;
+        sh:in ("English" "German" "Spanish" "French") ;
+    ] ;
+    sh:message "Preferred language must be English, German, Spanish, or French." .
+
+:EmployeeOnboardingSecurityClearanceShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:hasSecurityClearance ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Security clearance must be stated as true or false." .
+
+:EmployeeOnboardingLaptopSerialShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:laptopSerial ;
+        sh:datatype xsd:string ;
+        sh:pattern "^SN-[A-Z0-9]{6}$" ;
+    ] ;
+    sh:message "Laptop serial number must follow format SN-XXXXXX." .
+
+:EmployeeOnboardingFirstDayChecklistShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:firstDayChecklistCompleted ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Checklist completion must be indicated as true or false." .
+
+:EmployeeOnboardingBankDetailsShape
+    a sh:NodeShape ;
+    sh:targetClass org:Employee ;
+    sh:property [
+        sh:path org:bankAccountIBAN ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$" ;
+    ] ;
+    sh:message "IBAN must be a valid international bank account number." .
+
+
+:ClientNameShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:name ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+    ] ;
+    sh:message "Client name must be at least 3 characters long." .
+
+:ClientEmailShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:mbox ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$" ;
+    ] ;
+    sh:message "Client email must be a valid email address." .
+
+:ClientPhoneNumberShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path vcard:hasTelephone ;
+        sh:datatype xsd:string ;
+        sh:pattern "^\\+?[0-9\\-\\s]{7,15}$" ;
+    ] ;
+    sh:message "Phone number must contain 7 to 15 digits." .
+
+:ClientBirthDateShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path vcard:bday ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:message "A valid birth date must be provided." .
+
+:ClientAddressShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path vcard:hasAddress ;
+        sh:class vcard:Address ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Client must have at least one address on file." .
+
+:ClientStatusShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :accountStatus ;
+        sh:in ("Active" "Inactive" "Pending") ;
+    ] ;
+    sh:message "Account status must be Active, Inactive, or Pending." .
+
+:ClientContactPreferenceShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :preferredContactMethod ;
+        sh:in ("Email" "Phone" "SMS") ;
+    ] ;
+    sh:message "Preferred contact method must be Email, Phone, or SMS." .
+
+:ClientProfileImageShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:img ;
+        sh:datatype xsd:anyURI ;
+    ] ;
+    sh:message "Client profile image must be a valid URI." .
+
+:ClientLanguagePreferenceShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :languagePreference ;
+        sh:in ("en" "de" "fr" "es") ;
+    ] ;
+    sh:message "Language preference must be one of: en, de, fr, es." .
+
+:ClientHasPhoneOrEmailShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:or (
+        [ sh:property [ sh:path foaf:mbox ; sh:minCount 1 ; ] ]
+        [ sh:property [ sh:path vcard:hasTelephone ; sh:minCount 1 ; ] ]
+    ) ;
+    sh:message "Client must have at least an email or a phone number." .
+
+:ClientGenderShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:gender ;
+        sh:in ("Male" "Female" "Other" "Prefer not to say") ;
+    ] ;
+    sh:message "Gender must be one of the allowed values." .
+
+:ClientOrganizationShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:member ;
+        sh:class org:Organization ;
+    ] ;
+    sh:message "Client must be associated with a recognized organization." .
+
+:ClientNewsletterConsentShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :newsletterOptIn ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Newsletter consent must be provided as true or false." .
+
+:ClientAccountCreationDateShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :accountCreated ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "Client account creation date must be a valid date-time." .
+
+:ClientMultipleContactMethodsShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:and (
+        [ sh:property [ sh:path foaf:mbox ; sh:minCount 1 ; ] ]
+        [ sh:property [ sh:path vcard:hasTelephone ; sh:minCount 1 ; ] ]
+    ) ;
+    sh:message "Client must provide both an email and a phone number." .
+
+:ClientAccountTierShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :accountTier ;
+        sh:in ("Basic" "Premium" "Enterprise") ;
+    ] ;
+    sh:message "Account tier must be one of: Basic, Premium, or Enterprise." .
+
+:ClientLinkedProfilesShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:account ;
+        sh:class foaf:OnlineAccount ;
+        sh:minCount 0 ;
+    ] ;
+    sh:message "Client may have one or more linked online accounts." .
+
+:ClientAddressStructureShape
+    a sh:NodeShape ;
+    sh:targetClass vcard:Address ;
+    sh:and (
+        [ sh:property [ sh:path vcard:street-address ; sh:datatype xsd:string ; ] ]
+        [ sh:property [ sh:path vcard:postal-code ; sh:datatype xsd:string ; ] ]
+        [ sh:property [ sh:path vcard:locality ; sh:datatype xsd:string ; ] ]
+    ) ;
+    sh:message "Address must include street, postal code, and locality." .
+
+:ClientDateOfLastUpdateShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :lastUpdated ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "Date of last profile update must be a valid datetime." .
+
+:ClientAccountAndStatusShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:and (
+        [ sh:property [ sh:path :accountStatus ; sh:in ("Active" "Inactive") ; ] ]
+        [ sh:property [ sh:path :accountCreated ; sh:datatype xsd:dateTime ; ] ]
+    ) ;
+    sh:message "Client must have a valid account status and creation date." .
+
+:ClientEmergencyContactShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :emergencyContact ;
+        sh:class foaf:Person ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Each client must have an emergency contact person." .
+
+:ClientPreferredLanguageShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :preferredLanguage ;
+        sh:in ("English" "German" "Spanish" "French") ;
+    ] ;
+    sh:message "Preferred language must be one of: English, German, Spanish, or French." .
+
+:ClientProfileCompletenessShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :profileComplete ;
+        sh:datatype xsd:boolean ;
+        sh:hasValue true ;
+    ] ;
+    sh:message "Client profile must be marked as complete." .
+
+:ClientBlacklistStatusShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :isBlacklisted ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Blacklist status must be either true or false." .
+
+:ClientGeoLocationShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :locationCoordinates ;
+        sh:datatype xsd:string ;
+        sh:pattern "^-?\\d+(\\.\\d+)?,-?\\d+(\\.\\d+)?$" ;
+    ] ;
+    sh:message "Location coordinates must be in the format 'lat,long'." .
+
+:ClientMarketingConsentShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :marketingConsent ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Marketing consent must be clearly stated." .
+
+:ClientLinkedSocialProfileShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :socialProfileURL ;
+        sh:datatype xsd:anyURI ;
+    ] ;
+    sh:message "Social media profile must be a valid URI." .
+
+:ClientRegionOrCountryShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:or (
+        [ sh:property [ sh:path vcard:region ; sh:datatype xsd:string ; ] ]
+        [ sh:property [ sh:path vcard:country-name ; sh:datatype xsd:string ; ] ]
+    ) ;
+    sh:message "Client must provide either a region or a country." .
+
+:ClientUpdateReasonShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :updateReason ;
+        sh:datatype xsd:string ;
+        sh:maxLength 250 ;
+    ] ;
+    sh:message "Update reason must be a short explanation (max 250 characters)." .
+
+:ClientIdentifierShape
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path cmns-id:identifies ;
+        sh:class cmns-id:Identifier ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Each client must have a unique identifier assigned." .
+
+:ClientMustHaveEmergencyOrOrg
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:or (
+        [ sh:property [ sh:path :emergencyContact ; sh:class foaf:Person ; sh:minCount 1 ; ] ]
+        [ sh:property [ sh:path foaf:member ; sh:class org:Organization ; sh:minCount 1 ; ] ]
+    ) ;
+    sh:message "Client must have either an emergency contact or be part of an organization." .
+
+:ClientValidLocationFormat
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path :locationCoordinates ;
+        sh:datatype xsd:string ;
+        sh:pattern "^-?\\d+(\\.\\d+)?,-?\\d+(\\.\\d+)?$" ;
+    ] ;
+    sh:message "Location coordinates must follow the format 'latitude,longitude'." .
+
+:ClientLinkedAccountCondition
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:and (
+        [ sh:property [ sh:path foaf:account ; sh:class foaf:OnlineAccount ; ] ]
+        [ sh:property [ sh:path :accountTier ; sh:in ("Premium" "Enterprise") ; ] ]
+    ) ;
+    sh:message "Only Premium or Enterprise clients can have linked online accounts." .
+
+:ClientBlacklistedMustBeInactive
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:prefixes [ sh:declare [
+            sh:prefix "foaf" ; sh:namespace "http://xmlns.com/foaf/0.1/" ;
+        ] ] ;
+        sh:construct """
+            CONSTRUCT {
+                ?this :accountStatus "Inactive" .
+            }
+            WHERE {
+                ?this :isBlacklisted true .
+            }
+        """ ;
+    ] ;
+    sh:message "If a client is blacklisted, they must be marked as Inactive." .
+
+:ClientProfileCompletionDependency
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:and (
+        [ sh:property [ sh:path :profileComplete ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path foaf:name ; sh:minLength 3 ; ] ]
+        [ sh:property [ sh:path foaf:mbox ; sh:pattern "^[\\w.-]+@[\\w.-]+\\.\\w{2,}$" ; ] ]
+    ) ;
+    sh:message "To mark a profile as complete, name and valid email must be present." .
+
+:ClientMustNotBeAnonymous
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:not [
+        sh:property [ sh:path foaf:name ; sh:hasValue "Anonymous" ; ]
+    ] ;
+    sh:message "Client name cannot be 'Anonymous'." .
+
+:ClientEmailOrPhoneRequired
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:or (
+        [ sh:property [ sh:path foaf:mbox ; sh:minCount 1 ; ] ]
+        [ sh:property [ sh:path vcard:hasTelephone ; sh:minCount 1 ; ] ]
+    ) ;
+    sh:message "Client must provide at least one contact method: email or phone." .
+
+:ClientAccountStatusLogic
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:or (
+        [ sh:property [ sh:path :accountStatus ; sh:hasValue "Active" ; ] ]
+        [ sh:not [
+            sh:property [ sh:path :accountTier ; sh:hasValue "Premium" ; ]
+        ] ]
+    ) ;
+    sh:message "Premium clients must have Active account status." .
+
+:ClientMultipleIdentifiers
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path cmns-id:identifies ;
+        sh:class cmns-id:Identifier ;
+        sh:minCount 2 ;
+    ] ;
+    sh:message "Client must have at least two identifiers (e.g., ID and customer number)." .
+
+:ClientConditionalMarketingOptIn
+    a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:or (
+        [ sh:property [ sh:path :marketingConsent ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path :accountTier ; sh:hasValue "Basic" ; ] ]
+    ) ;
+    sh:message "Only Basic tier clients can skip marketing consent." .
+
+
+:TicketPriceShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:price ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+    ] ;
+    sh:message "Ticket price must be a non-negative number." .
+
+:SeatNumberShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:seatNumber ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:maxLength 10 ;
+    ] ;
+    sh:message "Seat number must be a non-empty string with up to 10 characters." .
+
+:EventTypeShape a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:eventType ;
+        sh:in ("Concert" "Conference" "Theater" "Exhibition" "Workshop") ;
+    ] ;
+    sh:message "Event type must be one of: Concert, Conference, Theater, Exhibition, or Workshop." .
+
+:TicketTokenShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:ticketToken ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z0-9]{10,}$" ;
+    ] ;
+    sh:message "Ticket token must be an alphanumeric string of at least 10 characters." .
+
+:TicketPurchaseTimeShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:datePurchased ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "Each ticket must have a valid purchase timestamp." .
+
+:TicketHolderShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:underName ;
+        sh:class foaf:Person ;
+    ] ;
+    sh:message "Each ticket must be assigned to a person." .
+
+:EventStartDateShape a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:startDate ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "Event must have a valid start date and time." .
+
+:RefundEligibilityShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:refundable ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Indicate whether the ticket is refundable." .
+
+:EventVenueShape a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:location ;
+        sh:class schema:Place ;
+    ] ;
+    sh:message "Event must be associated with a venue or place." .
+
+:TicketCategoryShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:category ;
+        sh:in ("VIP" "Regular" "Student" "Backstage") ;
+    ] ;
+    sh:message "Ticket category must be one of: VIP, Regular, Student, or Backstage." .
+
+:EventPerformerShape a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:performer ;
+        sh:class schema:Person ;
+    ] ;
+    sh:message "Each event must include at least one performer." .
+
+:TicketIssueDateShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:issuedThrough ;
+        sh:class schema:Organization ;
+    ] ;
+    sh:message "The issuing organization of the ticket must be specified." .
+
+:TicketAccessCodeShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:accessCode ;
+        sh:datatype xsd:string ;
+        sh:minLength 6 ;
+    ] ;
+    sh:message "Access code must be a string with at least 6 characters." .
+
+:TicketScanTimeShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:dateUsed ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "The timestamp when the ticket was used must be recorded." .
+
+:EventDurationShape a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:duration ;
+        sh:datatype xsd:duration ;
+    ] ;
+    sh:message "The event's duration must be a valid duration datatype." .
+
+:TicketLanguageShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:inLanguage ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Specify the language for the ticket." .
+
+:TicketMaxPurchaseLimitShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:maxAttendeeCapacity ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 10 ;
+    ] ;
+    sh:message "The maximum number of tickets purchasable per person must be between 1 and 10." .
+
+:TicketDiscountShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:discount ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 100.0 ;
+    ] ;
+    sh:message "Ticket discount must be between 0% and 100%." .
+
+:EventOrganizerShape a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:organizer ;
+        sh:class schema:Organization ;
+    ] ;
+    sh:message "Event must have an organizing body specified." .
+
+:TicketCurrencyShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:priceCurrency ;
+        sh:pattern "^[A-Z]{3}$" ;
+    ] ;
+    sh:message "Currency code must be a valid 3-letter ISO currency code." .
+
+:RefundPolicyShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:or (
+        [ sh:property [ sh:path schema:refundable ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path schema:validThrough ; sh:datatype xsd:dateTime ; ] ]
+    ) ;
+    sh:message "Ticket must either be refundable or have a valid-through date defined." .
+
+:GroupTicketLimitShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:and (
+        [ sh:property [ sh:path schema:isPartOf ; sh:class schema:Event ; ] ]
+        [ sh:property [ sh:path schema:totalTicketLimit ; sh:datatype xsd:integer ; sh:maxInclusive 100 ; ] ]
+    ) ;
+    sh:message "Group tickets must belong to an event and have a total limit of 100 or fewer." .
+
+:QRTokenPatternShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:ticketToken ;
+        sh:pattern "^QR-[A-Z0-9]{6,}$" ;
+    ] ;
+    sh:message "QR token must start with 'QR-' followed by at least 6 alphanumeric characters." .
+
+:VIPTicketQualificationShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:category ;
+        sh:hasValue "VIP" ;
+        sh:qualifiedValueShape [
+            sh:property [ sh:path schema:price ; sh:minInclusive 100.00 ; ]
+        ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "VIP tickets must be priced at least €100." .
+
+:TicketAndEventSyncShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Ticket purchase time must be before the event start time." ;
+        sh:prefixes [ sh:declare [
+            sh:prefix "schema" ;
+            sh:namespace "http://schema.org/"^^xsd:anyURI ;
+        ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:datePurchased ?purchaseTime .
+                $this schema:isPartOf ?event .
+                ?event schema:startDate ?startTime .
+                FILTER (?purchaseTime > ?startTime)
+            }
+        """ ;
+    ] .
+
+:MultipleSeatReservationShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:seatNumber ;
+        sh:minCount 1 ;
+        sh:maxCount 5 ;
+    ] ;
+    sh:message "A ticket may reserve between 1 and 5 seats." .
+
+:ChildTicketRestrictionShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:or (
+        [ sh:property [ sh:path schema:category ; sh:hasValue "Child" ; ] ]
+        [ sh:property [ sh:path schema:price ; sh:maxInclusive 20 ; ] ]
+    ) ;
+    sh:message "Child ticket must cost no more than €20." .
+
+:TicketLanguageMatchShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:inLanguage ;
+        sh:in ("en" "de" "fr" "es") ;
+    ] ;
+    sh:message "Language must be one of: English, German, French, or Spanish." .
+
+:TicketIssuerValidationShape a sh:NodeShape ;
+    sh:targetClass schema:Ticket ;
+    sh:property [
+        sh:path schema:issuedThrough ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:message "Ticket must be issued through a valid IRI reference to an organization." .
+
+:EventEndAfterStartShape a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Event end date must be after the start date." ;
+        sh:prefixes [ sh:declare [
+            sh:prefix "schema" ;
+            sh:namespace "http://schema.org/"^^xsd:anyURI ;
+        ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:startDate ?start .
+                $this schema:endDate ?end .
+                FILTER (?end <= ?start)
+            }
+        """ ;
+    ] .
+
+:UserIdentifierShape
+    a sh:NodeShape ;
+    sh:targetClass it:User ;
+    sh:property [
+        sh:path cmns-id:identifies ;
+        sh:class cmns-id:Identifier ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:message "Each user must have exactly one unique identifier." .
+
+:UserRoleShape
+    a sh:NodeShape ;
+    sh:targetClass it:User ;
+    sh:property [
+        sh:path it:hasRole ;
+        sh:in ("Admin" "Editor" "Viewer" "Auditor") ;
+    ] ;
+    sh:message "User role must be one of: Admin, Editor, Viewer, or Auditor." .
+
+:AccessLevelShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:accessLevel ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 5 ;
+    ] ;
+    sh:message "Access level must be an integer between 1 and 5." .
+
+:ResourcePathShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:resourcePath ;
+        sh:datatype xsd:string ;
+        sh:pattern "^/api/.*" ;
+    ] ;
+    sh:message "Resource path must begin with '/api/'." .
+
+:PolicyStartDateShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:validFrom ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:message "Access policy must include a start date." .
+
+:PolicyExpiryDateShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:expiresOn ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:message "Access policy must define an expiration date." .
+
+:AuthenticationMethodShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:authenticationMethod ;
+        sh:in ("Password" "SSO" "Token" "Biometric") ;
+    ] ;
+    sh:message "Authentication method must be one of: Password, SSO, Token, or Biometric." .
+
+:GroupMembershipShape
+    a sh:NodeShape ;
+    sh:targetClass it:User ;
+    sh:property [
+        sh:path it:memberOfGroup ;
+        sh:class org:Organization ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "User must belong to at least one group or organization." .
+
+:AuthorizationStatusShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:isAuthorized ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Authorization status must be explicitly stated as true or false." .
+
+:PolicyOwnerShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:createdBy ;
+        sh:class foaf:Person ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Each policy must have a defined creator." .
+
+:MaxConcurrentSessionsShape
+    a sh:NodeShape ;
+    sh:targetClass it:User ;
+    sh:property [
+        sh:path it:maxConcurrentSessions ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 10 ;
+    ] ;
+    sh:message "User's max concurrent sessions must be between 1 and 10." .
+
+:PolicyScopeShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:policyScope ;
+        sh:in ("Global" "Departmental" "Project-specific") ;
+    ] ;
+    sh:message "Policy scope must be Global, Departmental, or Project-specific." .
+
+:SessionTimeoutShape
+    a sh:NodeShape ;
+    sh:targetClass it:User ;
+    sh:property [
+        sh:path it:sessionTimeout ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 5 ;
+        sh:maxInclusive 120 ;
+    ] ;
+    sh:message "Session timeout must be between 5 and 120 minutes." .
+
+:TwoFactorRequirementShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:requiresTwoFactor ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Specify whether two-factor authentication is required." .
+
+:AllowedIPRangeShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:allowedIPRange ;
+        sh:datatype xsd:string ;
+        sh:pattern "^\\d{1,3}(\\.\\d{1,3}){3}/\\d{1,2}$" ;
+    ] ;
+    sh:message "Allowed IP range must be a valid CIDR block (e.g., 192.168.1.0/24)." .
+
+:AccessFrequencyLimitShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:maxRequestsPerDay ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+    ] ;
+    sh:message "Maximum number of requests per day must be a positive integer." .
+
+:TokenValidityShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:tokenValidityHours ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 72 ;
+    ] ;
+    sh:message "Token validity period must be between 1 and 72 hours." .
+
+:PolicyCommentShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path rdfs:comment ;
+        sh:datatype xsd:string ;
+        sh:maxLength 250 ;
+    ] ;
+    sh:message "Policy comment must not exceed 250 characters." .
+
+:RoleAssignmentShape
+    a sh:NodeShape ;
+    sh:targetClass it:User ;
+    sh:property [
+        sh:path it:assignedRoles ;
+        sh:class it:Role ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "User must be assigned at least one role." .
+
+:ResourceLabelShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 100 ;
+    ] ;
+    sh:message "Resource label must be between 5 and 100 characters long." .
+
+:PolicyValidityRangeShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:and (
+        [ sh:property [ sh:path it:validFrom ; sh:datatype xsd:date ; ] ]
+        [ sh:property [ sh:path it:expiresOn ; sh:datatype xsd:date ; ] ]
+    ) ;
+    sh:message "Policy must include both start and expiration dates." .
+
+:UserCredentialLogicShape
+    a sh:NodeShape ;
+    sh:targetClass it:User ;
+    sh:or (
+        [ sh:property [ sh:path it:hasPassword ; sh:datatype xsd:string ; sh:minLength 8 ; ] ]
+        [ sh:property [ sh:path it:hasBiometricAuth ; sh:datatype xsd:boolean ; sh:hasValue true ; ] ]
+    ) ;
+    sh:message "User must have either a secure password or biometric authentication." .
+
+:PolicyNotExpiredShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:not [
+        sh:property [
+            sh:path it:expiresOn ;
+            sh:datatype xsd:date ;
+            sh:maxExclusive "2024-01-01"^^xsd:date ;
+        ]
+    ] ;
+    sh:message "Policy must not be expired before 2024." .
+
+:TwoFactorAndSecureRoleShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:and (
+        [ sh:property [ sh:path it:requiresTwoFactor ; sh:hasValue true ; ] ]
+        [ sh:property [ sh:path it:accessLevel ; sh:minInclusive 4 ; ] ]
+    ) ;
+    sh:message "High-access policies must require two-factor authentication." .
+
+:RestrictedRoleNamePatternShape
+    a sh:NodeShape ;
+    sh:targetClass it:Role ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:datatype xsd:string ;
+        sh:pattern "^(Admin|Root|Superuser)$" ;
+    ] ;
+    sh:message "Role name must be one of: Admin, Root, or Superuser." .
+
+:ResourceAccessXORShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:or (
+        [ sh:property [ sh:path it:hasReadAccess ; sh:hasValue true ] ]
+        [ sh:property [ sh:path it:hasWriteAccess ; sh:hasValue true ] ]
+    ) ;
+    sh:not [
+        sh:and (
+            [ sh:property [ sh:path it:hasReadAccess ; sh:hasValue true ] ]
+            [ sh:property [ sh:path it:hasWriteAccess ; sh:hasValue true ] ]
+        )
+    ] ;
+    sh:message "Policy can grant either read or write access, but not both." .
+
+:UserAccessSPARQLConstraintShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:prefixes [
+            sh:declare [
+                sh:prefix "it" ;
+                sh:namespace "http://example.org/it#"^^xsd:anyURI ;
+            ]
+        ] ;
+        sh:message "AccessPolicy must not allow access without a role assigned to the user." ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this it:appliesTo ?user .
+                FILTER NOT EXISTS {
+                    ?user it:hasRole ?role .
+                }
+            }
+        """ ;
+    ] .
+
+:IPRangeAndAuthMethodShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:and (
+        [ sh:property [ sh:path it:allowedIPRange ; sh:pattern "^\\d{1,3}(\\.\\d{1,3}){3}/\\d{1,2}$" ; ] ]
+        [ sh:property [ sh:path it:authenticationMethod ; sh:in ("Token" "Biometric") ; ] ]
+    ) ;
+    sh:message "Token or Biometric-based policies must specify a valid IP range." .
+
+:ExclusiveAdminAccessShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:not [
+        sh:property [
+            sh:path it:hasPublicAccess ;
+            sh:hasValue true ;
+        ]
+    ] ;
+    sh:message "Administrative policies must not allow public access." .
+
+:TimeRestrictedPolicyShape
+    a sh:NodeShape ;
+    sh:targetClass it:AccessPolicy ;
+    sh:property [
+        sh:path it:accessWindow ;
+        sh:node [
+            sh:property [ sh:path it:startHour ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxInclusive 23 ; ] ;
+            sh:property [ sh:path it:endHour ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxInclusive 23 ; ]
+        ]
+    ] ;
+    sh:message "Access window must define start and end hour within 0–23 range." .
+
+
+:DeviceTypeShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:deviceType ;
+        sh:in ("Thermostat" "Light" "MotionSensor" "Camera") ;
+    ] ;
+    sh:message "Device type must be one of: Thermostat, Light, MotionSensor, or Camera." .
+
+:DeviceIDShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:deviceID ;
+        sh:datatype xsd:string ;
+        sh:pattern "^DEV-[0-9A-Z]{6}$" ;
+    ] ;
+    sh:message "Device ID must follow the pattern DEV-XXXXXX with uppercase letters and digits." .
+
+:DeviceLocationShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:location ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+    ] ;
+    sh:message "Device location must be a non-empty string." .
+
+:ControlRuleNameShape a sh:NodeShape ;
+    sh:targetClass it:ControlRule ;
+    sh:property [
+        sh:path it:ruleName ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+    ] ;
+    sh:message "Control rule must have a descriptive name of at least 5 characters." .
+
+:RuleEnabledShape a sh:NodeShape ;
+    sh:targetClass it:ControlRule ;
+    sh:property [
+        sh:path it:isEnabled ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Each control rule must specify whether it is enabled." .
+
+:ActivationTimeWindowShape a sh:NodeShape ;
+    sh:targetClass it:ControlRule ;
+    sh:property [
+        sh:path it:activationWindow ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$" ;
+    ] ;
+    sh:message "Activation window must follow the format HH:MM-HH:MM." .
+
+:TriggerSensorShape a sh:NodeShape ;
+    sh:targetClass it:Trigger ;
+    sh:property [
+        sh:path it:triggeredBy ;
+        sh:class it:Sensor ;
+    ] ;
+    sh:message "Each trigger must be linked to a sensor." .
+
+:TriggerConditionShape a sh:NodeShape ;
+    sh:targetClass it:Trigger ;
+    sh:property [
+        sh:path it:condition ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "A valid condition expression must be provided for each trigger." .
+
+:TemperatureRangeShape a sh:NodeShape ;
+    sh:targetClass it:Sensor ;
+    sh:property [
+        sh:path it:temperatureValue ;
+        sh:datatype xsd:float ;
+        sh:minInclusive -30.0 ;
+        sh:maxInclusive 60.0 ;
+    ] ;
+    sh:message "Temperature must be between -30 and 60 degrees Celsius." .
+
+:DeviceFirmwareVersionShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:firmwareVersion ;
+        sh:datatype xsd:string ;
+        sh:pattern "^v[0-9]+\\.[0-9]+\\.[0-9]+$" ;
+    ] ;
+    sh:message "Firmware version must follow the format vX.Y.Z (e.g., v1.0.3)." .
+
+:MotionSensitivityShape a sh:NodeShape ;
+    sh:targetClass it:Sensor ;
+    sh:property [
+        sh:path it:sensitivityLevel ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 10 ;
+    ] ;
+    sh:message "Motion sensor sensitivity must be a value between 1 and 10." .
+
+:HumidityAlertThresholdShape a sh:NodeShape ;
+    sh:targetClass it:Sensor ;
+    sh:property [
+        sh:path it:humidityThreshold ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 100.0 ;
+    ] ;
+    sh:message "Humidity threshold must be between 0 and 100 percent." .
+
+:BatteryLevelShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:batteryLevel ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+    ] ;
+    sh:message "Battery level must be a percentage between 0 and 100." .
+
+:FirmwareUpdateStatusShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:firmwareUpdateAvailable ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Device must indicate if a firmware update is available." .
+
+:ScheduleStartShape a sh:NodeShape ;
+    sh:targetClass it:Schedule ;
+    sh:property [
+        sh:path it:startTime ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "Schedule must specify a valid start time." .
+
+:ScheduleEndShape a sh:NodeShape ;
+    sh:targetClass it:Schedule ;
+    sh:property [
+        sh:path it:endTime ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "Schedule must specify a valid end time." .
+
+:PowerConsumptionShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:powerUsageWatts ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0.0 ;
+    ] ;
+    sh:message "Power usage must be a positive number in watts." .
+
+:LinkedRoomShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:assignedRoom ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:message "Device must be assigned to a valid room IRI." .
+
+:TriggerActionLinkShape a sh:NodeShape ;
+    sh:targetClass it:Trigger ;
+    sh:property [
+        sh:path it:executesAction ;
+        sh:class it:ControlAction ;
+    ] ;
+    sh:message "Each trigger must execute a valid control action." .
+
+:OverrideAllowedShape a sh:NodeShape ;
+    sh:targetClass it:ControlRule ;
+    sh:property [
+        sh:path it:userOverrideAllowed ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Specify whether user override is allowed for this rule." .
+
+:AutoLightingConditionShape a sh:NodeShape ;
+    sh:targetClass it:ControlRule ;
+    sh:or (
+        [ sh:property [ sh:path it:ambientLightLevel ; sh:datatype xsd:decimal ; sh:maxInclusive 20.0 ; ] ]
+        [ sh:property [ sh:path it:motionDetected ; sh:datatype xsd:boolean ; sh:hasValue true ; ] ]
+    ) ;
+    sh:message "Automatic lighting rule must activate if ambient light is low or motion is detected." .
+
+:CriticalDeviceShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:and (
+        [ sh:property [ sh:path it:batteryLevel ; sh:datatype xsd:integer ; sh:maxInclusive 20 ; ] ]
+        [ sh:property [ sh:path it:isCriticalDevice ; sh:hasValue true ; ] ]
+    ) ;
+    sh:message "Critical devices must alert when battery level is below 20%." .
+
+:FirmwareVersionValidationShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Firmware version must not be older than v1.0.0." ;
+        sh:prefixes [ sh:declare [ sh:prefix "it" ; sh:namespace "http://example.org/it#"^^xsd:anyURI ; ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this it:firmwareVersion ?version .
+                FILTER(STR(?version) < "v1.0.0")
+            }
+        """ ;
+    ] .
+
+:ExclusiveControlModeShape a sh:NodeShape ;
+    sh:targetClass it:ControlRule ;
+    sh:property [
+        sh:path it:controlMode ;
+        sh:in ("Manual" "Scheduled" "SensorBased") ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:message "Control mode must be exclusively one of: Manual, Scheduled, or SensorBased." .
+
+:RoomDeviceMinimumShape a sh:NodeShape ;
+    sh:targetClass it:Room ;
+    sh:property [
+        sh:path it:hasDevice ;
+        sh:qualifiedValueShape [ sh:class it:SmartDevice ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "Each room must have at least one associated smart device." .
+
+:LinkedActionsConsistencyShape a sh:NodeShape ;
+    sh:targetClass it:Trigger ;
+    sh:and (
+        [ sh:property [ sh:path it:executesAction ; sh:class it:ControlAction ] ]
+        [ sh:property [ sh:path it:linkedDevice ; sh:class it:SmartDevice ] ]
+    ) ;
+    sh:message "Each trigger must link to both a device and an action." .
+
+:SecureCameraStreamShape a sh:NodeShape ;
+    sh:targetClass it:CameraDevice ;
+    sh:property [
+        sh:path it:streamURL ;
+        sh:pattern "^https://" ;
+    ] ;
+    sh:message "Camera stream URL must start with https:// for secure access." .
+
+:RedundantTriggersShape a sh:NodeShape ;
+    sh:targetClass it:ControlRule ;
+    sh:property [
+        sh:path it:hasTrigger ;
+        sh:maxCount 2 ;
+    ] ;
+    sh:message "No more than two triggers should be assigned to a control rule to avoid redundancy." .
+
+:DeviceLabelUniquenessShape a sh:NodeShape ;
+    sh:targetClass it:SmartDevice ;
+    sh:property [
+        sh:path it:label ;
+        sh:datatype xsd:string ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:message "Device label must be unique across languages." .
+
+:TemperatureSafetyConstraintShape a sh:NodeShape ;
+    sh:targetClass it:Sensor ;
+    sh:or (
+        [ sh:property [ sh:path it:temperatureValue ; sh:maxInclusive 45.0 ] ]
+        [ sh:property [ sh:path it:temperatureAlertEnabled ; sh:hasValue true ] ]
+    ) ;
+    sh:message "If temperature exceeds 45°C, alert system must be enabled." .
+
+
+:RatingValueShape a sh:NodeShape ;
+    sh:targetClass schema:Rating ;
+    sh:property [
+        sh:path schema:ratingValue ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 1.0 ;
+        sh:maxInclusive 5.0 ;
+    ] ;
+    sh:message "Rating must be a decimal value between 1.0 and 5.0." .
+
+:ReviewTextShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:reviewBody ;
+        sh:datatype xsd:string ;
+        sh:minLength 20 ;
+    ] ;
+    sh:message "Review text must be at least 20 characters long." .
+
+:ReviewerIdentityShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:author ;
+        sh:class foaf:Person ;
+    ] ;
+    sh:message "Each review must be associated with a valid person as the author." .
+
+:ReviewDateShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:datePublished ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:message "Review must include the publication date." .
+
+:VerifiedPurchaseShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:isBasedOn ;
+        sh:class schema:Order ;
+    ] ;
+    sh:message "Review must be linked to a verified purchase order if applicable." .
+
+:RatingScaleShape a sh:NodeShape ;
+    sh:targetClass schema:Rating ;
+    sh:property [
+        sh:path schema:bestRating ;
+        sh:datatype xsd:decimal ;
+        sh:hasValue 5.0 ;
+    ] ;
+    sh:message "The highest rating value allowed is 5.0." .
+
+:WorstRatingShape a sh:NodeShape ;
+    sh:targetClass schema:Rating ;
+    sh:property [
+        sh:path schema:worstRating ;
+        sh:datatype xsd:decimal ;
+        sh:hasValue 1.0 ;
+    ] ;
+    sh:message "The lowest rating value allowed is 1.0." .
+
+:ReviewLanguageShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:inLanguage ;
+        sh:datatype xsd:language ;
+    ] ;
+    sh:message "Review must specify the language in which it is written." .
+
+:ItemReviewedShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:itemReviewed ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:message "Review must be associated with a valid item IRI." .
+
+:RatingTitleShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 100 ;
+    ] ;
+    sh:message "Review title must be between 5 and 100 characters." .
+
+:ReviewerEmailShape a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:mbox ;
+        sh:datatype xsd:string ;
+        sh:pattern "^mailto:.+@.+\\..+" ;
+    ] ;
+    sh:message "Reviewer must have a valid email address using 'mailto:' format." .
+
+:RatingTimestampShape a sh:NodeShape ;
+    sh:targetClass schema:Rating ;
+    sh:property [
+        sh:path schema:dateCreated ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "A timestamp must be recorded for when the rating was created." .
+
+:ReviewRatingLinkShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:reviewRating ;
+        sh:class schema:Rating ;
+    ] ;
+    sh:message "Each review must include a rating object." .
+
+:ReviewerNameShape a sh:NodeShape ;
+    sh:targetClass foaf:Person ;
+    sh:property [
+        sh:path foaf:name ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+    ] ;
+    sh:message "Reviewer must have a name with at least 3 characters." .
+
+:RatingScaleUnitShape a sh:NodeShape ;
+    sh:targetClass schema:Rating ;
+    sh:property [
+        sh:path schema:ratingExplanation ;
+        sh:datatype xsd:string ;
+        sh:maxLength 200 ;
+    ] ;
+    sh:message "Explanation of the rating must not exceed 200 characters." .
+
+:LanguageTagUniquenessShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:reviewBody ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:message "Review body must be unique per language tag." .
+
+:ReviewLengthLimitShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:reviewBody ;
+        sh:maxLength 1000 ;
+    ] ;
+    sh:message "Review body must not exceed 1000 characters." .
+
+:PurchaseVerificationFlagShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:verifiedPurchase ;
+        sh:datatype xsd:boolean ;
+    ] ;
+    sh:message "Review must indicate whether the purchase was verified." .
+
+:RatingLabelShape a sh:NodeShape ;
+    sh:targetClass schema:Rating ;
+    sh:property [
+        sh:path schema:ratingExplanation ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Rating must include a brief label or explanation." .
+
+:UserAccountIRIShape a sh:NodeShape ;
+    sh:targetClass foaf:OnlineAccount ;
+    sh:property [
+        sh:path foaf:accountServiceHomepage ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:message "User's account must include a valid IRI to the service homepage." .
+
+:RatingOrFeedbackShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:or (
+        [ sh:property [ sh:path schema:reviewRating ; sh:class schema:Rating ] ]
+        [ sh:property [ sh:path schema:reviewBody ; sh:minLength 30 ] ]
+    ) ;
+    sh:message "Each review must have either a rating or a sufficiently long feedback." .
+
+:PositiveFeedbackShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:and (
+        [ sh:property [ sh:path schema:reviewRating/schema:ratingValue ; sh:minInclusive 4.0 ] ]
+        [ sh:property [ sh:path schema:reviewBody ; sh:minLength 50 ] ]
+    ) ;
+    sh:message "Positive reviews must have a rating ≥ 4.0 and at least 50 characters of feedback." .
+
+:InvalidLanguageNotAllowedShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:not [
+        sh:property [ sh:path schema:inLanguage ; sh:hasValue "xx" ]
+    ] ;
+    sh:message "Invalid language code 'xx' is not allowed for reviews." .
+
+:VerifiedUserQualifiedShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:author ;
+        sh:qualifiedValueShape [
+            sh:path foaf:account ;
+            sh:class foaf:OnlineAccount ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "Reviewer must have at least one associated online account." .
+
+:HighRatingJustificationShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:reviewRating ;
+        sh:qualifiedValueShape [
+            sh:path schema:ratingValue ;
+            sh:minInclusive 5.0 ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "Perfect 5-star reviews must be explicitly justified with a comment." .
+
+:ReviewSpamFilterShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Review must not contain spam words like 'free', 'click', or 'buy now'." ;
+        sh:prefixes (
+            [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+        ) ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this schema:reviewBody ?body .
+                FILTER (regex(?body, "free|click|buy now", "i"))
+            }
+        """ ;
+    ] .
+
+:MultilingualReviewShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:property [
+        sh:path schema:reviewBody ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:message "Each review body must be unique per language tag to support multilingual content." .
+
+:TimestampAndOrderLinkShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:and (
+        [ sh:property [ sh:path schema:datePublished ; sh:datatype xsd:date ] ]
+        [ sh:property [ sh:path schema:isBasedOn ; sh:class schema:Order ] ]
+    ) ;
+    sh:message "Reviews must include both a date of publication and a related order." .
+
+:AnonymousReviewerRestrictionShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:or (
+        [ sh:property [ sh:path schema:author ; sh:class foaf:Person ] ]
+        [ sh:property [ sh:path schema:author ; sh:hasValue "Anonymous" ] ]
+    ) ;
+    sh:message "Reviews must either be linked to a person or marked as 'Anonymous'." .
+
+:ReviewIntegrityCheckShape a sh:NodeShape ;
+    sh:targetClass schema:Review ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A review cannot contain more than 3 URLs." ;
+        sh:prefixes (
+            [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+        ) ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this schema:reviewBody ?text .
+                BIND((STRLEN(?text) - STRLEN(REPLACE(?text, "http", ""))) AS ?urlCount)
+                FILTER(?urlCount > 3)
+            }
+        """ ;
+    ] .
+
+:TransactionIDShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z0-9\\-]+$" ;
+        sh:minLength 6 ;
+    ] ;
+    sh:message "Each e-receipt must have a valid alphanumeric transaction ID." .
+
+:TransactionDateShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:paymentDueDate ;
+        sh:datatype xsd:date ;
+    ] ;
+    sh:message "Each e-receipt must specify the transaction date." .
+
+:TotalAmountShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:totalPaymentDue ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.01 ;
+    ] ;
+    sh:message "The total amount due must be at least 0.01." .
+
+:CurrencyShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:currency ;
+        sh:datatype xsd:string ;
+        sh:in ("USD" "EUR" "GBP" "INR") ;
+    ] ;
+    sh:message "Currency must be one of USD, EUR, GBP, or INR." .
+
+:PaymentMethodShape a sh:NodeShape ;
+    sh:targetClass schema:PaymentMethod ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Each payment method must be labeled with a name." .
+
+:ReceiptEmailShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:customer ;
+        sh:class schema:Person ;
+    ] ;
+    sh:message "E-receipt must reference a valid customer as schema:Person." .
+
+:ReceiptIssuerShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:broker ;
+        sh:class schema:Organization ;
+    ] ;
+    sh:message "Each e-receipt must indicate the issuing organization." .
+
+:InvoiceItemShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:referencesOrder ;
+        sh:class schema:Order ;
+    ] ;
+    sh:message "Each e-receipt should link to an associated order." .
+
+:PaymentStatusShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:paymentStatus ;
+        sh:datatype xsd:string ;
+        sh:in ("Paid" "Pending" "Cancelled") ;
+    ] ;
+    sh:message "Payment status must be Paid, Pending, or Cancelled." .
+
+:VATAmountShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:taxAmount ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+    ] ;
+    sh:message "Tax amount (VAT) must be zero or higher." .
+
+:LineItemCountShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:mainEntity ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Each e-receipt must include at least one line item." .
+
+:ItemQuantityShape a sh:NodeShape ;
+    sh:targetClass schema:Product ;
+    sh:property [
+        sh:path schema:amount ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+    ] ;
+    sh:message "Each product must have a quantity of at least 1." .
+
+:ItemUnitPriceShape a sh:NodeShape ;
+    sh:targetClass schema:Product ;
+    sh:property [
+        sh:path schema:price ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.01 ;
+    ] ;
+    sh:message "Product price must be at least 0.01." .
+
+:ItemNameShape a sh:NodeShape ;
+    sh:targetClass schema:Product ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+    ] ;
+    sh:message "Each purchased product must have a name with at least 2 characters." .
+
+:ReceiptConfirmationShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:confirmationNumber ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+    ] ;
+    sh:message "A confirmation number must be included in the receipt." .
+
+:ReceiptCurrencyValidationShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:or (
+        [ sh:property [ sh:path schema:currency ; sh:hasValue "USD" ] ]
+        [ sh:property [ sh:path schema:currency ; sh:hasValue "EUR" ] ]
+    ) ;
+    sh:message "Currency must be either USD or EUR." .
+
+:OrderLinkAndAmountShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:and (
+        [ sh:property [ sh:path schema:referencesOrder ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path schema:totalPaymentDue ; sh:datatype xsd:float ; sh:minInclusive 1.00 ] ]
+    ) ;
+    sh:message "A receipt must link to an order and specify an amount ≥ 1.00." .
+
+:NotCancelledWithAmountShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:not [
+        sh:property [ sh:path schema:paymentStatus ; sh:hasValue "Cancelled" ]
+    ] ;
+    sh:message "Cancelled receipts are not allowed in this context." .
+
+:MultiTaxTypeShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:taxAmount ;
+        sh:qualifiedValueShape [ sh:datatype xsd:float ; sh:minInclusive 0.01 ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "At least one tax amount must be ≥ 0.01." .
+
+:DigitalOrPhysicalReceiptShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:or (
+        [ sh:property [ sh:path schema:isAccessibleForFree ; sh:hasValue true ] ]
+        [ sh:property [ sh:path schema:deliveryMethod ; sh:hasValue "Physical" ] ]
+    ) ;
+    sh:message "Receipts must be either digitally accessible or physically delivered." .
+
+:ReceiptAndBrokerCheckShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:and (
+        [ sh:property [ sh:path schema:confirmationNumber ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path schema:broker ; sh:class schema:Organization ] ]
+    ) ;
+    sh:message "Receipt must include confirmation number and broker organization." .
+
+:UnverifiedReceiptExclusionShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:not [
+        sh:property [ sh:path schema:paymentStatus ; sh:hasValue "Unverified" ]
+    ] ;
+    sh:message "Receipt must not have an unverified payment status." .
+
+:ItemPriceRangeShape a sh:NodeShape ;
+    sh:targetClass schema:Product ;
+    sh:property [
+        sh:path schema:price ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.01 ;
+        sh:maxInclusive 9999.99 ;
+    ] ;
+    sh:message "Item price must be between 0.01 and 9999.99." .
+
+:OptionalCommentShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:comment ;
+        sh:datatype xsd:string ;
+        sh:maxLength 300 ;
+        sh:minCount 0 ;
+    ] ;
+    sh:message "Optional comment must not exceed 300 characters." .
+
+:ReceiptSparqlTotalMatchShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Total amount must match sum of all line item prices." ;
+        sh:prefixes [ sh:declare [
+            sh:prefix "schema" ;
+            sh:namespace "http://schema.org/"^^xsd:anyURI ;
+        ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:totalPaymentDue ?total .
+                {
+                    SELECT $this (SUM(?price) AS ?calculatedTotal)
+                    WHERE {
+                        $this schema:mainEntity ?item .
+                        ?item schema:price ?price .
+                    } GROUP BY $this
+                }
+                FILTER (?total != ?calculatedTotal)
+            }
+        """ ;
+    ] .
+
+:LineItemQualifiedCountShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:mainEntity ;
+        sh:qualifiedValueShape [ sh:class schema:Product ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "Each receipt must contain at least one valid product line item." .
+
+:ReceiptClosedShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Receipt must only use defined properties (e.g., identifier)." .
+
+:ProductNodeShapeEnforcer a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:mainEntity ;
+        sh:node :ItemNameShape ;
+    ] ;
+    sh:message "Line items in the receipt must satisfy the item naming rules." .
+
+:PaymentAmountNotNegativeShape a sh:NodeShape ;
+    sh:targetClass schema:Invoice ;
+    sh:property [
+        sh:path schema:totalPaymentDue ;
+        sh:datatype xsd:float ;
+    ] ;
+    sh:not [
+        sh:property [
+            sh:path schema:totalPaymentDue ;
+            sh:maxExclusive 0 ;
+        ]
+    ] ;
+    sh:message "Total payment amount must not be negative." .
+
+:ItemPriceUnitConsistencyShape a sh:NodeShape ;
+    sh:targetClass schema:Product ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "If unitPrice is used, unitText must also be present." ;
+        sh:prefixes [ sh:declare [
+            sh:prefix "schema" ;
+            sh:namespace "http://schema.org/"^^xsd:anyURI ;
+        ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:price ?price .
+                FILTER NOT EXISTS {
+                    $this schema:unitText ?unit .
+                }
+            }
+        """ ;
+    ] .
+
+
+:CaseIdentifierShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path eli:caseNumber ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 50 ;
+        sh:minCount 1 ;
+        sh:message "Each case must have a valid case number (5–50 characters)." ;
+    ] .
+
+:CourtNameShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:courtName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "Court name must be provided for each case." ;
+    ] .
+
+:DecisionDateShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:dateIssued ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:message "Decision date must be specified in the format YYYY-MM-DD." ;
+    ] .
+
+:VerdictTextShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:description ;
+        sh:datatype xsd:string ;
+        sh:minLength 20 ;
+        sh:maxLength 1000 ;
+        sh:message "Verdict description must be between 20 and 1000 characters." ;
+    ] .
+
+:FilingDateShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:dateCreated ;
+        sh:datatype xsd:date ;
+        sh:message "Filing date must follow the standard date format." ;
+    ] .
+
+:CaseTypeShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:category ;
+        sh:in ("Civil" "Criminal" "Administrative" "Constitutional") ;
+        sh:message "Case type must be one of Civil, Criminal, Administrative, or Constitutional." ;
+    ] .
+
+:JudgeNameShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:author ;
+        sh:datatype xsd:string ;
+        sh:message "Judge name must be recorded as text." ;
+    ] .
+
+:JurisdictionShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:jurisdiction ;
+        sh:datatype xsd:string ;
+        sh:message "Jurisdiction must be specified as a string." ;
+    ] .
+
+:AppealStatusShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:status ;
+        sh:in ("Appealed" "Final" "Pending") ;
+        sh:message "Appeal status must be either Appealed, Final, or Pending." ;
+    ] .
+
+:LegalPartiesShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:about ;
+        sh:minCount 2 ;
+        sh:message "Each court case must involve at least two legal parties." ;
+    ] .
+
+:LegalCodeReferenceShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path eli:is_about ;
+        sh:datatype xsd:string ;
+        sh:message "Reference to the applicable legal code must be a valid string." ;
+    ] .
+
+:DocumentLinkShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:url ;
+        sh:datatype xsd:anyURI ;
+        sh:message "Provide a valid document link as a URI." ;
+    ] .
+
+:CaseSummaryShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:abstract ;
+        sh:datatype xsd:string ;
+        sh:minLength 30 ;
+        sh:message "Case summary must contain at least 30 characters." ;
+    ] .
+
+:LanguageShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path dc:language ;
+        sh:in ("en" "de" "fr") ;
+        sh:message "Language must be one of: en, de, or fr." ;
+    ] .
+
+:CaseDurationShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:duration ;
+        sh:datatype xsd:duration ;
+        sh:message "Case duration must be a valid ISO 8601 duration value." ;
+    ] .
+
+:FilingOrHearingDateShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:or (
+        [ sh:property [ sh:path schema:dateCreated ; sh:datatype xsd:date ] ]
+        [ sh:property [ sh:path schema:startDate ; sh:datatype xsd:date ] ]
+    ) ;
+    sh:message "Each case must have either a filing date or a hearing date." .
+
+:AppealOrFinalStatusShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:or (
+        [ sh:property [ sh:path schema:status ; sh:hasValue "Appealed" ] ]
+        [ sh:property [ sh:path schema:status ; sh:hasValue "Final" ] ]
+    ) ;
+    sh:message "Case status must be either 'Appealed' or 'Final'." .
+
+:VerdictAndDecisionShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:and (
+        [ sh:property [ sh:path schema:description ; sh:minLength 10 ] ]
+        [ sh:property [ sh:path schema:dateIssued ; sh:datatype xsd:date ] ]
+    ) ;
+    sh:message "Case must include a verdict and a decision date." .
+
+:NoInvalidStatusShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:not [
+        sh:property [ sh:path schema:status ; sh:hasValue "Unknown" ]
+    ] ;
+    sh:message "Case status must not be 'Unknown'." .
+
+:QualifiedJudgeRoleShape a sh:NodeShape ;
+    sh:targetClass schema:Person ;
+    sh:property [
+        sh:path schema:roleName ;
+        sh:qualifiedValueShape [ sh:hasValue "Judge" ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "Person must have the role 'Judge' in a court case." .
+
+:RequiredPartiesCountShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:about ;
+        sh:minCount 2 ;
+    ] ;
+    sh:message "Court cases must involve at least two parties." .
+
+:ClosedPropertyShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:message "Only allowed properties may be used in a court case resource." .
+
+:ReferenceCodeFormatShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path eli:is_about ;
+        sh:pattern "^LAW-[A-Z]{2}-\\d{4}$" ;
+        sh:message "Legal code reference must follow the format LAW-XX-YYYY." ;
+    ] .
+
+:LanguageSupportShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:or (
+        [ sh:property [ sh:path dc:language ; sh:hasValue "en" ] ]
+        [ sh:property [ sh:path dc:language ; sh:hasValue "de" ] ]
+    ) ;
+    sh:message "Language must be English or German." .
+
+:VerdictNotTooShortShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:not [
+        sh:property [ sh:path schema:description ; sh:maxLength 10 ]
+    ] ;
+    sh:message "Verdict description must not be unusually short." .
+
+:DecisionDateLogicShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Decision date must be after the filing date." ;
+        sh:prefixes [ sh:declare [
+            sh:prefix "schema" ;
+            sh:namespace "http://schema.org/"^^xsd:anyURI ;
+        ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:dateCreated ?fileDate ;
+                      schema:dateIssued ?decisionDate .
+                FILTER (?decisionDate < ?fileDate)
+            }
+        """ ;
+    ] .
+
+:CaseDocumentReferenceShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:citation ;
+        sh:datatype xsd:string ;
+        sh:minLength 10 ;
+        sh:maxLength 100 ;
+    ] ;
+    sh:message "Case citation must be a valid reference string." .
+
+:QualifiedVerdictCountShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:description ;
+        sh:qualifiedValueShape [ sh:minLength 30 ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "Case must include at least one detailed verdict." .
+
+:AppealFinalNotTogetherShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:not [
+        sh:and (
+            [ sh:property [ sh:path schema:status ; sh:hasValue "Appealed" ] ]
+            [ sh:property [ sh:path schema:status ; sh:hasValue "Final" ] ]
+        )
+    ] ;
+    sh:message "A case cannot be both 'Appealed' and 'Final'." .
+
+:ConsistentJurisdictionCodeShape a sh:NodeShape ;
+    sh:targetClass eli:LegalResource ;
+    sh:property [
+        sh:path schema:jurisdiction ;
+        sh:pattern "^[A-Z]{2,3}-[A-Z]{2,3}$" ;
+        sh:message "Jurisdiction code must follow the format COUNTRY-STATE (e.g., DE-BW)." ;
+    ] .
+
+:IncidentIdentifierShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:incidentID ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:pattern "^INC-[0-9]{4}$" ;
+        sh:message "Incident ID must follow the pattern 'INC-0000' with at least 5 characters." ;
+    ] .
+
+:HazardClassShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:hazardClass ;
+        sh:in ("Chemical" "Biological" "Radiological" "Mechanical") ;
+        sh:message "Hazard class must be one of: Chemical, Biological, Radiological, Mechanical." ;
+    ] .
+
+:IncidentDateShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:incidentDate ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:message "Each incident must include a date in yyyy-mm-dd format." ;
+    ] .
+
+:LabLocationShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:location ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:message "Incident location must be specified and at least 3 characters long." ;
+    ] .
+
+:ReportedByShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:reportedBy ;
+        sh:class foaf:Person ;
+        sh:minCount 1 ;
+        sh:message "Each incident must be reported by a person." ;
+    ] .
+
+:InjuryReportedShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:injuryReported ;
+        sh:datatype xsd:boolean ;
+        sh:message "The injury reported field must be true or false." ;
+    ] .
+
+:NumberOfPeopleAffectedShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:peopleAffected ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:message "The number of people affected must be zero or more." ;
+    ] .
+
+:EmergencyResponseShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:emergencyResponse ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:message "Emergency response must be provided and contain at least 5 characters." ;
+    ] .
+
+:FollowUpRequiredShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:followUpRequired ;
+        sh:datatype xsd:boolean ;
+        sh:message "Follow-up required field must be true or false." ;
+    ] .
+
+:ChemicalNameShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:chemicalInvolved ;
+        sh:datatype xsd:string ;
+        sh:maxLength 100 ;
+        sh:message "Chemical name must be a string with a maximum of 100 characters." ;
+    ] .
+
+:LabSupervisorShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:supervisedBy ;
+        sh:class foaf:Person ;
+        sh:minCount 1 ;
+        sh:message "Each incident must be linked to a lab supervisor (Person)." ;
+    ] .
+
+:IncidentTimeShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:incidentTime ;
+        sh:datatype xsd:time ;
+        sh:message "Incident time must be provided in hh:mm:ss format." ;
+    ] .
+
+:RegulatoryCodeShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:regulationCode ;
+        sh:datatype xsd:string ;
+        sh:pattern "^REG-[A-Z]{2}[0-9]{3}$" ;
+        sh:message "Regulation code must follow the pattern 'REG-XX000'." ;
+    ] .
+
+:PhotosAttachedShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:photosAttached ;
+        sh:datatype xsd:boolean ;
+        sh:message "Photos attached field must be either true or false." ;
+    ] .
+
+:CleanupCompletedShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:cleanupCompleted ;
+        sh:datatype xsd:boolean ;
+        sh:message "Cleanup completion status must be true or false." ;
+    ] .
+
+:ChemicalOrBiologicalHazardShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:or (
+        [ sh:property [ sh:path civic:hazardClass ; sh:hasValue "Chemical" ] ]
+        [ sh:property [ sh:path civic:hazardClass ; sh:hasValue "Biological" ] ]
+    ) ;
+    sh:message "Hazard class must be either 'Chemical' or 'Biological'." .
+
+:RegulatoryAndFollowUpShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:and (
+        [ sh:property [ sh:path civic:regulationCode ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path civic:followUpRequired ; sh:hasValue true ] ]
+    ) ;
+    sh:message "If regulation is specified, follow-up must be required." .
+
+:NoHazardWithoutInjuryShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:not [
+        sh:and (
+            [ sh:property [ sh:path civic:hazardClass ; sh:minCount 1 ] ]
+            [ sh:property [ sh:path civic:injuryReported ; sh:hasValue false ] ]
+        )
+    ] ;
+    sh:message "If hazard class is defined, injury must be reported." .
+
+:QualifiedEmergencyPersonnelShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:respondedBy ;
+        sh:qualifiedValueShape [ sh:class foaf:Person ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "At least one emergency responder must be a recognized Person." .
+
+:IncidentNodeNestedHazardShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:hazardDetails ;
+        sh:node :HazardClassificationShape ;
+    ] ;
+    sh:message "Each incident’s hazard detail must match the expected classification rules." .
+
+:SparqlMissingLocationShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Lab location must be provided for all incidents." ;
+        sh:prefixes [ sh:declare [ sh:prefix "civic" ; sh:namespace "http://example.org/civic#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this civic:location ?loc . }
+            }
+        """ ;
+    ] .
+
+:CleanupIfPhotosAttachedShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:and (
+        [ sh:property [ sh:path civic:photosAttached ; sh:hasValue true ] ]
+        [ sh:property [ sh:path civic:cleanupCompleted ; sh:hasValue true ] ]
+    ) ;
+    sh:message "If photos are attached, cleanup must also be completed." .
+
+:NegativePeopleAffectedBlockerShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:not [
+        sh:property [ sh:path civic:peopleAffected ; sh:maxExclusive 0 ]
+    ] ;
+    sh:message "The number of people affected must not be negative." .
+
+:IncidentTypeOrChemicalShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:or (
+        [ sh:property [ sh:path civic:incidentType ; sh:datatype xsd:string ] ]
+        [ sh:property [ sh:path civic:chemicalInvolved ; sh:datatype xsd:string ] ]
+    ) ;
+    sh:message "Each incident must specify either a type or a chemical involved." .
+
+:SupervisorEnforcementShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:supervisedBy ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Supervisor must be a valid URI reference and must exist." .
+
+:TimeWindowConstraintShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [ sh:path civic:incidentTime ; sh:datatype xsd:time ] ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Incidents must occur between 06:00:00 and 22:00:00." ;
+        sh:prefixes [ sh:declare [ sh:prefix "civic" ; sh:namespace "http://example.org/civic#"^^xsd:anyURI ] ] ;
+        sh:select """
+            SELECT $this WHERE {
+                $this civic:incidentTime ?t .
+                FILTER(?t < "06:00:00"^^xsd:time || ?t > "22:00:00"^^xsd:time)
+            }
+        """ ;
+    ] .
+
+:IncidentDocumentAttachmentShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:documents ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Each incident must include at least one attached document as an IRI." .
+
+:PhotosAttachedXORInjuryReportedShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:xone (
+        [ sh:property [ sh:path civic:photosAttached ; sh:hasValue true ] ]
+        [ sh:property [ sh:path civic:injuryReported ; sh:hasValue true ] ]
+    ) ;
+    sh:message "Either injury must be reported or photos attached — but not both." .
+
+:ValidSupervisorQualifiedShape a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:property [
+        sh:path civic:supervisedBy ;
+        sh:qualifiedValueShape [ sh:class foaf:Person ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+    sh:message "Supervisor must be a recognized Person." .
+
+:IncidentAndFollowUpNodeGroup a sh:NodeShape ;
+    sh:targetClass civic:LabIncident ;
+    sh:and (
+        [ sh:property [ sh:path civic:incidentDate ; sh:datatype xsd:date ] ]
+        [ sh:property [ sh:path civic:followUpRequired ; sh:datatype xsd:boolean ] ]
+    ) ;
+    sh:message "Both incident date and follow-up requirement must be present." .
+
+
+:GrantIdentifierShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:grantIdentifier ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 20 ;
+        sh:message "Each grant must have a valid grant identifier between 5 and 20 characters." ;
+    ] .
+
+:FunderNameShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:isFundedBy ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "A funding organization must be associated with the research grant." ;
+    ] .
+
+:GrantAmountShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasFundingAmount ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 1000.00 ;
+        sh:message "Grant amount must be at least 1000.00." ;
+    ] .
+
+:CurrencyCodeShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path dc:currency ;
+        sh:in ("EUR" "USD" "GBP" "JPY") ;
+        sh:message "Currency must be one of: EUR, USD, GBP, or JPY." ;
+    ] .
+
+:GranteeOrganizationShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:isHeldBy ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "Grantee organization must be specified as an IRI." ;
+    ] .
+
+:ProjectTitleShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path dc:title ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:message "The project must have a title with at least 5 characters." ;
+    ] .
+
+:ResearchFieldShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasResearchField ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "Each grant must be tagged with at least one research field." ;
+    ] .
+
+:SubmissionDateShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path dc:dateSubmitted ;
+        sh:datatype xsd:date ;
+        sh:message "Submission date must be provided and valid." ;
+    ] .
+
+:EvaluationStatusShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasEvaluationStatus ;
+        sh:in ("Pending" "Accepted" "Rejected") ;
+        sh:message "Evaluation status must be either Pending, Accepted, or Rejected." ;
+    ] .
+
+:PrincipalInvestigatorShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasPrincipalInvestigator ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "A principal investigator must be assigned." ;
+    ] .
+
+:GrantDurationShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasDuration ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 6 ;
+        sh:maxInclusive 60 ;
+        sh:message "Grant duration must be between 6 and 60 months." ;
+    ] .
+
+:GrantWebsiteShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasWebsite ;
+        sh:datatype xsd:anyURI ;
+        sh:message "The grant must provide a valid website URI." ;
+    ] .
+
+:ProjectAbstractShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path dc:description ;
+        sh:datatype xsd:string ;
+        sh:minLength 30 ;
+        sh:message "The project abstract must be at least 30 characters long." ;
+    ] .
+
+:GrantStatusShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasProjectStatus ;
+        sh:in ("Active" "Completed" "Suspended") ;
+        sh:message "Grant status must be one of: Active, Completed, or Suspended." ;
+    ] .
+
+:FundingAgreementShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasFundingAgreement ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "The grant must reference a valid funding agreement." ;
+    ] .
+
+:GrantOrFellowshipShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:or (
+        [ sh:property [
+            sh:path frapo:hasProjectType ;
+            sh:hasValue "Grant" ;
+        ] ]
+        [ sh:property [
+            sh:path frapo:hasProjectType ;
+            sh:hasValue "Fellowship" ;
+        ] ]
+    ) ;
+    sh:message "Project type must be either 'Grant' or 'Fellowship'." .
+
+:SubmissionOrRevisionDateShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:or (
+        [ sh:property [
+            sh:path dc:dateSubmitted ;
+            sh:datatype xsd:date ;
+        ] ]
+        [ sh:property [
+            sh:path frapo:hasRevisionDate ;
+            sh:datatype xsd:date ;
+        ] ]
+    ) ;
+    sh:message "Each grant must have a submission or revision date." .
+
+:NoFundingWithoutFunderShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:and (
+        [ sh:property [
+            sh:path frapo:hasFundingAmount ;
+            sh:minInclusive 1 ;
+        ] ]
+        [ sh:property [
+            sh:path frapo:isFundedBy ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Grants with a funding amount must specify a funding agency." .
+
+:DisallowFutureStartShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasStartDate ;
+        sh:datatype xsd:date ;
+        sh:maxInclusive "2025-12-31"^^xsd:date ;
+        sh:message "Start date cannot be set beyond the year 2025." ;
+    ] .
+
+:ShortOrLongTermShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:or (
+        [ sh:property [
+            sh:path frapo:hasDuration ;
+            sh:maxInclusive 12 ;
+        ] ]
+        [ sh:property [
+            sh:path frapo:hasDuration ;
+            sh:minInclusive 36 ;
+        ] ]
+    ) ;
+    sh:message "Project must be either short-term (≤12 months) or long-term (≥36 months)." .
+
+:ValidEvaluationScoreShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasEvaluationScore ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 5.0 ;
+        sh:message "Evaluation score must be between 0.0 and 5.0." ;
+    ] .
+
+:RejectedGrantsMustHaveReasonShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:rule [
+        sh:condition [
+            sh:path frapo:hasEvaluationStatus ;
+            sh:hasValue "Rejected" ;
+        ] ;
+        sh:property [
+            sh:path frapo:hasRejectionReason ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Rejected grants must include a rejection reason." .
+
+:TitleAbstractDifferentShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Title and abstract should not be identical." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this dc:title ?title .
+                $this dc:description ?abstract .
+                FILTER(str(?title) = str(?abstract))
+            }
+        """ ;
+    ] .
+
+:QualifiedGranteeShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:isHeldBy ;
+        sh:qualifiedValueShape [
+            sh:property [
+                sh:path foaf:name ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Grantee must include at least one named organization or person." ;
+    ] .
+
+:MaxTwoExtensionsShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasExtensionRequest ;
+        sh:maxCount 2 ;
+        sh:message "No more than two extension requests can be submitted per grant." ;
+    ] .
+
+:NegativeFundingDisallowedShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasFundingAmount ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0.0 ;
+        sh:message "Funding amount cannot be negative." ;
+    ] .
+
+:CurrencyAndAmountTogetherShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:and (
+        [ sh:property [
+            sh:path dc:currency ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path frapo:hasFundingAmount ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Currency and funding amount must both be present." .
+
+:EvaluationScoreOptionalOnlyIfAcceptedShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:or (
+        [ sh:property [
+            sh:path frapo:hasEvaluationStatus ;
+            sh:hasValue "Accepted" ;
+        ] ]
+        [ sh:not [
+            sh:property [
+                sh:path frapo:hasEvaluationScore ;
+                sh:minCount 1 ;
+            ]
+        ] ]
+    ) ;
+    sh:message "Evaluation score should only be provided for accepted grants." .
+
+:ReviewCommitteeIRIShape
+    a sh:NodeShape ;
+    sh:targetClass frapo:ResearchGrant ;
+    sh:property [
+        sh:path frapo:hasReviewCommittee ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Review committee must be specified using an IRI." ;
+    ] .
+
+:InstrumentModelShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:model ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:maxLength 50 ;
+        sh:message "Instrument model must be a string between 3 and 50 characters." ;
+    ] .
+
+:SerialNumberShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:serialNumber ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[A-Z0-9\\-]+$" ;
+        sh:message "Serial number must be alphanumeric with optional hyphens." ;
+    ] .
+
+:ManufacturerNameShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Organization ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "Manufacturer must have a name." ;
+    ] .
+
+:CalibrationDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:dateModified ;
+        sh:datatype xsd:date ;
+        sh:maxCount 1 ;
+        sh:message "Each device may have only one calibration date." ;
+    ] .
+
+:InstrumentTypeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:category ;
+        sh:in ("Microscope" "Spectrometer" "Centrifuge" "Thermocycler") ;
+        sh:message "Instrument type must be one of the defined categories." ;
+    ] .
+
+:WeightMeasurementShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:weight ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.1 ;
+        sh:maxInclusive 500.0 ;
+        sh:message "Weight must be between 0.1 kg and 500 kg." ;
+    ] .
+
+:HasPowerSourceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:power ;
+        sh:datatype xsd:string ;
+        sh:message "Each instrument must specify its power source." ;
+    ] .
+
+:LocationIdentifierShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:location ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:message "Location must be provided for each instrument." ;
+    ] .
+
+:DeviceStatusShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:status ;
+        sh:in ("Active" "Inactive" "Under Maintenance" "Decommissioned") ;
+        sh:message "Device status must be one of the allowed values." ;
+    ] .
+
+:WarrantyPeriodShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:warranty ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 60 ;
+        sh:message "Warranty period must be between 0 and 60 months." ;
+    ] .
+
+:DeviceUsageCountShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:usageCount ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:message "Usage count must be a non-negative integer." ;
+    ] .
+
+:MaterialTypeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:material ;
+        sh:datatype xsd:string ;
+        sh:maxLength 100 ;
+        sh:message "Material type must be under 100 characters." ;
+    ] .
+
+:BatteryLifeHoursShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:batteryCapacity ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 1.0 ;
+        sh:maxInclusive 72.0 ;
+        sh:message "Battery capacity must range between 1 and 72 hours." ;
+    ] .
+
+:SoftwareVersionShape
+    a sh:NodeShape ;
+    sh:targetClass schema:SoftwareApplication ;
+    sh:property [
+        sh:path schema:softwareVersion ;
+        sh:pattern "^v[0-9]+\\.[0-9]+(\\.[0-9]+)?$" ;
+        sh:message "Software version must follow semantic format, e.g., v1.0 or v2.3.1." ;
+    ] .
+
+:InstrumentIDShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:pattern "^INST-[0-9]{4,6}$" ;
+        sh:message "Instrument ID must follow the pattern INST-XXXX where X is a digit." ;
+    ] .
+    
+:ValidInstrumentTypeOrCategoryShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:category ;
+            sh:hasValue "Microscope" ;
+        ] ]
+        [ sh:property [
+            sh:path schema:category ;
+            sh:hasValue "Spectrometer" ;
+        ] ]
+    ) ;
+    sh:message "Instrument category must be either 'Microscope' or 'Spectrometer'." .
+
+:CalibrationDateBeforeTodayShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Calibration date must not be in the future." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:dateModified ?calibrationDate .
+                FILTER (?calibrationDate > NOW())
+            }
+        """ ;
+    ] .
+
+:EitherBatteryOrPowerSourceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:batteryCapacity ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path schema:power ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Device must specify either battery capacity or power source." .
+
+:NonNegativeUsageCountShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:usageCount ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+    ] ;
+    sh:message "Usage count cannot be negative." .
+
+:ClosedInstrumentShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:path schema:model ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Only properties defined in this shape are allowed." .
+
+:SoftwareVersionPatternShape
+    a sh:NodeShape ;
+    sh:targetClass schema:SoftwareApplication ;
+    sh:property [
+        sh:path schema:softwareVersion ;
+        sh:pattern "^v[0-9]+\\.[0-9]+(\\.[0-9]+)?$" ;
+    ] ;
+    sh:message "Software version must follow semantic versioning pattern." .
+
+:WeightWithinRangeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:weight ;
+        sh:minInclusive 0.1 ;
+        sh:maxInclusive 500.0 ;
+    ] ;
+    sh:message "Device weight must be between 0.1 kg and 500 kg." .
+
+:WarrantyPeriodLimitsShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:warranty ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 60 ;
+    ] ;
+    sh:message "Warranty period must be between 0 and 60 months." .
+
+:ValidLocationIRIShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:location ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:message "Location must be an IRI." .
+
+:UniqueSerialNumberShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:serialNumber ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:message "Serial numbers must be unique per language tag." .
+
+:PowerSourceOrBatteryExclusiveShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:xone (
+        [ sh:property [
+            sh:path schema:power ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path schema:batteryCapacity ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Device must have either a power source or battery capacity, but not both." .
+
+:NoFutureWarrantyExpiryShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Warranty expiry date must not be in the past." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:warrantyExpiration ?expiry .
+                FILTER (?expiry < NOW())
+            }
+        """ ;
+    ] .
+
+:CalibrationBeforeUsageShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Calibration date must precede first usage date." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:dateModified ?calibration .
+                $this schema:dateUsed ?usage .
+                FILTER (?calibration > ?usage)
+            }
+        """ ;
+    ] .
+
+:ManufacturerNameRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Organization ;
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+    ] ;
+    sh:message "Manufacturer organization must have a name." .
+
+:InstrumentIDPatternShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MedicalDevice ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:pattern "^INST-[0-9]{4,6}$" ;
+    ] ;
+    sh:message "Instrument ID must match the pattern INST-XXXX (digits only)." .
+
+
+:AssetIDShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:pattern "^ASSET-[0-9]{5}$" ;
+        sh:minLength 8 ;
+        sh:message "Asset ID must follow the pattern 'ASSET-12345'." ;
+    ] .
+
+:AssetTypeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:category ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "Asset type must be specified." ;
+    ] .
+
+:AssetLocationShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:location ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:message "Asset location must be specified and at least 3 characters." ;
+    ] .
+
+:AssetValueShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:value ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0.01 ;
+        sh:message "Asset value must be at least 0.01." ;
+    ] .
+
+:PurchaseDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:purchaseDate ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:message "Purchase date must be specified." ;
+    ] .
+
+:DepreciationRateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:depreciationRate ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 1.0 ;
+        sh:message "Depreciation rate must be between 0 and 1." ;
+    ] .
+
+:AssetOwnerShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:owner ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "Each asset must have an owner specified as an IRI." ;
+    ] .
+
+:AssetStatusShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:status ;
+        sh:datatype xsd:string ;
+        sh:in ("Active" "In Maintenance" "Retired") ;
+        sh:message "Asset status must be one of: Active, In Maintenance, or Retired." ;
+    ] .
+
+:MaintenanceDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:maintenanceDate ;
+        sh:datatype xsd:date ;
+        sh:message "Maintenance date must be specified in date format." ;
+    ] .
+
+:MaintenanceNotesShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:maintenanceNotes ;
+        sh:datatype xsd:string ;
+        sh:maxLength 500 ;
+        sh:message "Maintenance notes cannot exceed 500 characters." ;
+    ] .
+
+:WarrantyExpirationShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:warrantyExpirationDate ;
+        sh:datatype xsd:date ;
+        sh:message "Warranty expiration date must be specified." ;
+    ] .
+
+:AssetSerialNumberShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:serialNumber ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:message "Asset serial number must be at least 5 characters long." ;
+    ] .
+
+:AssetManufacturerShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:manufacturer ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:message "Manufacturer name must be at least 3 characters long." ;
+    ] .
+
+:AssetModelNumberShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:model ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:message "Model number must be at least 3 characters long." ;
+    ] .
+
+:AssetInsurancePolicyShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:insurancePolicyNumber ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:message "Insurance policy number must be specified." ;
+    ] .
+    
+:AssetActiveOrRetiredShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:status ;
+            sh:hasValue "Active" ;
+        ] ]
+        [ sh:property [
+            sh:path schema:status ;
+            sh:hasValue "Retired" ;
+        ] ]
+    ) ;
+    sh:message "Asset status must be either 'Active' or 'Retired'." .
+
+:WarrantyOrInsuranceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:warrantyExpirationDate ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path schema:insurancePolicyNumber ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Asset must have either a warranty expiration date or an insurance policy number." .
+
+:ValuePositiveIfActiveShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:and (
+        [ sh:property [
+            sh:path schema:status ;
+            sh:hasValue "Active" ;
+        ] ]
+        [ sh:property [
+            sh:path schema:value ;
+            sh:minInclusive 0.01 ;
+        ] ]
+    ) ;
+    sh:message "Active assets must have a value greater than 0." .
+
+:LocationURIorStringShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:location ;
+            sh:nodeKind sh:IRI ;
+        ] ]
+        [ sh:property [
+            sh:path schema:location ;
+            sh:datatype xsd:string ;
+        ] ]
+    ) ;
+    sh:message "Asset location must be either a URI or a string." .
+
+:UniqueSerialNumberShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:serialNumber ;
+        sh:uniqueLang true ;
+    ] ;
+    sh:message "Serial numbers must be unique per language tag." .
+
+:DepreciationRateRangeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:depreciationRate ;
+        sh:minInclusive 0.0 ;
+        sh:maxInclusive 0.5 ;
+    ] ;
+    sh:message "Depreciation rate must be between 0.0 and 0.5." .
+
+:AssetIDPatternShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:pattern "^ASSET-[0-9]{5}$" ;
+    ] ;
+    sh:message "Asset ID must follow the pattern 'ASSET-12345'." .
+
+:PurchaseDateBeforeWarrantyShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Purchase date must be before warranty expiration date." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:purchaseDate ?purchaseDate .
+                $this schema:warrantyExpirationDate ?warrantyDate .
+                FILTER (?purchaseDate > ?warrantyDate)
+            }
+        """ ;
+    ] .
+
+:MaintenanceAfterPurchaseShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Maintenance date must be after purchase date." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:purchaseDate ?purchaseDate .
+                $this schema:maintenanceDate ?maintenanceDate .
+                FILTER (?maintenanceDate < ?purchaseDate)
+            }
+        """ ;
+    ] .
+
+:OwnerMustBeIRIShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:owner ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:message "Asset owner must be an IRI." .
+
+:StatusNotInactiveWithoutMaintenanceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:not [
+        sh:and (
+            [ sh:property [
+                sh:path schema:status ;
+                sh:hasValue "Inactive" ;
+            ] ]
+            [ sh:not [
+                sh:property [
+                    sh:path schema:maintenanceDate ;
+                    sh:minCount 1 ;
+                ] ;
+            ] ]
+        )
+    ] ;
+    sh:message "Inactive assets must have at least one maintenance record." .
+
+:NoRetiredWithActiveWarrantyShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:not [
+        sh:and (
+            [ sh:property [
+                sh:path schema:status ;
+                sh:hasValue "Retired" ;
+            ] ]
+            [ sh:property [
+                sh:path schema:warrantyExpirationDate ;
+                sh:minInclusive "2025-06-28"^^xsd:date ;
+            ] ]
+        )
+    ] ;
+    sh:message "Retired assets cannot have active warranty." .
+
+:InsurancePolicyValidIfExistsShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:property [
+        sh:path schema:insurancePolicyNumber ;
+        sh:minCount 0 ;
+        sh:pattern "^[A-Z0-9]{5,15}$" ;
+    ] ;
+    sh:message "Insurance policy number, if present, must be alphanumeric between 5 and 15 characters." .
+
+:AssetClosedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Asset data must only include defined properties." .
+
+:UniqueAssetModelSerialShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Asset ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Each combination of model and serial number must be unique." ;
+        sh:select """
+            SELECT $this WHERE {
+                ?other a schema:Asset ;
+                       schema:model ?model ;
+                       schema:serialNumber ?serial .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:model ?model ;
+                          schema:serialNumber ?serial .
+                }
+            }
+        """ ;
+    ] .
+
+
+:ProvenanceIDShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path cmns-id:identifies ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 50 ;
+        sh:message "Provenance ID must be a string between 5 and 50 characters." ;
+    ] .
+
+:VersionShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:hasVersion ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9]+(\\.[0-9]+)*$" ;
+        sh:message "Version must follow semantic versioning pattern (e.g., 1.0, 2.1.3)." ;
+    ] .
+
+:SourceShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:source ;
+        sh:datatype xsd:anyURI ;
+        sh:minCount 1 ;
+        sh:message "Source must be a valid URI." ;
+    ] .
+
+:TimestampShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:date ;
+        sh:datatype xsd:dateTime ;
+        sh:minCount 1 ;
+        sh:message "Timestamp must be a valid date-time value." ;
+    ] .
+
+:CreatorShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:creator ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Creator must be specified as an IRI." ;
+    ] .
+
+:UpdaterShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:contributor ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Updater or contributor must be specified as an IRI." ;
+    ] .
+
+:ModificationReasonShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:description ;
+        sh:datatype xsd:string ;
+        sh:minLength 10 ;
+        sh:message "Modification reason must be at least 10 characters." ;
+    ] .
+
+:DatasetDescriptionShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:title ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 200 ;
+        sh:message "Dataset description must be between 5 and 200 characters." ;
+    ] .
+
+:FormatShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:format ;
+        sh:datatype xsd:string ;
+        sh:in ("CSV" "JSON" "XML" "RDF") ;
+        sh:message "Format must be one of: CSV, JSON, XML, RDF." ;
+    ] .
+
+:LicenseShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:license ;
+        sh:datatype xsd:anyURI ;
+        sh:message "License must be a valid URI." ;
+    ] .
+
+:DataQualityShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:relation ;
+        sh:datatype xsd:string ;
+        sh:message "Data quality notes must be provided as a string." ;
+    ] .
+
+:ChecksumShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:checksum ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-fA-F0-9]{32,64}$" ;
+        sh:message "Checksum must be a hex string between 32 and 64 characters." ;
+    ] .
+
+:DataSizeShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:extent ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:message "Data size (extent) must be a non-negative integer." ;
+    ] .
+
+:SourceVersionShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:sourceVersion ;
+        sh:datatype xsd:string ;
+        sh:message "Source version must be a string." ;
+    ] .
+
+:ProvenanceStatusShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:type ;
+        sh:in ("Draft" "Published" "Archived") ;
+        sh:message "Provenance status must be one of: Draft, Published, or Archived." ;
+    ] .
+
+:VersionOrDraftStatusShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:or (
+        [ sh:property [
+            sh:path dc:hasVersion ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path dc:type ;
+            sh:hasValue "Draft" ;
+        ] ]
+    ) ;
+    sh:message "A provenance record must have a version or be marked as Draft." .
+
+:SourceURIorBlankNodeShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:or (
+        [ sh:property [
+            sh:path dc:source ;
+            sh:nodeKind sh:IRI ;
+        ] ]
+        [ sh:property [
+            sh:path dc:source ;
+            sh:nodeKind sh:BlankNode ;
+        ] ]
+    ) ;
+    sh:message "Source must be a URI or a blank node." .
+
+:TimestampBeforeNowShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Timestamp must not be in the future." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this dc:date ?date .
+                FILTER (?date > NOW())
+            }
+        """ ;
+    ] .
+
+:CreatorAndUpdaterDifferentShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Creator and updater cannot be the same entity." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this dc:creator ?c .
+                $this dc:contributor ?u .
+                FILTER (?c = ?u)
+            }
+        """ ;
+    ] .
+
+:ModificationReasonIfUpdatedShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:rule [
+        sh:condition [
+            sh:property [
+                sh:path dc:contributor ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:property [
+            sh:path dc:description ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "If there is an updater, modification reason must be provided." .
+
+:DatasetDescriptionOrLicenseShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:or (
+        [ sh:property [
+            sh:path dc:title ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path dc:license ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "A dataset must have either a description or a license." .
+
+:ChecksumHexFormatShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:checksum ;
+        sh:pattern "^[0-9a-fA-F]+$" ;
+    ] ;
+    sh:message "Checksum must be a valid hexadecimal string." .
+
+:DataSizePositiveShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:extent ;
+        sh:minInclusive 1 ;
+    ] ;
+    sh:message "Data size must be positive." .
+
+:SourceVersionOrDateShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:or (
+        [ sh:property [
+            sh:path dc:sourceVersion ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path dc:date ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Provenance must have either a source version or a date." .
+
+:PublishedOrArchivedShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:or (
+        [ sh:property [
+            sh:path dc:type ;
+            sh:hasValue "Published" ;
+        ] ]
+        [ sh:property [
+            sh:path dc:type ;
+            sh:hasValue "Archived" ;
+        ] ]
+    ) ;
+    sh:message "Provenance status must be either Published or Archived." .
+
+:ValidSourceIRIShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:source ;
+        sh:nodeKind sh:IRI ;
+    ] ;
+    sh:message "Source must be a valid IRI." .
+
+:NoFutureModificationDateShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Modification date must not be in the future." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this dc:dateModified ?date .
+                FILTER (?date > NOW())
+            }
+        """ ;
+    ] .
+
+:CreatorHasNameShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:property [
+        sh:path dc:creator ;
+        sh:qualifiedValueShape [
+            sh:property [
+                sh:path foaf:name ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "Creator must have a name." ;
+    ] .
+
+:UniqueVersionPerSourceShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Each source must have unique versions." ;
+        sh:select """
+            SELECT $this WHERE {
+                ?other dc:source ?source ;
+                       dc:hasVersion ?version .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this dc:source ?source ;
+                          dc:hasVersion ?version .
+                }
+            }
+        """ ;
+    ] .
+
+:ClosedProvenanceShape
+    a sh:NodeShape ;
+    sh:targetClass dc:ProvenanceStatement ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:path cmns-id:identifies ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Provenance statements must only include defined properties." .
+
+
+:LicenseIDShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 30 ;
+        sh:pattern "^LIC-[A-Z0-9]{3,25}$" ;
+        sh:message "License ID must start with 'LIC-' followed by 3 to 25 alphanumeric characters." ;
+    ] .
+
+:LicenseTypeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licenseType ;
+        sh:in ("Commercial" "Open Source" "Trial" "Subscription") ;
+        sh:message "License type must be one of: Commercial, Open Source, Trial, Subscription." ;
+    ] .
+
+:LicenseHolderShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licensee ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "License holder must be specified as an IRI." ;
+    ] .
+
+:LicenseIssuerShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:issuer ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "License issuer must be specified as an IRI." ;
+    ] .
+
+:StartDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:startDate ;
+        sh:datatype xsd:date ;
+        sh:minCount 1 ;
+        sh:message "License start date must be specified." ;
+    ] .
+
+:ExpirationDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:endDate ;
+        sh:datatype xsd:date ;
+        sh:message "License expiration date must be specified." ;
+    ] .
+
+:DurationMonthsShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:duration ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 120 ;
+        sh:message "License duration must be between 1 and 120 months." ;
+    ] .
+
+:AllowedUsersShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:numberOfUsers ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:message "Number of allowed users must be at least 1." ;
+    ] .
+
+:SoftwareVersionShape
+    a sh:NodeShape ;
+    sh:targetClass schema:SoftwareApplication ;
+    sh:property [
+        sh:path schema:softwareVersion ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:message "Software version must be specified." ;
+    ] .
+
+:LicenseScopeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:scope ;
+        sh:datatype xsd:string ;
+        sh:message "License scope must be described." ;
+    ] .
+
+:RenewableShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:isRenewable ;
+        sh:datatype xsd:boolean ;
+        sh:message "Renewable must be true or false." ;
+    ] .
+
+:LicenseKeyShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licenseKey ;
+        sh:datatype xsd:string ;
+        sh:minLength 16 ;
+        sh:maxLength 64 ;
+        sh:message "License key must be between 16 and 64 characters." ;
+    ] .
+
+:PlatformCompatibilityShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:compatiblePlatform ;
+        sh:datatype xsd:string ;
+        sh:message "Platform compatibility must be specified." ;
+    ] .
+
+:LicenseStatusShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licenseStatus ;
+        sh:in ("Active" "Expired" "Suspended" "Revoked") ;
+        sh:message "License status must be Active, Expired, Suspended, or Revoked." ;
+    ] .
+
+:MaxInstallationsShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:maxInstallations ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:message "Maximum installations allowed must be at least 1." ;
+    ] .
+
+:SupportContactShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:supportContact ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:message "Support contact information must be provided." ;
+    ] .
+
+:LicenseAgreementURLShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licenseAgreement ;
+        sh:datatype xsd:anyURI ;
+        sh:message "License agreement must be a valid URL." ;
+    ] .
+
+:GeoRestrictionShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:geoRestriction ;
+        sh:datatype xsd:string ;
+        sh:message "Geographical restrictions must be described." ;
+    ] .
+
+:LicenseDescriptionShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:description ;
+        sh:datatype xsd:string ;
+        sh:minLength 10 ;
+        sh:message "License description must be at least 10 characters." ;
+    ] .
+
+:LicenseNotesShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:notes ;
+        sh:datatype xsd:string ;
+        sh:maxLength 500 ;
+        sh:message "License notes cannot exceed 500 characters." ;
+    ] .
+
+:ActiveOrExpiredLicenseShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:licenseStatus ;
+            sh:hasValue "Active" ;
+        ] ]
+        [ sh:property [
+            sh:path schema:licenseStatus ;
+            sh:hasValue "Expired" ;
+        ] ]
+    ) ;
+    sh:message "License status must be either Active or Expired." .
+
+:LicenseDurationOrExpiryShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:duration ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path schema:endDate ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "License must have either a duration or an expiration date." .
+
+:LicenseKeyPatternShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licenseKey ;
+        sh:pattern "^[A-Z0-9]{16,64}$" ;
+        sh:message "License key must be 16 to 64 uppercase alphanumeric characters." ;
+    ] .
+
+:RenewableIfActiveShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:and (
+        [ sh:property [
+            sh:path schema:isRenewable ;
+            sh:hasValue true ;
+        ] ]
+        [ sh:property [
+            sh:path schema:licenseStatus ;
+            sh:hasValue "Active" ;
+        ] ]
+    ) ;
+    sh:message "Only active licenses can be renewable." .
+
+:SupportContactRequiredIfSuspendedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:licenseStatus ;
+            sh:hasValue "Suspended" ;
+        ] ;
+        sh:property [
+            sh:path schema:supportContact ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Suspended licenses must have support contact info." .
+
+:NoFutureStartDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "License start date cannot be in the future." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:startDate ?start .
+                FILTER (?start > NOW())
+            }
+        """ ;
+    ] .
+
+:MaxUsersIfCommercialShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:licenseType ;
+            sh:hasValue "Commercial" ;
+        ] ;
+        sh:property [
+            sh:path schema:numberOfUsers ;
+            sh:minInclusive 1 ;
+        ]
+    ] ;
+    sh:message "Commercial licenses must specify number of allowed users." .
+
+:PlatformCompatibilityValidShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:compatiblePlatform ;
+        sh:in ("Windows" "macOS" "Linux" "Android" "iOS") ;
+        sh:message "Compatible platform must be one of the specified OS." ;
+    ] .
+
+:LicenseNotExpiredIfActiveShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Active licenses must not be expired." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:licenseStatus "Active" .
+                $this schema:endDate ?expiry .
+                FILTER (?expiry < NOW())
+            }
+        """ ;
+    ] .
+
+:LicenseScopeDescribedIfTrialShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:licenseType ;
+            sh:hasValue "Trial" ;
+        ] ;
+        sh:property [
+            sh:path schema:scope ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Trial licenses must have a license scope description." .
+
+:LicenseUniqueIDShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "License identifier must be unique." ;
+        sh:select """
+            SELECT $this WHERE {
+                ?other a schema:License ;
+                       schema:identifier ?id .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:identifier ?id .
+                }
+            }
+        """ ;
+    ] .
+
+:LicenseKeyUniqueShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "License key must be unique." ;
+        sh:select """
+            SELECT $this WHERE {
+                ?other a schema:License ;
+                       schema:licenseKey ?key .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:licenseKey ?key .
+                }
+            }
+        """ ;
+    ] .
+
+:DurationRequiredIfSubscriptionShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:licenseType ;
+            sh:hasValue "Subscription" ;
+        ] ;
+        sh:property [
+            sh:path schema:duration ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Subscription licenses must specify a duration." .
+
+:MaxInstallationsLimitShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:maxInstallations ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 100 ;
+        sh:message "Max installations must be between 1 and 100." ;
+    ] .
+
+:LicenseNotRenewableIfExpiredShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:not [
+        sh:and (
+            [ sh:property [
+                sh:path schema:isRenewable ;
+                sh:hasValue true ;
+            ] ]
+            [ sh:property [
+                sh:path schema:licenseStatus ;
+                sh:hasValue "Expired" ;
+            ] ]
+        )
+    ] ;
+    sh:message "Expired licenses cannot be renewable." .
+
+:RenewalDateIfRenewableShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:isRenewable ;
+            sh:hasValue true ;
+        ] ;
+        sh:property [
+            sh:path schema:renewalDate ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Renewable licenses must specify a renewal date." .
+
+:GeoRestrictionOptionalIfOpenSourceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:or (
+        [ sh:not [
+            sh:property [
+                sh:path schema:geoRestriction ;
+                sh:minCount 1 ;
+            ]
+        ] ]
+        [ sh:property [
+            sh:path schema:licenseType ;
+            sh:hasValue "Open Source" ;
+        ] ]
+    ) ;
+    sh:message "Geo restrictions are optional for open source licenses." .
+
+:SupportContactRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:supportContact ;
+        sh:minCount 1 ;
+        sh:message "Support contact must be provided." ;
+    ] .
+
+:LicenseClosedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "License data must only include defined properties." .
+
+:LicenseScopeLengthShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:scope ;
+        sh:minLength 10 ;
+        sh:maxLength 500 ;
+        sh:message "License scope description must be between 10 and 500 characters." ;
+    ] .
+
+:LicenseHolderMustHaveNameShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licensee ;
+        sh:qualifiedValueShape [
+            sh:property [
+                sh:path foaf:name ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "License holder must have a name." ;
+    ] .
+
+:LicenseIssuerMustHaveNameShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:issuer ;
+        sh:qualifiedValueShape [
+            sh:property [
+                sh:path foaf:name ;
+                sh:minCount 1 ;
+            ]
+        ] ;
+        sh:message "License issuer must have a name." ;
+    ] .
+
+:LicenseScopeMandatoryForTrialShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:licenseType ;
+            sh:hasValue "Trial" ;
+        ] ;
+        sh:property [
+            sh:path schema:scope ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Trial licenses must specify the license scope." .
+
+:LicenseKeyHasValidCharactersShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:property [
+        sh:path schema:licenseKey ;
+        sh:pattern "^[A-Z0-9\\-]+$" ;
+        sh:message "License key may only contain uppercase letters, digits, and hyphens." ;
+    ] .
+
+:SubscriptionDurationRequiredIfActiveShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:licenseType ;
+            sh:hasValue "Subscription" ;
+        ] ;
+        sh:property [
+            sh:path schema:duration ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Subscription licenses must specify a duration." .
+
+:MaxInstallationsLimitForCommercialShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:licenseType ;
+            sh:hasValue "Commercial" ;
+        ] ;
+        sh:property [
+            sh:path schema:maxInstallations ;
+            sh:minInclusive 1 ;
+            sh:maxInclusive 50 ;
+        ]
+    ] ;
+    sh:message "Commercial licenses must limit max installations between 1 and 50." .
+
+:LicenseRenewalDateBeforeExpiryShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "License renewal date must be before expiration date." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:renewalDate ?renewal .
+                $this schema:endDate ?expiry .
+                FILTER (?renewal > ?expiry)
+            }
+        """ ;
+    ] .
+
+:NoRenewalIfLicenseExpiredShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:not [
+        sh:and (
+            [ sh:property [
+                sh:path schema:isRenewable ;
+                sh:hasValue true ;
+            ] ]
+            [ sh:property [
+                sh:path schema:licenseStatus ;
+                sh:hasValue "Expired" ;
+            ] ]
+        )
+    ] ;
+    sh:message "Expired licenses cannot be renewable." .
+
+:LicenseScopeConsistentShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "License scope must be consistent with license type." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:licenseType ?type .
+                $this schema:scope ?scope .
+                FILTER (
+                    (?type = "Trial" && strlen(?scope) < 10) ||
+                    (?type != "Trial" && strlen(?scope) < 5)
+                )
+            }
+        """ ;
+    ] .
+
+:LicenseClosedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:License ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "License data must only include defined properties." .
+
+
+:AlertIDShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:minLength 5 ;
+        sh:maxLength 30 ;
+        sh:pattern "^ALERT-[A-Z0-9]{3,25}$" ;
+        sh:message "Alert ID must start with 'ALERT-' followed by 3 to 25 alphanumeric characters." ;
+    ] .
+
+:AlertSeverityShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:severity ;
+        sh:in ("Low" "Medium" "High" "Critical") ;
+        sh:message "Alert severity must be one of: Low, Medium, High, or Critical." ;
+    ] .
+
+:AlertStatusShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:eventStatus ;
+        sh:in ("Open" "Acknowledged" "Resolved" "Closed") ;
+        sh:message "Alert status must be one of: Open, Acknowledged, Resolved, or Closed." ;
+    ] .
+
+:ThresholdValueShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:threshold ;
+        sh:datatype xsd:float ;
+        sh:minInclusive 0.0 ;
+        sh:message "Threshold value must be non-negative." ;
+    ] .
+
+:AlertTimestampShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:dateCreated ;
+        sh:datatype xsd:dateTime ;
+        sh:minCount 1 ;
+        sh:message "Alert timestamp must be a valid date-time value." ;
+    ] .
+
+:AlertMessageShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:description ;
+        sh:datatype xsd:string ;
+        sh:minLength 10 ;
+        sh:message "Alert message must be at least 10 characters." ;
+    ] .
+
+:AlertSourceShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:source ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:message "Alert source must be specified." ;
+    ] .
+
+:AlertTypeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:eventType ;
+        sh:datatype xsd:string ;
+        sh:message "Alert type must be specified." ;
+    ] .
+
+:AlertResolvedByShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:actor ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Resolver must be specified as an IRI." ;
+    ] .
+
+:AlertResolutionDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:dateResolved ;
+        sh:datatype xsd:dateTime ;
+        sh:message "Resolution date must be a valid date-time value." ;
+    ] .
+
+:AlertAcknowledgedByShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:acknowledgedBy ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Acknowledging person must be specified as an IRI." ;
+    ] .
+
+:AlertAcknowledgedDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:dateAcknowledged ;
+        sh:datatype xsd:dateTime ;
+        sh:message "Acknowledgement date must be a valid date-time value." ;
+    ] .
+
+:AlertPriorityShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:priority ;
+        sh:in ("P1" "P2" "P3" "P4" "P5") ;
+        sh:message "Priority must be one of P1, P2, P3, P4, or P5." ;
+    ] .
+
+:AlertCategoryShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:category ;
+        sh:datatype xsd:string ;
+        sh:message "Alert category must be specified." ;
+    ] .
+
+:AlertEscalationShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:escalationLevel ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 5 ;
+        sh:message "Escalation level must be between 0 and 5." ;
+    ] .
+
+:AlertLastUpdateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:dateModified ;
+        sh:datatype xsd:dateTime ;
+        sh:message "Last update timestamp must be valid." ;
+    ] .
+
+:AlertIsTestShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:isTest ;
+        sh:datatype xsd:boolean ;
+        sh:message "IsTest must be a boolean." ;
+    ] .
+
+:AlertAcknowledgementRequiredShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:requiresAcknowledgement ;
+        sh:datatype xsd:boolean ;
+        sh:message "Acknowledgement requirement must be boolean." ;
+    ] .
+
+:AlertSuppressionUntilShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:suppressionUntil ;
+        sh:datatype xsd:dateTime ;
+        sh:message "Suppression until date must be valid." ;
+    ] .
+
+:StatusMustBeOpenOrClosedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Open" ;
+        ] ]
+        [ sh:property [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Closed" ;
+        ] ]
+    ) ;
+    sh:message "Alert status must be 'Open' or 'Closed'." .
+
+:SeverityAboveThresholdShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Severity must be 'High' or 'Critical' if threshold exceeds 90." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:threshold ?threshold ;
+                      schema:severity ?severity .
+                FILTER (?threshold > 90 && (?severity != "High" && ?severity != "Critical"))
+            }
+        """ ;
+    ] .
+
+:AlertMustHaveValidTimestampShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:dateCreated ;
+        sh:datatype xsd:dateTime ;
+    ] ;
+    sh:message "Alert must have a valid creation timestamp." .
+
+:ResolvedAlertsMustHaveResolutionDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Resolved" ;
+        ] ;
+        sh:property [
+            sh:path schema:dateResolved ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Resolved alerts must have a resolution date." .
+
+:AcknowledgedAlertsMustHaveAcknowledgementDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Acknowledged" ;
+        ] ;
+        sh:property [
+            sh:path schema:dateAcknowledged ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Acknowledged alerts must have an acknowledgement date." .
+
+:NoFutureResolutionDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Resolution date cannot be in the future." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:dateResolved ?date .
+                FILTER (?date > NOW())
+            }
+        """ ;
+    ] .
+
+:AlertPriorityConsistentWithSeverityShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Priority must be consistent with severity." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:severity ?severity ;
+                      schema:priority ?priority .
+                FILTER (
+                    (?severity = "Critical" && ?priority != "P1") ||
+                    (?severity = "High" && ?priority NOT IN ("P1", "P2")) ||
+                    (?severity = "Medium" && ?priority NOT IN ("P3", "P4")) ||
+                    (?severity = "Low" && ?priority NOT IN ("P4", "P5"))
+                )
+            }
+        """ ;
+    ] .
+
+:SuppressedAlertsMustHaveSuppressionDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:isSuppressed ;
+            sh:hasValue true ;
+        ] ;
+        sh:property [
+            sh:path schema:suppressionUntil ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Suppressed alerts must specify a suppression until date." .
+
+:ClosedAlertsMustHaveResolutionShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Closed" ;
+        ] ;
+        sh:property [
+            sh:path schema:resolution ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Closed alerts must include a resolution description." .
+
+:AlertMessageMinLengthShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:description ;
+        sh:minLength 20 ;
+    ] ;
+    sh:message "Alert message must be at least 20 characters." .
+
+:UniqueAlertIDShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Alert ID must be unique." ;
+        sh:select """
+            SELECT $this WHERE {
+                ?other a schema:Event ;
+                       schema:identifier ?id .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:identifier ?id .
+                }
+            }
+        """ ;
+    ] .
+
+:OpenAlertsMustNotHaveResolutionDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:not [
+        sh:and (
+            [ sh:property [
+                sh:path schema:eventStatus ;
+                sh:hasValue "Open" ;
+            ] ]
+            [ sh:property [
+                sh:path schema:dateResolved ;
+                sh:minCount 1 ;
+            ] ]
+        )
+    ] ;
+    sh:message "Open alerts must not have a resolution date." .
+
+:ValidSeverityValuesShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:severity ;
+        sh:in ("Low" "Medium" "High" "Critical") ;
+    ] ;
+    sh:message "Severity must be one of Low, Medium, High, or Critical." .
+
+:ResolutionDateAfterAlertDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Resolution date must be after alert creation date." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:dateCreated ?created .
+                $this schema:dateResolved ?resolved .
+                FILTER (?resolved < ?created)
+            }
+        """ ;
+    ] .
+
+:AcknowledgedDateAfterAlertDateShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Acknowledged date must be after alert creation date." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:dateCreated ?created .
+                $this schema:dateAcknowledged ?acknowledged .
+                FILTER (?acknowledged < ?created)
+            }
+        """ ;
+    ] .
+
+:AlertClosedOnlyIfResolvedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Closed" ;
+        ] ;
+        sh:property [
+            sh:path schema:dateResolved ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Alerts can only be closed if they have a resolution date." .
+
+:AlertPriorityConsistentWithEscalationShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Priority must be consistent with escalation level." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:priority ?priority ;
+                      schema:escalationLevel ?escalation .
+                FILTER (
+                    (?priority = "P1" && ?escalation < 4) ||
+                    (?priority = "P2" && ?escalation < 3) ||
+                    (?priority = "P3" && ?escalation < 2)
+                )
+            }
+        """ ;
+    ] .
+
+:AlertClosedMustHaveResolverShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Closed" ;
+        ] ;
+        sh:property [
+            sh:path schema:actor ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Closed alerts must specify the resolving actor." .
+
+:AlertSuppressionDateValidShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Suppression date must be after alert creation date." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:dateCreated ?created .
+                $this schema:suppressionUntil ?suppression .
+                FILTER (?suppression < ?created)
+            }
+        """ ;
+    ] .
+
+:AlertMessageLengthShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:description ;
+        sh:minLength 20 ;
+        sh:maxLength 2000 ;
+    ] ;
+    sh:message "Alert message must be between 20 and 2000 characters." .
+
+:UniqueAlertMessageShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Alert message must be unique." ;
+        sh:select """
+            SELECT $this WHERE {
+                ?other a schema:Event ;
+                       schema:description ?msg .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:description ?msg .
+                }
+            }
+        """ ;
+    ] .
+
+:OpenAlertsMustNotBeSuppressedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:not [
+        sh:and (
+            [ sh:property [
+                sh:path schema:eventStatus ;
+                sh:hasValue "Open" ;
+            ] ]
+            [ sh:property [
+                sh:path schema:isSuppressed ;
+                sh:hasValue true ;
+            ] ]
+        )
+    ] ;
+    sh:message "Open alerts cannot be suppressed." .
+
+:AlertPrioritySetIfSeverityHighShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:severity ;
+            sh:hasValue "High" ;
+        ] ;
+        sh:property [
+            sh:path schema:priority ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "High severity alerts must have a priority set." .
+
+:AlertAcknowledgedByMustBeDifferentFromCreatorShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Acknowledging actor must be different from alert creator." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:creator ?creator ;
+                      schema:acknowledgedBy ?ack .
+                FILTER (?creator = ?ack)
+            }
+        """ ;
+    ] .
+
+:AlertClosedOnlyIfResolvedByAuthorizedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:rule [
+        sh:condition [
+            sh:path schema:eventStatus ;
+            sh:hasValue "Closed" ;
+        ] ;
+        sh:property [
+            sh:path schema:actor ;
+            sh:minCount 1 ;
+        ]
+    ] ;
+    sh:message "Closed alerts must be resolved by an authorized actor." .
+
+:AlertEscalationLevelLimitShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:property [
+        sh:path schema:escalationLevel ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 5 ;
+    ] ;
+    sh:message "Escalation level must be between 0 and 5." .
+
+:AlertMustHaveCategoryOrTypeShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:or (
+        [ sh:property [
+            sh:path schema:category ;
+            sh:minCount 1 ;
+        ] ]
+        [ sh:property [
+            sh:path schema:eventType ;
+            sh:minCount 1 ;
+        ] ]
+    ) ;
+    sh:message "Alert must have a category or event type specified." .
+
+:AlertNotSuppressedIfCriticalSeverityShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:not [
+        sh:and (
+            [ sh:property [
+                sh:path schema:severity ;
+                sh:hasValue "Critical" ;
+            ] ]
+            [ sh:property [
+                sh:path schema:isSuppressed ;
+                sh:hasValue true ;
+            ] ]
+        )
+    ] ;
+    sh:message "Critical alerts cannot be suppressed." .
+
+:AlertPriorityMustMatchSeverityShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Alert priority must correspond to severity level." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this schema:priority ?priority ;
+                      schema:severity ?severity .
+                FILTER (
+                    (?severity = "Critical" && ?priority != "P1") ||
+                    (?severity = "High" && ?priority NOT IN ("P1", "P2")) ||
+                    (?severity = "Medium" && ?priority NOT IN ("P3", "P4")) ||
+                    (?severity = "Low" && ?priority NOT IN ("P4", "P5"))
+                )
+            }
+        """ ;
+    ] .
+
+:MonitoringAlertsClosedShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Event ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:message "Monitoring alert data must only include defined properties." .
