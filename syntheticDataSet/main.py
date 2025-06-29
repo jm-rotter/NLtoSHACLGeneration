@@ -56,9 +56,9 @@ MODEL = "llama3-70b-8192"
 client = Groq(api_key=GROQ_API_KEY)
 
 shapes = pullShapes()
-starting_idx = 175
+starting_idx = 192
 curr_idx = 0
-with open("training_translations.txt", "a") as txt_file, open("traing_translations.jsonl", "a") as jsonl_file:
+with open("training_translations.txt", "a") as txt_file, open("training_translations.jsonl", "a") as jsonl_file:
 
     for shape in tqdm(shapes, desc="Translating shapes"):
         if curr_idx < starting_idx: 
