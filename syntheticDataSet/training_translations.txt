@@ -13876,3 +13876,1476 @@ Translation #760
 The SHACL shape :MonitoringAlertsClosedShape targets all instances of the class schema1:Event, enforcing a closed shape constraint that allows only explicitly defined properties, except for rdf:type, and ensuring that the schema1:identifier property has a single string value (xsd:string); if any other properties are present or the schema1:identifier property doesn't conform to this constraint, validation will fail with the message "Monitoring alert data must only include defined properties."
 ----
 
+Translation #761
+@prefix : <http://mapping.example.com/> .
+@prefix dc1: <http://purl.org/dc/elements/1.1#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:ValidSourceIRIShape a sh:NodeShape ;
+    sh:message "Source must be a valid IRI." ;
+    sh:property [ sh:nodeKind sh:IRI ;
+            sh:path dc1:source ] ;
+    sh:targetClass dc1:ProvenanceStatement .
+
+
+The SHACL shape :ValidSourceIRIShape targets all instances of the class dc1:ProvenanceStatement, enforcing a constraint on the property dc1:source to have exactly one value that must be a valid IRI (sh:IRI), and producing the message "Source must be a valid IRI" if this constraint is violated.
+----
+
+Translation #762
+@prefix : <http://mapping.example.com/> .
+@prefix dc1: <http://purl.org/dc/elements/1.1#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CreatorHasNameShape a sh:NodeShape ;
+    sh:property [ sh:message "Creator must have a name." ;
+            sh:path dc1:creator ;
+            sh:qualifiedValueShape [ sh:property [ sh:minCount 1 ;
+                            sh:path foaf:name ] ] ] ;
+    sh:targetClass dc1:ProvenanceStatement .
+
+
+The SHACL shape :CreatorHasNameShape targets all instances of the class dc1:ProvenanceStatement, enforcing a constraint on the property dc1:creator, which must have at least one value (minCount 1) with a foaf:name property, ensuring that the creator has a name, with a validation error message "Creator must have a name" if this constraint is violated.
+----
+
+Translation #763
+@prefix : <http://mapping.example.com/> .
+@prefix cmns-id: <https://www.omg.org/spec/Commons/Identifiers/> .
+@prefix dc1: <http://purl.org/dc/elements/1.1#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ClosedProvenanceShape a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:message "Provenance statements must only include defined properties." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path cmns-id:identifies ] ;
+    sh:targetClass dc1:ProvenanceStatement .
+
+
+The SHACL shape :ClosedProvenanceShape targets all instances of the class dc1:ProvenanceStatement, enforcing a closed shape that prohibits additional properties except for rdf:type, which is ignored. It specifies a single property constraint on cmns-id:identifies, requiring exactly one string value (xsd:string). If any undefined properties are present or the cmns-id:identifies value does not conform to the specified data type, validation will fail with the message: "Provenance statements must only include defined properties."
+----
+
+Translation #764
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:LicenseTypeShape a sh:NodeShape ;
+    sh:property [ sh:in ( "Commercial" "Open Source" "Trial" "Subscription" ) ;
+            sh:message "License type must be one of: Commercial, Open Source, Trial, Subscription." ;
+            sh:path schema1:licenseType ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseTypeShape targets all instances of the class schema1:License, enforcing a constraint on the property schema1:licenseType, which must have exactly one value that is one of the following: "Commercial", "Open Source", "Trial", or "Subscription", and will fail validation with the message "License type must be one of: Commercial, Open Source, Trial, Subscription" if the value does not match one of these options.
+----
+
+Translation #765
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseIssuerShape a sh:NodeShape ;
+    sh:property [ sh:message "License issuer must be specified as an IRI." ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path schema1:issuer ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseIssuerShape applies to all instances of the class schema1:License, requiring exactly one schema1:issuer property with a value that must be an IRI (Internationalized Resource Identifier), failing validation with the message "License issuer must be specified as an IRI" if this property is missing or does not conform to these constraints.
+----
+
+Translation #766
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ExpirationDateShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:message "License expiration date must be specified." ;
+            sh:path schema1:endDate ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :ExpirationDateShape targets all instances of the class schema1:License, requiring exactly one schema1:endDate property with a value of type xsd:date, and will fail validation with the message "License expiration date must be specified" if this property is missing or has an invalid value.
+----
+
+Translation #767
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AllowedUsersShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:message "Number of allowed users must be at least 1." ;
+            sh:minInclusive 1 ;
+            sh:path schema1:numberOfUsers ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :AllowedUsersShape targets all instances of the class schema1:License, enforcing a constraint on the property schema1:numberOfUsers, which must be a single value (i.e., exactly one) of type integer (xsd:integer) with a minimum value of at least 1, and producing the message "Number of allowed users must be at least 1" if this constraint is violated.
+----
+
+Translation #768
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseScopeShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "License scope must be described." ;
+            sh:path schema1:scope ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseScopeShape targets all instances of the class schema1:License, requiring exactly one string value (xsd:string) for the property schema1:scope, with a validation failure message "License scope must be described" if the property is missing or its value is invalid.
+----
+
+Translation #769
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseKeyShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 64 ;
+            sh:message "License key must be between 16 and 64 characters." ;
+            sh:minLength 16 ;
+            sh:path schema1:licenseKey ] ;
+    sh:targetClass schema1:License .
+
+
+Here is the improved translation:
+
+The SHACL shape :LicenseKeyShape targets all instances of the class schema1:License, enforcing a constraint on the property schema1:licenseKey, requiring its value to be a single string (xsd:string) with a minimum length of 16 characters and a maximum length of 64 characters, and providing the message "License key must be between 16 and 64 characters" if this constraint is violated.
+----
+
+Translation #770
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:LicenseStatusShape a sh:NodeShape ;
+    sh:property [ sh:in ( "Active" "Expired" "Suspended" "Revoked" ) ;
+            sh:message "License status must be Active, Expired, Suspended, or Revoked." ;
+            sh:path schema1:licenseStatus ] ;
+    sh:targetClass schema1:License .
+
+----
+
+Translation #770
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:StartDateShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:message "License start date must be specified." ;
+            sh:minCount 1 ;
+            sh:path schema1:startDate ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :StartDateShape applies to all instances of the class schema1:License, requiring exactly one schema1:startDate property with a value of type xsd:date, and validation will fail with the message "License start date must be specified" if this property is missing.
+----
+
+Translation #771
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DurationMonthsShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:maxInclusive 120 ;
+            sh:message "License duration must be between 1 and 120 months." ;
+            sh:minInclusive 1 ;
+            sh:path schema1:duration ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :DurationMonthsShape targets all instances of the class schema1:License, enforcing a constraint on the property schema1:duration, which must have exactly one value that is an integer (xsd:integer) within the range of 1 to 120 (inclusive), with a violation producing the message: "License duration must be between 1 and 120 months."
+----
+
+Translation #772
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SoftwareVersionShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "Software version must be specified." ;
+            sh:minLength 3 ;
+            sh:path schema1:softwareVersion ] ;
+    sh:targetClass schema1:SoftwareApplication .
+
+
+The SHACL shape :SoftwareVersionShape targets all instances of the class schema1:SoftwareApplication, requiring them to have exactly one value for the property schema1:softwareVersion, which must be a string (xsd:string) with a minimum length of 3 characters; if this property is missing or its value does not meet these conditions, validation will fail with the message: "Software version must be specified."
+----
+
+Translation #773
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:RenewableShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:message "Renewable must be true or false." ;
+            sh:path schema1:isRenewable ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :RenewableShape targets all instances of the class schema1:License, requiring them to have exactly one schema1:isRenewable property with a value that is a boolean (xsd:boolean) that must be either true or false, with a validation failure message "Renewable must be true or false."
+----
+
+Translation #774
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PlatformCompatibilityShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "Platform compatibility must be specified." ;
+            sh:path schema1:compatiblePlatform ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :PlatformCompatibilityShape targets all instances of the class schema1:License, enforcing the presence of exactly one string value for the property schema1:compatiblePlatform, with a validation error message "Platform compatibility must be specified." if this requirement is not met.
+----
+
+Translation #775
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MaxInstallationsShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:message "Maximum installations allowed must be at least 1." ;
+            sh:minInclusive 1 ;
+            sh:path schema1:maxInstallations ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :MaxInstallationsShape targets all instances of the class schema1:License, enforcing a constraint on the property schema1:maxInstallations, which must have exactly one value that is an integer (xsd:integer) with a minimum value of 1 (inclusive), and violation of this constraint will produce the message: "Maximum installations allowed must be at least 1."
+----
+
+Translation #776
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseAgreementURLShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:anyURI ;
+            sh:message "License agreement must be a valid URL." ;
+            sh:path schema1:licenseAgreement ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseAgreementURLShape targets all instances of the class schema1:License, specifying that each must have exactly one schema1:licenseAgreement property with a value that is a valid URL (xsd:anyURI), and validation will fail with the message "License agreement must be a valid URL." if this constraint is not met.
+----
+
+Translation #777
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseDescriptionShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "License description must be at least 10 characters." ;
+            sh:minLength 10 ;
+            sh:path schema1:description ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseDescriptionShape applies to all instances of the class schema1:License, requiring them to have exactly one schema1:description property with a string value (xsd:string) that has a minimum length of 10 characters, and validation will fail with the message "License description must be at least 10 characters" if this constraint is not met.
+----
+
+Translation #778
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:ActiveOrExpiredLicenseShape a sh:NodeShape ;
+    sh:message "License status must be either Active or Expired." ;
+    sh:or ( [ sh:property [ sh:hasValue "Active" ;
+                        sh:path schema1:licenseStatus ] ] [ sh:property [ sh:hasValue "Expired" ;
+                        sh:path schema1:licenseStatus ] ] ) ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :ActiveOrExpiredLicenseShape applies to all instances of the class schema1:License, requiring the property schema1:licenseStatus to have exactly one value, which must be either "Active" or "Expired", otherwise validation will fail with the message: "License status must be either Active or Expired."
+----
+
+Translation #779
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:LicenseKeyPatternShape a sh:NodeShape ;
+    sh:property [ sh:message "License key must be 16 to 64 uppercase alphanumeric characters." ;
+            sh:path schema1:licenseKey ;
+            sh:pattern "^[A-Z0-9]{16,64}$" ] ;
+    sh:targetClass schema1:License .
+
+
+Here is the improved natural language translation of the SHACL shape:
+
+The SHACL shape :LicenseKeyPatternShape targets all instances of the class schema1:License, enforcing a constraint on the required property schema1:licenseKey, which must be a string consisting only of uppercase alphanumeric characters with a minimum length of 16 characters and a maximum length of 64 characters; if this constraint is violated, the validation will produce the message "License key must be 16 to 64 uppercase alphanumeric characters."
+----
+
+Translation #780
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SupportContactRequiredIfSuspendedShape a sh:NodeShape ;
+    sh:message "Suspended licenses must have support contact info." ;
+    sh:rule [ sh:condition [ sh:hasValue "Suspended" ;
+                    sh:path schema1:licenseStatus ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:supportContact ] ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :SupportContactRequiredIfSuspendedShape applies to all instances of the class schema1:License, ensuring that if an instance has a schema1:licenseStatus of "Suspended", it must also have at least one schema1:supportContact, otherwise validation will fail with the message "Suspended licenses must have support contact info."
+----
+
+Translation #781
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MaxUsersIfCommercialShape a sh:NodeShape ;
+    sh:message "Commercial licenses must specify number of allowed users." ;
+    sh:rule [ sh:condition [ sh:hasValue "Commercial" ;
+                    sh:path schema1:licenseType ] ;
+            sh:property [ sh:minInclusive 1 ;
+                    sh:path schema1:numberOfUsers ] ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :MaxUsersIfCommercialShape applies to all instances of the class schema1:License, requiring that if the value of schema1:licenseType is "Commercial", then the property schema1:numberOfUsers must have at least one value (minimum of 1), otherwise validation will fail with the message "Commercial licenses must specify number of allowed users."
+----
+
+Translation #782
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:LicenseNotExpiredIfActiveShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Active licenses must not be expired." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:licenseStatus "Active" .
+                $this schema:endDate ?expiry .
+                FILTER (?expiry < NOW())
+            }
+        """ ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseNotExpiredIfActiveShape targets all instances of the class schema1:License and enforces a constraint that requires each active license (those with a schema:licenseStatus of "Active") to have exactly one schema:endDate that is not earlier than the current date, validation failing with the message "Active licenses must not be expired" if this condition is not met.
+----
+
+Translation #783
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:LicenseUniqueIDShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "License identifier must be unique." ;
+            sh:select """
+            SELECT $this WHERE {
+                ?other a schema:License ;
+                       schema:identifier ?id .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:identifier ?id .
+                }
+            }
+        """ ] ;
+    sh:targetClass schema1:License .
+
+
+Here is the improved translation:
+
+The SHACL shape :LicenseUniqueIDShape applies to all instances of the class schema:License, ensuring that each license has a unique schema:identifier property value, with validation failing and displaying the message "License identifier must be unique" if duplicates are found.
+----
+
+Translation #784
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DurationRequiredIfSubscriptionShape a sh:NodeShape ;
+    sh:message "Subscription licenses must specify a duration." ;
+    sh:rule [ sh:condition [ sh:hasValue "Subscription" ;
+                    sh:path schema1:licenseType ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:duration ] ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :DurationRequiredIfSubscriptionShape applies to all instances of the class schema1:License, specifying that if the value of schema1:licenseType is "Subscription", then the property schema1:duration must be present at least once; failure to meet this condition will result in a validation error with the message "Subscription licenses must specify a duration."
+----
+
+Translation #785
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseNotRenewableIfExpiredShape a sh:NodeShape ;
+    sh:message "Expired licenses cannot be renewable." ;
+    sh:not [ sh:and ( [ sh:property [ sh:hasValue true ;
+                                sh:path schema1:isRenewable ] ] [ sh:property [ sh:hasValue "Expired" ;
+                                sh:path schema1:licenseStatus ] ] ) ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseNotRenewableIfExpiredShape applies to all instances of the class schema1:License, enforcing a constraint that an individual cannot have both schema1:isRenewable set to true and schema1:licenseStatus set to "Expired", and will return the validation error message "Expired licenses cannot be renewable." if this rule is violated.
+----
+
+Translation #786
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:GeoRestrictionOptionalIfOpenSourceShape a sh:NodeShape ;
+    sh:message "Geo restrictions are optional for open source licenses." ;
+    sh:or ( [ sh:not [ sh:property [ sh:minCount 1 ;
+                                sh:path schema1:geoRestriction ] ] ] [ sh:property [ sh:hasValue "Open Source" ;
+                        sh:path schema1:licenseType ] ] ) ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :GeoRestrictionOptionalIfOpenSourceShape applies to all instances of the class schema1:License and specifies that the property schema1:geoRestriction is optional if the property schema1:licenseType has the value "Open Source", with a validation failure message "Geo restrictions are optional for open source licenses" if this condition is not met.
+----
+
+Translation #787
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseClosedShape a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:message "License data must only include defined properties." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path schema1:identifier ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseClosedShape targets all instances of the class schema1:License, enforcing a closed shape that ignores the rdf:type property and allows only one string-valued property, schema1:identifier, with a validation failure message "License data must only include defined properties" if any undefined properties are present or if schema1:identifier does not conform to the defined constraint.
+----
+
+Translation #788
+@prefix : <http://mapping.example.com/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseHolderMustHaveNameShape a sh:NodeShape ;
+    sh:property [ sh:message "License holder must have a name." ;
+            sh:path schema1:licensee ;
+            sh:qualifiedValueShape [ sh:property [ sh:minCount 1 ;
+                            sh:path foaf:name ] ] ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseHolderMustHaveNameShape targets all instances of the class schema1:License, enforcing a constraint that the property schema1:licensee must have at least one value with a foaf:name, and yields the validation message "License holder must have a name" if this constraint is violated.
+----
+
+Translation #789
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:LicenseScopeMandatoryForTrialShape a sh:NodeShape ;
+    sh:message "Trial licenses must specify the license scope." ;
+    sh:rule [ sh:condition [ sh:hasValue "Trial" ;
+                    sh:path schema1:licenseType ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:scope ] ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseScopeMandatoryForTrialShape applies to all instances of the class schema1:License, mandating that they have at least one schema1:scope value when schema1:licenseType is "Trial", with a failure message "Trial licenses must specify the license scope."
+----
+
+Translation #790
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SubscriptionDurationRequiredIfActiveShape a sh:NodeShape ;
+    sh:message "Subscription licenses must specify a duration." ;
+    sh:rule [ sh:condition [ sh:hasValue "Subscription" ;
+                    sh:path schema1:licenseType ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:duration ] ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :SubscriptionDurationRequiredIfActiveShape applies to all instances of the class schema1:License, requiring that when the license type is "Subscription" (schema1:licenseType), a duration (schema1:duration) must be specified at least once; if the duration is missing, validation will fail with the message: "Subscription licenses must specify a duration."
+----
+
+Translation #791
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:LicenseRenewalDateBeforeExpiryShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "License renewal date must be before expiration date." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:renewalDate ?renewal .
+                $this schema:endDate ?expiry .
+                FILTER (?renewal > ?expiry)
+            }
+        """ ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseRenewalDateBeforeExpiryShape targets all instances of the class schema1:License, specifying that each must have exactly one schema:renewalDate and exactly one schema:endDate, and enforcing the condition that the license renewal date must be before the license expiration date, with a validation failure message of "License renewal date must be before expiration date."
+----
+
+Translation #792
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:LicenseScopeConsistentShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "License scope must be consistent with license type." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:licenseType ?type .
+                $this schema:scope ?scope .
+                FILTER (
+                    (?type = "Trial" && strlen(?scope) < 10) ||
+                    (?type != "Trial" && strlen(?scope) < 5)
+                )
+            }
+        """ ] ;
+    sh:targetClass schema1:License .
+
+
+The SHACL shape :LicenseScopeConsistentShape targets all instances of the class schema1:License, requiring that the value of the schema:licenseType property determines the minimum length of the corresponding schema:scope value, which must be at least 10 characters if the license type is "Trial" and at least 5 characters otherwise, with a validation failure message of "License scope must be consistent with license type."
+----
+
+Translation #793
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertIDShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxLength 30 ;
+            sh:message "Alert ID must start with 'ALERT-' followed by 3 to 25 alphanumeric characters." ;
+            sh:minLength 5 ;
+            sh:path schema1:identifier ;
+            sh:pattern "^ALERT-[A-Z0-9]{3,25}$" ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertIDShape targets all instances of the class schema1:Event, enforcing a constraint on the required property schema1:identifier, which must be a string with a minimum length of 5 characters and a maximum length of 30 characters, matching the pattern "^ALERT-[A-Z0-9]{3,25}$", i.e., starting with "ALERT-" followed by 3 to 25 alphanumeric characters, and producing the validation message "Alert ID must start with 'ALERT-' followed by 3 to 25 alphanumeric characters" if the constraint is violated.
+----
+
+Translation #794
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertStatusShape a sh:NodeShape ;
+    sh:property [ sh:in ( "Open" "Acknowledged" "Resolved" "Closed" ) ;
+            sh:message "Alert status must be one of: Open, Acknowledged, Resolved, or Closed." ;
+            sh:path schema1:eventStatus ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertStatusShape applies to all instances of the class schema1:Event, requiring that the schema1:eventStatus property has exactly one value, which must be one of the following: "Open", "Acknowledged", "Resolved", or "Closed", with a validation error message "Alert status must be one of: Open, Acknowledged, Resolved, or Closed." if the constraint is not met.
+----
+
+Translation #795
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertTimestampShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:message "Alert timestamp must be a valid date-time value." ;
+            sh:minCount 1 ;
+            sh:path schema1:dateCreated ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertTimestampShape targets all instances of the class schema1:Event, enforcing a constraint on the property schema1:dateCreated, which must have exactly one value that is a valid date-time (xsd:dateTime), otherwise validation will fail with the message "Alert timestamp must be a valid date-time value."
+----
+
+Translation #796
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertSourceShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "Alert source must be specified." ;
+            sh:minLength 3 ;
+            sh:path schema1:source ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertSourceShape targets all instances of the class schema1:Event, enforcing a constraint on the mandatory property schema1:source, which must have a string value (xsd:string) with a minimum length of 3 characters, and if not provided or too short, validation will fail with the message "Alert source must be specified."
+----
+
+Translation #797
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertResolvedByShape a sh:NodeShape ;
+    sh:property [ sh:message "Resolver must be specified as an IRI." ;
+            sh:nodeKind sh:IRI ;
+            sh:path schema1:actor ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertResolvedByShape targets all instances of the class schema1:Event, enforcing a constraint on the required property schema1:actor, which must have exactly one value that is an IRI (sh:IRI node kind); if this property does not exist or its value is not an IRI, validation will fail with the message: "Resolver must be specified as an IRI."
+----
+
+Translation #798
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertAcknowledgedByShape a sh:NodeShape ;
+    sh:property [ sh:message "Acknowledging person must be specified as an IRI." ;
+            sh:nodeKind sh:IRI ;
+            sh:path schema1:acknowledgedBy ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertAcknowledgedByShape targets all instances of the class schema1:Event, requiring them to have exactly one schema1:acknowledgedBy property with an IRI value; if this property is missing, has a non-IRI value, or has more or less than one value, validation will fail with the message: "Acknowledging person must be specified as an IRI."
+----
+
+Translation #799
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertPriorityShape a sh:NodeShape ;
+    sh:property [ sh:in ( "P1" "P2" "P3" "P4" "P5" ) ;
+            sh:message "Priority must be one of P1, P2, P3, P4, or P5." ;
+            sh:path schema1:priority ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertPriorityShape targets all instances of the class schema1:Event, specifying a single value constraint on the schema1:priority property, which must be exactly one of the following: "P1", "P2", "P3", "P4", or "P5", with a validation error message "Priority must be one of P1, P2, P3, P4, or P5." if the value does not match this constraint.
+----
+
+Translation #800
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertEscalationShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:maxInclusive 5 ;
+            sh:message "Escalation level must be between 0 and 5." ;
+            sh:minInclusive 0 ;
+            sh:path schema1:escalationLevel ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertEscalationShape targets all instances of the class schema1:Event, enforcing a single constraint on the property schema1:escalationLevel, which must be a single value (i.e., a singleton property) of type xsd:integer within the range of 0 to 5 (inclusive), with a validation error message "Escalation level must be between 0 and 5."
+----
+
+Translation #801
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertIsTestShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:message "IsTest must be a boolean." ;
+            sh:path schema1:isTest ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertIsTestShape targets all instances of the class schema1:Event, requiring each instance to have exactly one schema1:isTest property with a value of type xsd:boolean, and validation will fail with the message "IsTest must be a boolean" if this constraint is not met.
+----
+
+Translation #802
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertSuppressionUntilShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:message "Suppression until date must be valid." ;
+            sh:path schema1:suppressionUntil ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertSuppressionUntilShape applies to all instances of the class schema1:Event, requiring exactly one value for the property schema1:suppressionUntil, which must be a valid date and time (xsd:dateTime), and produces the validation message "Suppression until date must be valid." if this constraint is violated.
+----
+
+Translation #803
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:SeverityAboveThresholdShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Severity must be 'High' or 'Critical' if threshold exceeds 90." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:threshold ?threshold ;
+                      schema:severity ?severity .
+                FILTER (?threshold > 90 && (?severity != "High" && ?severity != "Critical"))
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :SeverityAboveThresholdShape targets all instances of the class schema1:Event, enforcing a validation rule that requires the severity value to be either "High" or "Critical" if the threshold value exceeds 90, with a failure message "Severity must be 'High' or 'Critical' if threshold exceeds 90."
+----
+
+Translation #804
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ResolvedAlertsMustHaveResolutionDateShape a sh:NodeShape ;
+    sh:message "Resolved alerts must have a resolution date." ;
+    sh:rule [ sh:condition [ sh:hasValue "Resolved" ;
+                    sh:path schema1:eventStatus ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:dateResolved ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :ResolvedAlertsMustHaveResolutionDateShape applies to all instances of the class schema1:Event, requiring that when the event status is "Resolved" (schema1:eventStatus), a resolution date (schema1:dateResolved) must be provided exactly one or more times; if this condition is not met, validation will fail with the message "Resolved alerts must have a resolution date."
+----
+
+Translation #805
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:NoFutureResolutionDateShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Resolution date cannot be in the future." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:dateResolved ?date .
+                FILTER (?date > NOW())
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :NoFutureResolutionDateShape targets all instances of the class schema1:Event, specifying that each instance must have exactly one schema:dateResolved property, which must not have a value in the future; if the date is in the future, the validation will fail with the message: "Resolution date cannot be in the future."
+----
+
+Translation #806
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:SuppressedAlertsMustHaveSuppressionDateShape a sh:NodeShape ;
+    sh:message "Suppressed alerts must specify a suppression until date." ;
+    sh:rule [ sh:condition [ sh:hasValue true ;
+                    sh:path schema1:isSuppressed ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:suppressionUntil ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :SuppressedAlertsMustHaveSuppressionDateShape targets all instances of the class schema1:Event and specifies that if an event has been suppressed (schema1:isSuppressed is true), then the property schema1:suppressionUntil is required to have at least one value, otherwise, validation will fail with the message "Suppressed alerts must specify a suppression until date."
+----
+
+Translation #807
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertMessageMinLengthShape a sh:NodeShape ;
+    sh:message "Alert message must be at least 20 characters." ;
+    sh:property [ sh:minLength 20 ;
+            sh:path schema1:description ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertMessageMinLengthShape applies to all instances of the class schema1:Event, enforcing a constraint on the property schema1:description to have a minimum string length of 20 characters, with a validation failure message "Alert message must be at least 20 characters."
+----
+
+Translation #808
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OpenAlertsMustNotHaveResolutionDateShape a sh:NodeShape ;
+    sh:message "Open alerts must not have a resolution date." ;
+    sh:not [ sh:and ( [ sh:property [ sh:hasValue "Open" ;
+                                sh:path schema1:eventStatus ] ] [ sh:property [ sh:minCount 1 ;
+                                sh:path schema1:dateResolved ] ] ) ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :OpenAlertsMustNotHaveResolutionDateShape applies to all instances of the class schema1:Event, enforcing a rule that prevents an instance from having both a schema1:eventStatus of "Open" and a schema1:dateResolved property with at least one value, meaning that if the event status is "Open", the resolution date must be absent; otherwise, validation will fail with the message "Open alerts must not have a resolution date."
+----
+
+Translation #809
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:ResolutionDateAfterAlertDateShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Resolution date must be after alert creation date." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:dateCreated ?created .
+                $this schema:dateResolved ?resolved .
+                FILTER (?resolved < ?created)
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :ResolutionDateAfterAlertDateShape applies to all instances of the class schema1:Event, requiring that each instance has exactly one schema:dateCreated and one schema:dateResolved property, and specifies a validation rule that checks if the value of schema:dateResolved is after the value of schema:dateCreated, with a failure message of "Resolution date must be after alert creation date."
+----
+
+Translation #810
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertClosedOnlyIfResolvedShape a sh:NodeShape ;
+    sh:message "Alerts can only be closed if they have a resolution date." ;
+    sh:rule [ sh:condition [ sh:hasValue "Closed" ;
+                    sh:path schema1:eventStatus ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:dateResolved ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertClosedOnlyIfResolvedShape applies to all instances of the class schema1:Event, enforcing a constraint that requires the existence of at least one schema1:dateResolved property value when the schema1:eventStatus property has the value "Closed", with a validation failure message of "Alerts can only be closed if they have a resolution date" if this condition is not met.
+----
+
+Translation #811
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertClosedMustHaveResolverShape a sh:NodeShape ;
+    sh:message "Closed alerts must specify the resolving actor." ;
+    sh:rule [ sh:condition [ sh:hasValue "Closed" ;
+                    sh:path schema1:eventStatus ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:actor ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertClosedMustHaveResolverShape targets all instances of the class schema1:Event, enforcing that whenever the schema1:eventStatus property has a value of "Closed", the schema1:actor property must be present with at least one value, indicating the resolving actor, and failing validation with the message "Closed alerts must specify the resolving actor" if this constraint is not met.
+----
+
+Translation #812
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertMessageLengthShape a sh:NodeShape ;
+    sh:message "Alert message must be between 20 and 2000 characters." ;
+    sh:property [ sh:maxLength 2000 ;
+            sh:minLength 20 ;
+            sh:path schema1:description ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertMessageLengthShape targets all instances of the class schema1:Event, enforcing a constraint on the required property schema1:description, which must be a string with a minimum length of 20 characters and a maximum length of 2000 characters, with a validation error message "Alert message must be between 20 and 2000 characters."
+----
+
+Translation #813
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OpenAlertsMustNotBeSuppressedShape a sh:NodeShape ;
+    sh:message "Open alerts cannot be suppressed." ;
+    sh:not [ sh:and ( [ sh:property [ sh:hasValue "Open" ;
+                                sh:path schema1:eventStatus ] ] [ sh:property [ sh:hasValue true ;
+                                sh:path schema1:isSuppressed ] ] ) ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :OpenAlertsMustNotBeSuppressedShape applies to all instances of the class schema1:Event, enforcing that an event with an event status of "Open" must not have the property schema1:isSuppressed set to true, and validation will fail with the message "Open alerts cannot be suppressed" if this constraint is violated.
+----
+
+Translation #814
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertAcknowledgedByMustBeDifferentFromCreatorShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Acknowledging actor must be different from alert creator." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:creator ?creator ;
+                      schema:acknowledgedBy ?ack .
+                FILTER (?creator = ?ack)
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertAcknowledgedByMustBeDifferentFromCreatorShape applies to all instances of the class schema1:Event, requiring that the values of the properties schema:acknowledgedBy and schema:creator be different, exactly one value for each property, with a failure message "Acknowledging actor must be different from alert creator" if this condition is not met.
+----
+
+Translation #815
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertEscalationLevelLimitShape a sh:NodeShape ;
+    sh:message "Escalation level must be between 0 and 5." ;
+    sh:property [ sh:maxInclusive 5 ;
+            sh:minInclusive 0 ;
+            sh:path schema1:escalationLevel ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertEscalationLevelLimitShape applies to all instances of the class schema1:Event, enforcing a single value constraint on the property schema1:escalationLevel, requiring its value to be an integer within the inclusive range of 0 and 5, and producing the message "Escalation level must be between 0 and 5" in case of validation failure.
+----
+
+Translation #816
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertNotSuppressedIfCriticalSeverityShape a sh:NodeShape ;
+    sh:message "Critical alerts cannot be suppressed." ;
+    sh:not [ sh:and ( [ sh:property [ sh:hasValue "Critical" ;
+                                sh:path schema1:severity ] ] [ sh:property [ sh:hasValue true ;
+                                sh:path schema1:isSuppressed ] ] ) ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertNotSuppressedIfCriticalSeverityShape targets all instances of the class schema1:Event, enforcing a constraint that prohibits a schema1:Event with a schema1:severity of "Critical" from also having a schema1:isSuppressed property set to true, and validates with a message "Critical alerts cannot be suppressed" if such a combination is detected.
+----
+
+Translation #817
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MonitoringAlertsClosedShape a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:message "Monitoring alert data must only include defined properties." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path schema1:identifier ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :MonitoringAlertsClosedShape targets all instances of the class schema1:Event, enforcing a closed shape that allows only explicitly defined properties, except for rdf:type, and specifies that schema1:identifier must have exactly one string value (xsd:string), with a validation failure message "Monitoring alert data must only include defined properties."
+----
+
+Translation #819
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ThresholdValueShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:message "Threshold value must be non-negative." ;
+            sh:minInclusive 0.0 ;
+            sh:path schema1:threshold ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :ThresholdValueShape applies to all instances of the class schema1:Event, enforcing a single constraint on the property schema1:threshold, which must have exactly one value that is a non-negative float (xsd:float) greater than or equal to 0.0, with a validation failure message "Threshold value must be non-negative."
+----
+
+Translation #820
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertMessageShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "Alert message must be at least 10 characters." ;
+            sh:minLength 10 ;
+            sh:path schema1:description ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertMessageShape targets all instances of the class schema1:Event, enforcing a constraint on the property schema1:description, requiring exactly one value that must be a string (xsd:string) with a minimum length of 10 characters, producing the message "Alert message must be at least 10 characters" if this constraint is violated.
+----
+
+Translation #821
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertTypeShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "Alert type must be specified." ;
+            sh:path schema1:eventType ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertTypeShape applies to all instances of the class schema1:Event, requiring exactly one value for the property schema1:eventType, which must be a string (xsd:string), and if this constraint is not met, validation will fail with the message: "Alert type must be specified."
+----
+
+Translation #822
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertResolutionDateShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:message "Resolution date must be a valid date-time value." ;
+            sh:path schema1:dateResolved ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertResolutionDateShape targets all instances of the class schema1:Event, enforcing a constraint on the property schema1:dateResolved to have exactly one value that must be a valid date-time (xsd:dateTime), and will fail validation with the message "Resolution date must be a valid date-time value." if this constraint is not met.
+----
+
+Translation #823
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertAcknowledgedDateShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:message "Acknowledgement date must be a valid date-time value." ;
+            sh:path schema1:dateAcknowledged ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertAcknowledgedDateShape targets all instances of the class schema1:Event, enforcing a constraint on the required property schema1:dateAcknowledged, which must have exactly one value that is a valid date-time value (xsd:dateTime), with a validation error message "Acknowledgement date must be a valid date-time value." if this constraint is not met.
+----
+
+Translation #824
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertCategoryShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:message "Alert category must be specified." ;
+            sh:path schema1:category ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertCategoryShape applies to all instances of the class schema1:Event, requiring exactly one schema1:category property with a string value (xsd:string), and validation will fail with the message "Alert category must be specified" if this property is missing.
+----
+
+Translation #825
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertLastUpdateShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:message "Last update timestamp must be valid." ;
+            sh:path schema1:dateModified ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertLastUpdateShape applies to all instances of the class schema1:Event, requiring exactly one schema1:dateModified property with a value that must be a date and time (xsd:dateTime), and if this property is invalid, validation will fail with the message: "Last update timestamp must be valid."
+----
+
+Translation #826
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertAcknowledgementRequiredShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:message "Acknowledgement requirement must be boolean." ;
+            sh:path schema1:requiresAcknowledgement ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertAcknowledgementRequiredShape targets all instances of the class schema1:Event, enforcing a single constraint on the property schema1:requiresAcknowledgement, which must have exactly one value that is a boolean (xsd:boolean), and will produce the validation message "Acknowledgement requirement must be boolean" if this constraint is violated.
+----
+
+Translation #827
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:StatusMustBeOpenOrClosedShape a sh:NodeShape ;
+    sh:message "Alert status must be 'Open' or 'Closed'." ;
+    sh:or ( [ sh:property [ sh:hasValue "Open" ;
+                        sh:path schema1:eventStatus ] ] [ sh:property [ sh:hasValue "Closed" ;
+                        sh:path schema1:eventStatus ] ] ) ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :StatusMustBeOpenOrClosedShape targets all instances of the class schema1:Event, specifying that the schema1:eventStatus property must have exactly one value, which must be either "Open" or "Closed", otherwise validation will fail with the message "Alert status must be 'Open' or 'Closed'."
+----
+
+Translation #828
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertMustHaveValidTimestampShape a sh:NodeShape ;
+    sh:message "Alert must have a valid creation timestamp." ;
+    sh:property [ sh:datatype xsd:dateTime ;
+            sh:path schema1:dateCreated ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertMustHaveValidTimestampShape targets all instances of the class schema1:Event, requiring exactly one value for the property schema1:dateCreated, which must be a valid date and time (xsd:dateTime), and if this constraint is not met, validation will fail with the message: "Alert must have a valid creation timestamp."
+----
+
+Translation #829
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AcknowledgedAlertsMustHaveAcknowledgementDateShape a sh:NodeShape ;
+    sh:message "Acknowledged alerts must have an acknowledgement date." ;
+    sh:rule [ sh:condition [ sh:hasValue "Acknowledged" ;
+                    sh:path schema1:eventStatus ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:dateAcknowledged ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AcknowledgedAlertsMustHaveAcknowledgementDateShape applies to all instances of the class schema1:Event, requiring that whenever the schema1:eventStatus property is "Acknowledged", the schema1:dateAcknowledged property must be present at least once, with a validation failure message "Acknowledged alerts must have an acknowledgement date" if this condition is not met.
+----
+
+Translation #830
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertPriorityConsistentWithSeverityShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Priority must be consistent with severity." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:severity ?severity ;
+                      schema:priority ?priority .
+                FILTER (
+                    (?severity = "Critical" && ?priority != "P1") ||
+                    (?severity = "High" && ?priority NOT IN ("P1", "P2")) ||
+                    (?severity = "Medium" && ?priority NOT IN ("P3", "P4")) ||
+                    (?severity = "Low" && ?priority NOT IN ("P4", "P5"))
+                )
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertPriorityConsistentWithSeverityShape applies to all instances of the class schema:Event, enforcing a constraint that ensures the property schema:priority is consistent with the property schema:severity, with specific mappings of severity "Critical" to priority "P1", "High" to priorities "P1" or "P2", "Medium" to priorities "P3" or "P4", and "Low" to priorities "P4" or "P5", and returning the validation error message "Priority must be consistent with severity" if these rules are not met.
+----
+
+Translation #831
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ClosedAlertsMustHaveResolutionShape a sh:NodeShape ;
+    sh:message "Closed alerts must include a resolution description." ;
+    sh:rule [ sh:condition [ sh:hasValue "Closed" ;
+                    sh:path schema1:eventStatus ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:resolution ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :ClosedAlertsMustHaveResolutionShape targets all instances of the class schema1:Event, specifying that when the property schema1:eventStatus has a value of "Closed", the property schema1:resolution must have at least one value, and failure to provide a resolution description will result in a validation error with the message "Closed alerts must include a resolution description."
+----
+
+Translation #832
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:UniqueAlertIDShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Alert ID must be unique." ;
+            sh:select """
+            SELECT $this WHERE {
+                ?other a schema:Event ;
+                       schema:identifier ?id .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:identifier ?id .
+                }
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :UniqueAlertIDShape targets all instances of the class schema:Event, enforcing a uniqueness constraint on the property schema:identifier, ensuring that each alert ID is unique across all events, and returns an error message "Alert ID must be unique" if a duplicate identifier is found.
+----
+
+Translation #833
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:ValidSeverityValuesShape a sh:NodeShape ;
+    sh:message "Severity must be one of Low, Medium, High, or Critical." ;
+    sh:property [ sh:in ( "Low" "Medium" "High" "Critical" ) ;
+            sh:path schema1:severity ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :ValidSeverityValuesShape applies to all instances of the class schema1:Event, requiring the schema1:severity property to have exactly one value, which must be one of the following strings: "Low", "Medium", "High", or "Critical", with a validation failure message "Severity must be one of Low, Medium, High, or Critical."
+----
+
+Translation #834
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AcknowledgedDateAfterAlertDateShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Acknowledged date must be after alert creation date." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:dateCreated ?created .
+                $this schema:dateAcknowledged ?acknowledged .
+                FILTER (?acknowledged < ?created)
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AcknowledgedDateAfterAlertDateShape applies to all instances of the class schema1:Event, specifying a validation rule that checks if the acknowledged date is after the alert creation date, defined by a SPARQL constraint comparing the values of schema:dateAcknowledged and schema:dateCreated properties, with a requirement of exactly one value for each property, failing validation with the message "Acknowledged date must be after alert creation date" if the condition is not met.
+----
+
+Translation #835
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertPriorityConsistentWithEscalationShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Priority must be consistent with escalation level." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:priority ?priority ;
+                      schema:escalationLevel ?escalation .
+                FILTER (
+                    (?priority = "P1" && ?escalation < 4) ||
+                    (?priority = "P2" && ?escalation < 3) ||
+                    (?priority = "P3" && ?escalation < 2)
+                )
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+Here is the rewritten translation:
+
+The SHACL shape :AlertPriorityConsistentWithEscalationShape targets all instances of the class schema1:Event, enforcing a constraint that requires the value of the property schema:priority to be consistent with the value of the property schema:escalationLevel, specifically: "P1" priority allows escalation levels less than 4, "P2" priority allows escalation levels less than 3, and "P3" priority allows escalation levels less than 2, with validation failure resulting in the message "Priority must be consistent with escalation level."
+----
+
+Translation #836
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertSuppressionDateValidShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Suppression date must be after alert creation date." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:dateCreated ?created .
+                $this schema:suppressionUntil ?suppression .
+                FILTER (?suppression < ?created)
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertSuppressionDateValidShape targets all instances of the class schema1:Event, enforcing a constraint that each instance must have values for both schema:dateCreated and schema:suppressionUntil, with the latter being strictly after the former; if this temporal relationship is not met, the validation will fail with the message: "Suppression date must be after alert creation date."
+----
+
+Translation #837
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:UniqueAlertMessageShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Alert message must be unique." ;
+            sh:select """
+            SELECT $this WHERE {
+                ?other a schema:Event ;
+                       schema:description ?msg .
+                FILTER (?other != $this)
+                FILTER EXISTS {
+                    $this schema:description ?msg .
+                }
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :UniqueAlertMessageShape applies to all instances of the class schema:Event, enforcing the constraint that the value of the schema:description property must be unique across all instances, with a failure message "Alert message must be unique" if a duplicate value is found.
+----
+
+Translation #838
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertPrioritySetIfSeverityHighShape a sh:NodeShape ;
+    sh:message "High severity alerts must have a priority set." ;
+    sh:rule [ sh:condition [ sh:hasValue "High" ;
+                    sh:path schema1:severity ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:priority ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertPrioritySetIfSeverityHighShape targets all instances of the class schema1:Event, enforcing a rule that if the property schema1:severity has a value of "High", then the property schema1:priority must be present with a minimum count of 1, otherwise validation will fail with the message "High severity alerts must have a priority set."
+----
+
+Translation #839
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertClosedOnlyIfResolvedByAuthorizedShape a sh:NodeShape ;
+    sh:message "Closed alerts must be resolved by an authorized actor." ;
+    sh:rule [ sh:condition [ sh:hasValue "Closed" ;
+                    sh:path schema1:eventStatus ] ;
+            sh:property [ sh:minCount 1 ;
+                    sh:path schema1:actor ] ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertClosedOnlyIfResolvedByAuthorizedShape applies to all instances of the class schema1:Event, specifying that each instance with a schema1:eventStatus value of "Closed" must have at least one schema1:actor value, indicating resolution by an authorized actor, and validation will fail with the message "Closed alerts must be resolved by an authorized actor" if this constraint is not met.
+----
+
+Translation #840
+@prefix : <http://mapping.example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:AlertMustHaveCategoryOrTypeShape a sh:NodeShape ;
+    sh:message "Alert must have a category or event type specified." ;
+    sh:or ( [ sh:property [ sh:minCount 1 ;
+                        sh:path schema1:category ] ] [ sh:property [ sh:minCount 1 ;
+                        sh:path schema1:eventType ] ] ) ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertMustHaveCategoryOrTypeShape targets all instances of the class schema1:Event, requiring them to have at least one value for either the schema1:category or schema1:eventType property, and will fail validation with the message "Alert must have a category or event type specified" if neither property is specified.
+----
+
+Translation #841
+@prefix : <http://mapping.example.com/> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:AlertPriorityMustMatchSeverityShape a sh:NodeShape ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Alert priority must correspond to severity level." ;
+            sh:select """
+            SELECT $this WHERE {
+                $this schema:priority ?priority ;
+                      schema:severity ?severity .
+                FILTER (
+                    (?severity = "Critical" && ?priority != "P1") ||
+                    (?severity = "High" && ?priority NOT IN ("P1", "P2")) ||
+                    (?severity = "Medium" && ?priority NOT IN ("P3", "P4")) ||
+                    (?severity = "Low" && ?priority NOT IN ("P4", "P5"))
+                )
+            }
+        """ ] ;
+    sh:targetClass schema1:Event .
+
+
+The SHACL shape :AlertPriorityMustMatchSeverityShape applies to all instances of the class schema1:Event, requiring that the schema:priority property value corresponds to the schema:severity property value as follows: Critical severity to P1 priority, High severity to either P1 or P2 priority, Medium severity to either P3 or P4 priority, and Low severity to either P4 or P5 priority; if this correspondence is not met, validation will fail with the message "Alert priority must correspond to severity level."
+----
+

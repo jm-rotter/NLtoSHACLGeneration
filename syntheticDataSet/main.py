@@ -56,7 +56,7 @@ MODEL = "llama3-70b-8192"
 client = Groq(api_key=GROQ_API_KEY)
 
 shapes = pullShapes()
-starting_idx = 656
+starting_idx = 819
 curr_idx = 0
 with open("training_translations.txt", "a") as txt_file, open("training_translations.jsonl", "a") as jsonl_file:
 
