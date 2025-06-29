@@ -1,3 +1,39 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://mapping.example.com/> .
+@prefix cmns-id: <https://www.omg.org/spec/Commons/Identifiers/> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix dc: <http://purl.org/dc/elements/1.1#> .
+@prefix edifact-o: <https://purl.org/edifact/ontology#> .
+@prefix eli: <http://publications.europa.eu/resource/dataset/eli/> .
+@prefix fnml: <http://semweb.mmlab.be/ns/fnml#> .
+@prefix fno: <https://w3id.org/function/ontology#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix frapo: <http://purl.org/cerif/frapo/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix p2p-o: <https://purl.org/p2p-o#> .
+@prefix p2p-o-doc: <https://purl.org/p2p-o/document#> .
+@prefix p2p-o-doc-line: <https://purl.org/p2p-o/documentline#> .
+@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
+@prefix p2p-o-item: <https://purl.org/p2p-o/item#> .
+@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix edu: <http://example.org/edu#> .
+@prefix it: <http://example.org/it#> .
+@prefix prod: <http://example.org/product#> .
+@prefix food: <http://example.org/food#> .
+@prefix civic: <http://example.org/civic#> .
+@prefix pub: <http://example.org/publication#> .
+@prefix catalog: <http://example.com/catalog#> .
+
+
 :Dokumentenname 
     a sh:NodeShape;
     sh:targetClass edifact-o:InvoiceDetails;
@@ -7270,14 +7306,6 @@
         [ sh:property [ sh:path schema:reviewBody ; sh:minLength 30 ] ]
     ) ;
     sh:message "Each review must have either a rating or a sufficiently long feedback." .
-
-:PositiveFeedbackShape a sh:NodeShape ;
-    sh:targetClass schema:Review ;
-    sh:and (
-        [ sh:property [ sh:path schema:reviewRating/schema:ratingValue ; sh:minInclusive 4.0 ] ]
-        [ sh:property [ sh:path schema:reviewBody ; sh:minLength 50 ] ]
-    ) ;
-    sh:message "Positive reviews must have a rating ≥ 4.0 and at least 50 characters of feedback." .
 
 :InvalidLanguageNotAllowedShape a sh:NodeShape ;
     sh:targetClass schema:Review ;

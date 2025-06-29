@@ -1,73 +1,44 @@
-from rdflib import Graph, Namespace, URIRef, Literal
+from rdflib import Graph, RDF, Namespace
+from rdflib.term import BNode
 import os
 
-shaclPrefixes = """
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix schema: <http://schema.org/> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix : <http://mapping.example.com/> .
-@prefix cmns-id: <https://www.omg.org/spec/Commons/Identifiers/> .
-@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
-@prefix dc: <http://purl.org/dc/elements/1.1#> .
-@prefix edifact-o: <https://purl.org/edifact/ontology#> .
-@prefix eli: <http://publications.europa.eu/resource/dataset/eli/> .
-@prefix fnml: <http://semweb.mmlab.be/ns/fnml#> .
-@prefix fno: <https://w3id.org/function/ontology#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix frapo: <http://purl.org/cerif/frapo/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix p2p-o: <https://purl.org/p2p-o#> .
-@prefix p2p-o-doc: <https://purl.org/p2p-o/document#> .
-@prefix p2p-o-doc-line: <https://purl.org/p2p-o/documentline#> .
-@prefix p2p-o-inv: <https://purl.org/p2p-o/invoice#> .
-@prefix p2p-o-item: <https://purl.org/p2p-o/item#> .
-@prefix p2p-o-org: <https://purl.org/p2p-o/organization#> .
-@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
-@prefix rr: <http://www.w3.org/ns/r2rml#> .
-@prefix schema: <http://schema.org/> .
-@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
-@prefix edu: <http://example.org/edu#> .
-@prefix it: <http://example.org/it#> .
-@prefix prod:     <http://example.org/product#> .
-@prefix food:     <http://example.org/food#> .
-@prefix civic:    <http://example.org/civic#> .
-@prefix pub:      <http://example.org/publication#> .
-@prefix catalog: <http://example.com/catalog#> .
-"""
+SH = Namespace("http://www.w3.org/ns/shacl#")
 
-def pullShapes():
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'shaclDataset.ttl')
-    with open(file_path, 'r') as text:
-        text_shapes = []
-        curr = ""
-        for line in text:
-            if line.strip() == '':
-                if curr.strip():
-                    text_shapes.append(curr)
-                curr = ""
-            else:
-                curr += line
-        if curr.strip():
-            text_shapes.append(curr)
+def pullShapes(ttl_filename: str = "shacldataset.ttl"):
+    """
+    Loads the full TTL into one graph, then for each subject S that has
+    rdf:type sh:NodeShape, creates a subgraph containing:
+      - all triples (S, p, o)
+      - for any blank node o that is a property shape, all triples (o, p2, o2)
+    Returns a list of rdflib.Graphs.
+    """
+    base = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(base, ttl_filename)
+
+    # 1) Load the entire dataset
+    full = Graph()
+    full.parse(path, format="turtle")
 
     shapes = []
-    for shape_text in text_shapes:
+    for shape in full.subjects(RDF.type, SH.NodeShape):
         g = Graph()
-        g.parse(data=shaclPrefixes + shape_text, format='turtle')
+        # Re-bind all namespace prefixes
+        for prefix, uri in full.namespaces():
+            g.bind(prefix, uri)
+
+        # Copy triples about the shape
+        for p, o in full.predicate_objects(shape):
+            g.add((shape, p, o))
+
+            # If the object is a blank node, copy its own triples
+            if isinstance(o, BNode):
+                for p2, o2 in full.predicate_objects(o):
+                    g.add((o, p2, o2))
+                    # And handle one more level of nesting:
+                    if isinstance(o2, BNode):
+                        for p3, o3 in full.predicate_objects(o2):
+                            g.add((o2, p3, o3))
 
         shapes.append(g)
 
-
-    for i, g in enumerate(shapes):
-        serialized = g.serialize(format='turtle')
-        if isinstance(serialized,bytes):
-            serialized = serialized.decode('utf-8')
-
     return shapes
-

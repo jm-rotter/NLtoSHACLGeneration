@@ -3565,3 +3565,206 @@ Translation #174
 The SHACL shape :KitchenTicketShape applies to all instances of the class food:KitchenTicket, requiring exactly one string value for food:ticketNumber that matches the pattern "^KT\\d{4}$", and exactly one boolean value for food:isPrepared; if either property is missing, has an invalid type, or does not conform to these constraints, validation will fail with the message: "Kitchen ticket must include a valid ticket number and preparation status."
 ----
 
+Translation #180
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:OrderCancellationShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ ] ] [ ] ) ;
+    sh:message "Order cancellation must include a reason and refund status." ;
+    sh:targetClass food:OrderCancellation .
+
+
+The SHACL shape :OrderCancellationShape targets all instances of the class food:OrderCancellation, requiring them to have at least two unspecified properties with a minimum cardinality of one each, and will fail validation with the message "Order cancellation must include a reason and refund status" if these properties are missing or invalid.
+----
+
+Translation #181
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:RestaurantContactShape a sh:NodeShape ;
+    sh:message "Restaurant contact must include a valid international phone number." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path food:phoneNumber ;
+            sh:pattern "^\\+\\d{10,15}$" ] ;
+    sh:targetClass food:RestaurantContact .
+
+
+The SHACL shape :RestaurantContactShape applies to all instances of the class food:RestaurantContact, enforcing a single constraint on the mandatory property food:phoneNumber, which must have a value that is a string (xsd:string) matching the pattern "^\\+\\d{10,15}$", i.e., a valid international phone number starting with a "+" followed by 10 to 15 digits; if this property is missing or its value does not conform to this pattern, validation will fail with the message: "Restaurant contact must include a valid international phone number."
+----
+
+Translation #182
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DishCategoryShape a sh:NodeShape ;
+    sh:message "Dish category must have a name of at least 3 characters." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minLength 3 ;
+            sh:path food:categoryName ] ;
+    sh:targetClass food:DishCategory .
+
+
+The SHACL shape :DishCategoryShape applies to all instances of the class food:DishCategory, mandating a single occurrence of the property food:categoryName with a string value (xsd:string) of at least 3 characters in length; validation will fail with the message "Dish category must have a name of at least 3 characters" if this constraint is not met.
+----
+
+Translation #183
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:OrderPaymentShape a sh:NodeShape ;
+    sh:message "Order payment must specify the method used." ;
+    sh:property [ sh:in [ rdf:first "Card" ;
+                    rdf:rest [ ] ] ;
+            sh:path food:paymentMethod ] ;
+    sh:targetClass food:OrderPayment .
+
+
+Here is the improved translation:
+
+The SHACL shape :OrderPaymentShape targets all instances of the class food:OrderPayment, requiring them to have exactly one value for the property food:paymentMethod, which must be the string "Card"; otherwise, validation will fail with the message "Order payment must specify the method used."
+----
+
+Translation #184
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PackagingTypeShape a sh:NodeShape ;
+    sh:message "Packaging type must include a material type." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path food:materialType ] ;
+    sh:targetClass food:PackagingType .
+
+
+The SHACL shape :PackagingTypeShape targets all instances of the class food:PackagingType, mandating that each instance must have exactly one value for the food:materialType property, which must be a string (xsd:string), otherwise validation will fail with the message "Packaging type must include a material type."
+----
+
+Translation #185
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CustomerFeedbackShape a sh:NodeShape ;
+    sh:message "Customer feedback must be at least 10 characters long." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minLength 10 ;
+            sh:path food:feedbackText ] ;
+    sh:targetClass food:CustomerFeedback .
+
+
+The SHACL shape :CustomerFeedbackShape applies to all instances of the class food:CustomerFeedback, requiring them to have exactly one property food:feedbackText with a value that is a string (xsd:string) of at least 10 characters in length; if this constraint is not met, validation will fail with the message "Customer feedback must be at least 10 characters long."
+----
+
+Translation #186
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DeliveryZoneShape a sh:NodeShape ;
+    sh:message "Delivery zone must have a valid name." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minLength 3 ;
+            sh:path food:zoneName ] ;
+    sh:targetClass food:DeliveryZone .
+
+
+The SHACL shape :DeliveryZoneShape targets all instances of the class food:DeliveryZone and specifies that each instance must have exactly one food:zoneName property with a string value (xsd:string) of at least 3 characters in length; if this property is missing or its value does not meet the minimum length requirement, validation will fail with the message: "Delivery zone must have a valid name."
+----
+
+Translation #187
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:OrderTimeWindowShape a sh:NodeShape ;
+    sh:message "Order must include a delivery time window." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path food:deliveryWindow ] ;
+    sh:targetClass food:OrderTimeWindow .
+
+
+Here is the rewritten translation:
+
+The SHACL shape :OrderTimeWindowShape targets all instances of the class food:OrderTimeWindow, requiring exactly one string-valued property food:deliveryWindow, and will fail validation with the message "Order must include a delivery time window." if this property is missing or has an invalid value.
+----
+
+Translation #188
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:MenuAvailabilityShape a sh:NodeShape ;
+    sh:message "Menu item must indicate availability." ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:path food:isAvailable ] ;
+    sh:targetClass food:MenuAvailability .
+
+
+The SHACL shape :MenuAvailabilityShape targets all instances of the class food:MenuAvailability, requiring exactly one boolean value (xsd:boolean) for the property food:isAvailable to indicate availability, with a validation error message "Menu item must indicate availability." if this constraint is not met.
+----
+
+Translation #189
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CustomerAccountShape a sh:NodeShape ;
+    sh:message "Customer account must include a valid email address." ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path food:email ;
+            sh:pattern "^.+@.+\\..+$" ] ;
+    sh:targetClass food:CustomerAccount .
+
+
+The SHACL shape :CustomerAccountShape targets all instances of the class food:CustomerAccount, requiring exactly one food:email property with a string value that matches the pattern "^.+@.+\\..+$", i.e., a valid email address, and specifies a validation failure message "Customer account must include a valid email address" if this constraint is not met.
+----
+
+Translation #190
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:DeliveryTipShape a sh:NodeShape ;
+    sh:message "Delivery tip must be a non-negative amount." ;
+    sh:property [ sh:datatype xsd:float ;
+            sh:minInclusive 0.0 ;
+            sh:path food:tipAmount ] ;
+    sh:targetClass food:DeliveryTip .
+
+
+The SHACL shape :DeliveryTipShape targets all instances of the class food:DeliveryTip, specifying that each must have exactly one property food:tipAmount with a value that is a non-negative floating-point number (xsd:float) with a minimum inclusive value of 0.0, and will produce the validation message "Delivery tip must be a non-negative amount." if this constraint is violated.
+----
+
+Translation #191
+@prefix : <http://mapping.example.com/> .
+@prefix food: <http://example.org/food#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:OrderTrackingShape a sh:NodeShape ;
+    sh:and ( [ sh:property [ ] ] [ ] ) ;
+    sh:message "Tracking must include a valid number and one of the allowed statuses." ;
+    sh:targetClass food:OrderTracking .
+
+
+Here is the rewritten translation:
+
+The SHACL shape :OrderTrackingShape targets all instances of the class food:OrderTracking and specifies a composite validation rule with two unnamed constraints that must both be satisfied, requiring a valid number and one of the allowed statuses to be present, with a corresponding error message if these conditions are not met.
+----
+
