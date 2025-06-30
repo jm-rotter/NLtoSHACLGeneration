@@ -73,4 +73,3 @@ with open("training_translations.txt", "a") as txt_file, open("training_translat
         printTranslationsToJSONFile(jsonl_file, serialized, nl, starting_idx)
         starting_idx += 1
 
-
