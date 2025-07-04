@@ -1,0 +1,12 @@
+nohup: ignoring input
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+INFO 07-04 10:07:04 [importing.py:53] Triton module has been replaced with a placeholder.
+INFO 07-04 10:07:04 [__init__.py:239] Automatically detected platform cuda.
+Unsloth 2025.5.7 patched 32 layers with 32 QKV layers, 32 O layers and 32 MLP layers.
+==((====))==  Unsloth 2025.5.7: Fast Llama patching. Transformers: 4.51.3. vLLM: 0.8.5.post1.
+   \\   /|    Tesla V100-PCIE-16GB. Num GPUs = 1. Max memory: 15.766 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 7.0. CUDA Toolkit: 12.4. Triton: 3.2.0
+\        /    Bfloat16 = FALSE. FA [Xformers = 0.0.29.post2. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
