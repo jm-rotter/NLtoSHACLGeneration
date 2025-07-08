@@ -3,10 +3,11 @@ from difflib import SequenceMatcher
 
 # === CONFIG ===
 files = [
-    "evaluation_groq70b_bleu_bert_human.csv",
-    "evaluation_mistral7b_bleu_bert_human.csv"
+    "evaluation/groq70b_bleu_bert_human.csv",
+    "evaluation/mistral7b_bleu_bert_human.csv",
+    "evaluation/qwen7b_bleu_bert_human.csv"
 ]
-similarity_threshold = 0.94  # adjust based on your tolerance
+similarity_threshold = 0.90  # adjust based on your tolerance
 
 
 def compute_similarity(a, b):
