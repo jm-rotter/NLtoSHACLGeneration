@@ -30,17 +30,12 @@
 
 
 % article metadata
-\title{Article title}
-\subtitle{Subtitle of the article}
+\title{LLMs for Structured Constraint Generation}
 
-\author[affil=1, orcid=1111-222-33333, email=first.author@tum.de]{First Author}
-\author[affil=2]{Second Author}
-\author[affil=1]{Last Author}
+\author[email=jaden.rotter@tum.de]{Jaden Rotter}
+\author[email=saumil.savani@tum.de]{Saumil Savani}
 
-\affil[mark=1]{\theDepartmentName, \theUniversityName}
-\affil[mark=2]{Another affiliation}
-
-\date{April 1, 2021}
+\date{July 8, 2025}
 
 
 \begin{document}
@@ -48,11 +43,28 @@
 \maketitle
 
 \begin{abstract}
-  This is a short abstract summarizing the main points of your article.
+Abstract
 \end{abstract}
 
 \section{Introduction}
-\lipsum[1]
+As the internet grows exponentially, guaranteeing the reliability and consistency of web data for use in applications has become increasingly important. 
+However, the sheer volume of data makes manual validation infeasible, driving the need for automated, machine oriented solutions. 
+The Semantic Web, an extension of the internet, addresses this by enabling machines to read and understand data through structured languages defined by standard ontologies. 
+On this structured data, further languages such as Shapes Constraint Language (SHACL) allow parameters and constraints to be defined in order to validate the underlying data. 
+Unfortunately, as both the volume and complexity of data increase, validation requirements become more sophisticated, making the design of structured validation rules increasingly challenging.
+To simplify human validation tasks, we propose a solution involving large language models (LLMs) to help convert natural language (NL) into structured SHACL shapes. 
+
+
+Our solution enables users to construct natural language prompts, which are then passed to a fine-tuned model that generates the corresponding SHACL shapes—significantly simplifying the process of creating these complex, syntax-heavy specifications. 
+To train the model to recognize structured SHACL patterns, we developed a data generation pipeline that produces pairs of natural language descriptions and their SHACL equivalents. 
+Using this synthetic dataset, we fine-tuned several open-source models from Hugging Face and validated their outputs against a predefined ground truth.
+For evaluation, we implemented an automated validation pipeline that applies natural language processing (NLP) techniques to assess both syntactic and semantic similarity to the ground truth. 
+Additionally, we performed manual evaluation to ensure accuracy and completeness.
+
+
+\section{Background}
+In similar structured language generation work, LLM have shown success 
+
 \subsection{First subsection}
 \lipsum[2]
 \subsection{Second subsection}
