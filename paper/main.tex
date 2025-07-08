@@ -55,7 +55,7 @@ Unfortunately, as both the volume and complexity of data increase, validation re
 To simplify human validation tasks, we propose a solution involving large language models (LLMs) to help convert natural language (NL) into structured SHACL shapes. 
 
 
-Our solution enables users to construct natural language prompts, which are then passed to a fine-tuned model that generates the corresponding SHACL shapes—significantly simplifying the process of creating these complex, syntax-heavy specifications. 
+Our solution enables users to construct natural language prompts, which are then passed to a fine-tuned model that generates the corresponding SHACL shapes, significantly simplifying the process of creating these complex, syntax-heavy specifications. 
 To train the model to recognize structured SHACL patterns, we developed a data generation pipeline that produces pairs of natural language descriptions and their SHACL equivalents. 
 Using this synthetic dataset, we fine-tuned several open-source models from Hugging Face and validated their outputs against a predefined ground truth.
 For evaluation, we implemented an automated validation pipeline that applies natural language processing (NLP) techniques to assess both syntactic and semantic similarity to the ground truth. 
