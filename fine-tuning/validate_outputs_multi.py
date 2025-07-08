@@ -3,14 +3,13 @@ import json
 import pandas as pd
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from difflib import get_close_matches
-from bert_score import score as bert_score  # BERT score enabled
+from bert_score import score as bert_score 
 
-# === SETTINGS ===
 MODELS = [
     {"name": "mistral7b", "file": "./fine-tuning/mistral7b.jsonl"},
     {"name": "groq70b", "file": "./fine-tuning/groq70b.jsonl"},
     # {"name": "llama7b", "file": "./fine-tuning/llama7b.jsonl"},
-    # {"name": "qwen7b", "file": "./fine-tuning/qwen7b.jsonl"},
+     {"name": "qwen7b", "file": "./fine-tuning/qwen7b.jsonl"},
 ]
 
 ground_truth_file = "./groundTruth/ground_truth.jsonl"
@@ -27,7 +26,7 @@ gt_keys = list(gt_map.keys())
 for model in MODELS:
     model_name = model["name"]
     model_file = model["file"]
-    output_file = f"evaluation_{model_name}_bleu_bert_human.csv"
+    output_file = f"evaluation/{model_name}_bleu_bert_human.csv"
 
     try:
         with open(model_file, "r", encoding="utf-8") as f:
