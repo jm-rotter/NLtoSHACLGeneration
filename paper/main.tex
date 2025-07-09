@@ -28,6 +28,26 @@
 % load additional packages
 \usepackage{lipsum}
 
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+
+\lstdefinelanguage{Turtle}{
+  morekeywords={a, rdf, rdfs, owl, xsd, sh, @prefix},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{teal},
+  commentstyle=\color{gray},
+  language=Turtle,
+  breaklines=true,
+  frame=single
+}
 
 % article metadata
 \title{LLMs for Structured Constraint Generation}
@@ -54,7 +74,6 @@ On this structured data, further languages such as Shapes Constraint Language (S
 Unfortunately, as both the volume and complexity of data increase, validation requirements become more sophisticated, making the design of structured validation rules increasingly challenging.
 To simplify human validation tasks, we propose a solution involving large language models (LLMs) to help convert natural language (NL) into structured SHACL shapes. 
 
-
 Our solution enables users to construct natural language prompts, which are then passed to a fine-tuned model that generates the corresponding SHACL shapes, significantly simplifying the process of creating these complex, syntax-heavy specifications. 
 To train the model to recognize structured SHACL patterns, we developed a data generation pipeline that produces pairs of natural language descriptions and their SHACL equivalents. 
 Using this synthetic dataset, we fine-tuned several open-source models from Hugging Face and validated their outputs against a predefined ground truth.
@@ -63,7 +82,64 @@ Additionally, we performed manual evaluation to ensure accuracy and completeness
 
 
 \section{Background}
-In similar structured language generation work, LLM have shown success 
+\subsection{Semantic Web and SHACL}
+At the core of the Semantic Web lies the Resource Description Framework (RDF), a graph based data model designed to express how data entities are connected. 
+RDFs represent information as triples, each consisting of a subject, object and predicate, allowing resources identified by Uniform Resource Identifies (URI)s, a universal mechanism to name and locate information on the internet, to be semantically linked.  
+This set RDF structure enables machines to perform logical inference, interpret, and interconnect data from various sources. 
+However, given the complexity of the internet, RDFs use very flexible language without any standard global schemas, which does not allow for the enforcing of rules and conditions. 
+Without these rules, RDF data can become incompatible between systems or propogate errors such as missing values, wrong cardinalities or wrong data types.  
+
+To enforce the RDF data structure, SHACL allows the definition of set rules and conditions, called shapes, to help detect mistakes in RDF graphs.
+Without SHACL, there would be no formal way to validate or invalidate RDF graphs.
+Developers would need to write custom scripts, which are error-prone and time-consuming, to ensure the consistency of their RDF graphs. 
+Instead, SHACL uses predefined prefixes and paths to express constraints on the objects, subject and predicates in RDF. 
+Consider the following simple example below. 
+
+\begin{figure}[h]
+\begin{lstlisting}
+:Bob a :Person ;
+:Bob :age "Twenty-five" .
+\end{lstlisting}
+\caption{Simple RDF graph defining a person and their age}
+\label{fig:rdf-graph}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{lstlisting}
+:PersonShape a sh:NodeShape ;
+  sh:targetClass :Person ;
+  sh:property [
+    sh:path :age ;
+    sh:datatype xsd:integer ;
+  ] .
+\end{lstlisting}
+\caption{Simple SHACL shape validating Figure~\ref{fig:rdf-graph}}
+\label{fig:shacl-graph}
+\end{figure}
+
+\vspace{3cm}
+
+As seen in Figure~\ref{fig:rdf-graph}, two RDF values are defined for the subject \texttt{Bob} using the standard triple format, without any syntactic sugar.
+These RDF triples declare \texttt{Bob} to be of type \texttt{Person}, using the keyword predicate \texttt{a}, and specify the predicate \texttt{age} with the literal value \texttt{"Twenty-five"}.
+The exact prefixes and prefix namespace for \texttt{Bob}, \texttt{Person}, etc. have been omitted for brevity.
+
+For applications using this RDF data and expecting \texttt{Bob}'s age to be an integer, trying to read in the string literal would result in an error. 
+This simple example would likely be found very quickly; however, as the RDF data grows in size and complexity, the need for SHACL becomes increasingly more important. 
+Errors in the RDF data can propogate and inference or analysis on this incorrect data could have drastic consequences.
+As such, SHACL defines a way to standardize the validation of this RDF data. 
+In Figure~\ref{fig:shacl-graph}, an example SHACL shape is defined to verify that the age is indeed of type \texttt{integer}.
+Both the \texttt{xsd} and \texttt{sh} define standard shacl prefixes to define the \texttt{PersonShape} SHACL shape. 
+
+Structured languages, require rigid syntax that demands greater input from humans to learn and generate, especially for complex validation languages such as SHACL. 
+Already, the complexity of such a simple SHACL shape is fairly high.
+For humans, a simpler validation input, in the form of NL would greatly save time and effort. 
+For example, consider the difference between the following natural language prompt in comparison to the SHACL shape in Figure~\ref{fig:shacl-graph}.
+
+\textit{The SHACL shape :PersonShape applies to all instances of the class :Person, specifying that the property :age must be an integer.}
+
+\subsection{LLMs and Fine Tuning}
+
 
 \subsection{First subsection}
 \lipsum[2]
