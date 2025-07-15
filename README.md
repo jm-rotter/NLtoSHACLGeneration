@@ -3,7 +3,7 @@
 Bachelor Practical in Data Engineering to convert natural language (NL) to shapes constraint language (SHACL) shapes, or constraints.
 
 This project aims to simplify the human task of generating complex structured constraints from real life documentation.
-This paper seeks to explain the codebase, for understanding of our project, please see our paper for more information: 
+This paper seeks to explain the codebase, for understanding of our project, please see our paper for more information: https://github.com/jm-rotter/NLtoSHACLGeneration/blob/main/paper.pdf
 
 
 We have logically partitioned our code into three different submodules: synthetic dataset, fine-tuning and evaluation. 
