@@ -58,7 +58,8 @@ After generating the 1000 SHACL shapes, we went through them manually to make su
 
 These were used both during fine-tuning and later in evaluation.
 
-        
+
+
 ### Fine-Tuning
 
 For fine-tuning run the programs with a similar process, we included a fine-tuning requirements.txt folder; however the installation of unsloth through pip didn't work due to dependency issues and we installed directly from the github repository.
@@ -83,8 +84,9 @@ The {model}7b.{jsonl, txt} are the inferenced outputs in both human and machine 
 The `llama7B.log` was a trial run as we were still working on the llama model, which was only trained with around 800 shapes. 
 The llama7B models outputs additionally are from this model with 800 shapes, which is why it was left out of the evaluation, instead seeking to standardize the number of different shapes. 
 
-
+CHA
 ### Evaluation
+
 To measure how well the fine-tuned LLMs generate SHACL shapes, we set up an evaluation pipeline using both automatic metrics and manual checks. The goal was to see how close the generated shapes are to the correct ones.
 
 Dataset

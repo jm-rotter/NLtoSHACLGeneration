@@ -5302,6 +5302,7 @@ If any of these constraints is violated, the validation will fail with one of th
 
 ↓
 
+
 The SHACL shape :DisabilityBenefitShape applies to all instances of the class civic:DisabilityBenefit. It specifies two property constraints that must be satisfied simultaneously. The first constraint requires the property civic:disabilityGrade to have a value that is an integer between 10 and 100 (inclusive). The second constraint requires the property civic:monthlySupport to have a value that is a float greater than or equal to 0.0. If either of these properties is missing or has an invalid value, validation will fail with the message: "Disability benefit must include grade (10–100) and monthly support."
 
 
