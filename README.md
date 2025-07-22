@@ -41,6 +41,23 @@ Our synthetic datasets are given as both .txt and .jsonl files for training and 
 The `training_translations` files contain our manually generated shapes and the `shacl_translations` contain the translations from the `https://github.com/DE-TUM/EDIFACT-VAL/blob/main/example/ProcessExample.ttl`. 
 These shapes can also be found in `syntheticDataSet/shaclDataset.ttl`.
 
+
+###SHACLShapes Generator:
+
+To support both training and evaluation, we created a custom SHACL generator that outputs a large and diverse dataset of SHACL shapes in Turtle format. Specifically, we generated 1000 SHACL shapes, each designed to reflect realistic RDF validation constraints using properties like sh:minCount, sh:datatype, sh:maxLength, and others.
+ 
+The shapes are saved to:
+
+'syntheticDataset/shaclDataset.ttl' — SHACL shapes in Turtle format
+'syntheticDataset/training_translations.jsonl'— SHACL + manually written NL pairs
+'syntheticDataset/shacl_translations.jsonl' — SHACL + LLM-generated NL pairs
+
+Checking for Errors
+
+After generating the 1000 SHACL shapes, we went through them manually to make sure everything looked good. We checked that the syntax was correct, the shapes followed SHACL rules, and there was enough variety in the constraints. If we found any issues or broken shapes, we simply removed them from the dataset.
+
+These were used both during fine-tuning and later in evaluation.
+
         
 ### Fine-Tuning
 
@@ -68,4 +85,35 @@ The llama7B models outputs additionally are from this model with 800 shapes, whi
 
 
 ### Evaluation
+To measure how well the fine-tuned LLMs generate SHACL shapes, we set up an evaluation pipeline using both automatic metrics and manual checks. The goal was to see how close the generated shapes are to the correct ones.
+
+Dataset
+We used 1000 SHACL shapes from our synthetic dataset. Each sample had:
+NL input, reference (correct) SHACL shape, model-generated SHACL shape.
+
+We used two popular NLP metrics:
+
+BLEU Score: Measures how similar the generated shape is to the correct one by comparing overlapping words and phrases.
+BERTScore: Checks semantic similarity using pre-trained language models — it's better for meaning-based comparison.
+
+These scores were calculated using the .csv files:
+groq70b_bleu_bert_human.csv
+mistral7b_bleu_bert_human.csv
+qwen7b_bleu_bert_human.csv
+
+Visual Results
+To better understand the results, we used Python scripts to create visualizations:
+
+'plot_model_results.py' //Compares BLEU and BERT scores across models.
+'plot_success_boxplot.py'//Shows how score distributions differ for successful vs. failed outputs.
+
+The results are shown in:
+
+'bleu_bert_scores.png' //score comparison
+'bert_score_boxplot.png' //success vs. failure analysis
+'model_accuracy.png' // overall model performance
+
+These plots helped us pick the best-performing model. Groq70B scored well on both BLEU and BERTScore, making it the most balanced model in our tests.
+
+
 
