@@ -42,7 +42,7 @@ The `training_translations` files contain our manually generated shapes and the 
 These shapes can also be found in `syntheticDataSet/shaclDataset.ttl`.
 
 
-###SHACLShapes Generator:
+### SHACLShapes Generator:
 
 To support both training and evaluation, we created a custom SHACL generator that outputs a large and diverse dataset of SHACL shapes in Turtle format. Specifically, we generated 1000 SHACL shapes, each designed to reflect realistic RDF validation constraints using properties like sh:minCount, sh:datatype, sh:maxLength, and others.
  
@@ -84,7 +84,7 @@ The {model}7b.{jsonl, txt} are the inferenced outputs in both human and machine 
 The `llama7B.log` was a trial run as we were still working on the llama model, which was only trained with around 800 shapes. 
 The llama7B models outputs additionally are from this model with 800 shapes, which is why it was left out of the evaluation, instead seeking to standardize the number of different shapes. 
 
-CHA
+
 ### Evaluation
 
 To measure how well the fine-tuned LLMs generate SHACL shapes, we set up an evaluation pipeline using both automatic metrics and manual checks. The goal was to see how close the generated shapes are to the correct ones.
